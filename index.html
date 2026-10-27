@@ -50,7 +50,6 @@
         header p {
             font-size: 0.95rem;
             opacity: 0.95;
-            font-weight: 400;
         }
 
         .score-banner {
@@ -157,13 +156,12 @@
             border: 3px solid #cbd5e1;
             border-radius: 12px;
             padding: 0.9rem 0.5rem;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #1e293b;
             cursor: pointer;
             transition: all 0.15s ease;
             text-align: center;
-            outline: none;
         }
 
         .option-btn:active {
@@ -206,21 +204,13 @@
             border: 1px solid #fecdd3;
         }
 
-        /* Coding Grid */
-        .coding-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
         .coding-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             width: 100%;
             max-width: 300px;
-            margin: 0.5rem auto;
+            margin: 1rem auto;
         }
 
         .grid-cell {
@@ -232,15 +222,13 @@
             align-items: center;
             justify-content: center;
             font-size: 2.2rem;
-            user-select: none;
         }
 
         .controls {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 0.6rem;
-            width: 100%;
+            margin-top: 0.5rem;
         }
 
         .control-btn {
@@ -252,17 +240,6 @@
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 3px 0 #b56a00;
-        }
-
-        .control-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #b56a00;
-        }
-
-        .control-btn.reset {
-            background-color: #64748b;
-            box-shadow: 0 3px 0 #334155;
         }
 
         footer {
@@ -273,15 +250,6 @@
             background: #e8f5e9;
             margin-top: auto;
             border-top: 1px solid #c8e6c9;
-        }
-
-        @media (max-width: 480px) {
-            header h1 { font-size: 1.4rem; }
-            .score-banner { font-size: 0.95rem; }
-            .tab-btn { font-size: 0.85rem; padding: 0.5rem 0.75rem; }
-            .activity-card { padding: 1rem; }
-            .prompt { font-size: 1.05rem; }
-            .option-btn { font-size: 1.1rem; padding: 0.75rem 0.25rem; }
         }
     </style>
 </head>
@@ -305,207 +273,189 @@
     </nav>
 
     <main>
-        <!-- MATHEMATICS SECTION (12 ACTIVITIES) -->
-        <section id="maths" class="subject-section active">
-            <div class="activity-card">
-                <h2>1. Counting Lions</h2>
-                <p class="prompt">How many lions do you see? 🦁 🦁 🦁</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm1')">2</button>
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm1')">3</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm1')">5</button>
-                </div>
-                <div id="m1-fb" class="feedback"></div>
-            </div>
+        <section id="maths" class="subject-section active"></section>
+        <section id="phonics" class="subject-section"></section>
+        <section id="lifeskills" class="subject-section"></section>
+        <section id="coding" class="subject-section"></section>
+    </main>
 
-            <div class="activity-card">
-                <h2>2. Shape Recognition</h2>
-                <p class="prompt">Which 2D shape matches the round sun? ☀️</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm2')">🔴 Circle</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm2')">🟦 Square</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm2')">🔺 Triangle</button>
-                </div>
-                <div id="m2-fb" class="feedback"></div>
-            </div>
+    <footer>
+        <p>CAPS Grade R Safari Express &bull; Aligned with South African ECD Curriculum Standards</p>
+    </footer>
 
-            <div class="activity-card">
-                <h2>3. Patterns & Sequence</h2>
-                <p class="prompt">Complete the pattern: 🍎 🍌 🍎 🍌 ❓</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm3')">🍎 Apple</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm3')">🍌 Banana</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm3')">🍇 Grapes</button>
-                </div>
-                <div id="m3-fb" class="feedback"></div>
-            </div>
+    <script>
+        var stars = 0;
+        var robotPos = 0;
 
-            <div class="activity-card">
-                <h2>4. Size Comparison</h2>
-                <p class="prompt">Which animal is BIGGER? 🐘 vs 🐜</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm4')">🐘 Elephant</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm4')">🐜 Ant</button>
-                </div>
-                <div id="m4-fb" class="feedback"></div>
-            </div>
+        var data = {
+            maths: [
+                { t: "1. Counting Lions", p: "How many lions do you see? 🦁 🦁 🦁", o: ["2", "3", "5"], c: 1 },
+                { t: "2. Shape Recognition", p: "Which 2D shape matches the round sun? ☀️", o: ["🔴 Circle", "🟦 Square", "🔺 Triangle"], c: 0 },
+                { t: "3. Patterns & Sequence", p: "Complete the pattern: 🍎 🍌 🍎 🍌 ❓", o: ["🍎 Apple", "🍌 Banana", "🍇 Grapes"], c: 0 },
+                { t: "4. Size Comparison", p: "Which animal is BIGGER? 🐘 vs 🐜", o: ["🐘 Elephant", "🐜 Ant"], c: 0 },
+                { t: "5. More or Less", p: "Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴", o: ["🔵 5 Blue Dots", "🔴 2 Red Dots"], c: 0 },
+                { t: "6. Spatial Position", p: "Where is the bird perched? 🐦 🌳", o: ["ON the tree", "UNDER the tree"], c: 0 },
+                { t: "7. Number Recognition", p: "Which symbol is the number FOUR?", o: ["2", "4", "7"], c: 1 },
+                { t: "8. Matching Sets", p: "Which number matches two apples? 🍎 🍎", o: ["1", "2", "3"], c: 1 },
+                { t: "9. Height Comparison", p: "Which animal is TALLER? 🦒 vs 🦦", o: ["🦒 Giraffe", "🦦 Meerkat"], c: 0 },
+                { t: "10. 3D Objects", p: "What 3D shape is a round soccer ball? ⚽", o: ["⚽ Sphere (Ball)", "📦 Cube (Box)"], c: 0 },
+                { t: "11. Early Addition", p: "1 monkey 🐒 + 1 monkey 🐒 = How many monkeys?", o: ["1", "2", "3"], c: 1 },
+                { t: "12. Time & Day Sequence", p: "When do we sleep at night under the stars? 🌙", o: ["Night Time 🌙", "Day Time ☀️"], c: 0 }
+            ],
+            phonics: [
+                { t: "1. Initial Sound /s/", p: "What sound does 'Sun' start with? ☀️", o: ["/s/ (S)", "/b/ (B)", "/m/ (M)"], c: 0 },
+                { t: "2. Initial Sound /a/", p: "What sound does 'Apple' start with? 🍎", o: ["/a/ (A)", "/t/ (T)", "/p/ (P)"], c: 0 },
+                { t: "3. Initial Sound /t/", p: "What sound does 'Tiger' start with? 🐅", o: ["/t/ (T)", "/d/ (D)", "/s/ (S)"], c: 0 },
+                { t: "4. Rhyming Words (Cat)", p: "Which word rhymes with 'Cat'? 🐱", o: ["Hat 🎩", "Dog 🐶", "Fish 🐟"], c: 0 },
+                { t: "5. Rhyming Words (Sun)", p: "Which word rhymes with 'Sun'? ☀️", o: ["Run 🏃", "Tree 🌳", "Car 🚗"], c: 0 },
+                { t: "6. Animal Sounds", p: "Which animal makes a loud 'ROAR'?", o: ["🦁 Lion", "🐸 Frog", "🐥 Duck"], c: 0 },
+                { t: "7. Vocabulary", p: "What safari animal has a very long neck? 🦒", o: ["🦒 Giraffe", "🦛 Hippo", "🦓 Zebra"], c: 0 },
+                { t: "8. Syllable Clapping", p: "Clap the word 'Sa-fa-ri'. How many claps?", o: ["1 Clap", "2 Claps", "3 Claps"], c: 2 },
+                { t: "9. Opposites", p: "What is the opposite of HOT ☀️?", o: ["🧊 Cold", "🔥 Warm"], c: 0 },
+                { t: "10. Story Sequence", p: "What comes FIRST when growing a sunflower? 🌻", o: ["🌱 Plant Seed", "🌻 Pick Flower"], c: 0 },
+                { t: "11. Listening Discrimination", p: "Which animal word starts with /m/?", o: ["🐒 Monkey", "🐘 Elephant"], c: 0 },
+                { t: "12. Letter Matching", p: "Match lowercase 'a' with its uppercase letter:", o: ["A", "B", "M"], c: 0 }
+            ],
+            lifeskills: [
+                { t: "1. Personal Hygiene", p: "What must we do before eating food? 🍎", o: ["🧼 Wash Hands", "😴 Go to Sleep"], c: 0 },
+                { t: "2. Road Safety", p: "What does a RED traffic light signal tell us? 🚦", o: ["🛑 Stop", "🏃 Run"], c: 0 },
+                { t: "3. Healthy Eating", p: "Which snack is healthy for our body? 🍎 vs 🍬", o: ["🍎 Fresh Apple", "🍬 Sweet Candy"], c: 0 },
+                { t: "4. Body Awareness", p: "Which body part do we use to SEE safari animals? 👀", o: ["👀 Eyes", "👂 Ears"], c: 0 },
+                { t: "5. Identifying Emotions", p: "How is this friend feeling? 😊", o: ["😊 Happy", "😢 Sad"], c: 0 },
+                { t: "6. Weather Awareness", p: "What should we wear when it is raining? 🌧️", o: ["🧥 Raincoat", "🩳 Swimsuit"], c: 0 },
+                { t: "7. Environment Care", p: "Where do we throw empty sweet wrappers? 🗑️", o: ["🗑️ In Dustbin", "🌿 On Ground"], c: 0 },
+                { t: "8. Water Safety", p: "What must you wear when playing near deep water? 🏊", o: ["🤿 Life Jacket", "Heavy Shoes"], c: 0 },
+                { t: "9. Community Helpers", p: "Who puts out dangerous fires? 🧑‍🚒", o: ["🧑‍🚒 Firefighter", "👨‍🍳 Chef"], c: 0 },
+                { t: "10. Good Manners", p: "When someone gives you a gift, what do you say?", o: ["'Thank You!'", "'No way!'"], c: 0 },
+                { t: "11. Four Seasons", p: "In which season do colorful flowers bloom? 🌸", o: ["🌸 Spring", "❄️ Winter"], c: 0 },
+                { t: "12. Animal Welfare", p: "How should we treat safari animals and pets? 🐾", o: ["❤️ Gently & Kind", "Roughly"], c: 0 }
+            ],
+            coding: [
+                { t: "1. Grid Navigation", p: "Guide Rover 🤖 step-by-step to reach Zebra 🦓!", grid: true },
+                { t: "2. Sequence & Order", p: "Which step comes FIRST in a robot instruction list?", o: ["🟢 Start / Power On", "🔴 Stop"], c: 0 },
+                { t: "3. Directional Symbols", p: "Which arrow points to the RIGHT direction?", o: ["➡️ Right", "⬅️ Left", "⬆️ Up"], c: 0 },
+                { t: "4. Debugging", p: "The robot got stuck on a rock 🪨! Fixing code is called...", o: ["🐛 Debugging", "Sleeping"], c: 0 },
+                { t: "5. Repeat / Loops", p: "To move 2 steps forward without repeating code, use a...", o: ["🔁 Loop", "Break"], c: 0 },
+                { t: "6. Inputs & Outputs", p: "Pressing a switch 🔘 turns on a light 💡. The switch is an...", o: ["📥 Input", "📤 Output"], c: 0 },
+                { t: "7. Sorting Algorithms", p: "Where should the RED coding card go? 🔴", o: ["🔴 Red Box", "🔵 Blue Box"], c: 0 },
+                { t: "8. Spatial Orientation", p: "Where is the sun ☀️ located on the grid screen?", o: ["⬆️ Top Corner", "⬇️ Bottom Corner"], c: 0 },
+                { t: "9. Algorithm Steps", p: "Step-by-step instructions (like a recipe) are called an...", o: ["📋 Algorithm", "Mistake"], c: 0 },
+                { t: "10. Binary Logic", p: "What binary number usually means ON in robotics?", o: ["1 (ON)", "0 (OFF)"], c: 0 },
+                { t: "11. Obstacle Avoidance", p: "A river is in front of Rover 🤖! Which command avoids danger?", o: ["↪️ Turn Around", "➡️ Drive Forward"], c: 0 },
+                { t: "12. Mission Completion", p: "All 12 coding tasks finished! What does the Rover reach? ⛺", o: ["⛺ Safari Camp!", "Lost Forest"], c: 0 }
+            ]
+        };
 
-            <div class="activity-card">
-                <h2>5. More or Less</h2>
-                <p class="prompt">Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm5')">🔵 5 Blue Dots</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm5')">🔴 2 Red Dots</button>
-                </div>
-                <div id="m5-fb" class="feedback"></div>
-            </div>
+        function renderActivities() {
+            Object.keys(data).forEach(function(subject) {
+                var container = document.getElementById(subject);
+                var html = '';
+                
+                data[subject].forEach(function(act, idx) {
+                    html += '<div class="activity-card">';
+                    html += '<h2>' + act.t + '</h2>';
+                    html += '<p class="prompt">' + act.p + '</p>';
 
-            <div class="activity-card">
-                <h2>6. Spatial Position</h2>
-                <p class="prompt">Where is the bird perched? 🐦 🌳</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm6')">ON the tree</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm6')">UNDER the tree</button>
-                </div>
-                <div id="m6-fb" class="feedback"></div>
-            </div>
+                    if (act.grid) {
+                        html += '<div class="coding-grid">';
+                        html += '<div class="grid-cell" id="c-0">🤖</div>';
+                        html += '<div class="grid-cell" id="c-1"></div>';
+                        html += '<div class="grid-cell" id="c-2">🦓</div>';
+                        html += '</div>';
+                        html += '<div class="controls">';
+                        html += '<button class="control-btn" onclick="moveRobot()">Move Right ➡️</button>';
+                        html += '<button class="control-btn" style="background:#64748b;" onclick="resetRobot()">Reset 🔄</button>';
+                        html += '</div>';
+                        html += '<div id="grid-fb" class="feedback"></div>';
+                    } else {
+                        var actId = subject + '-' + idx;
+                        html += '<div class="options-grid">';
+                        act.o.forEach(function(opt, oIdx) {
+                            var isCorrect = (oIdx === act.c);
+                            html += '<button class="option-btn" onclick="checkAnswer(this, ' + isCorrect + ', \'' + actId + '\')">' + opt + '</button>';
+                        });
+                        html += '</div>';
+                        html += '<div id="' + actId + '-fb" class="feedback"></div>';
+                    }
 
-            <div class="activity-card">
-                <h2>7. Number Recognition</h2>
-                <p class="prompt">Which symbol is the number <strong>FOUR</strong>?</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm7')">2</button>
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm7')">4</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm7')">7</button>
-                </div>
-                <div id="m7-fb" class="feedback"></div>
-            </div>
+                    html += '</div>';
+                });
+                container.innerHTML = html;
+            });
+        }
 
-            <div class="activity-card">
-                <h2>8. Matching Sets</h2>
-                <p class="prompt">Which number matches two apples? 🍎 🍎</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm8')">1</button>
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm8')">2</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm8')">3</button>
-                </div>
-                <div id="m8-fb" class="feedback"></div>
-            </div>
+        function switchTab(subjectId, btnElement) {
+            var sections = document.getElementsByClassName('subject-section');
+            var buttons = document.getElementsByClassName('tab-btn');
 
-            <div class="activity-card">
-                <h2>9. Height Comparison</h2>
-                <p class="prompt">Which animal is TALLER? 🦒 vs 🦦</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm9')">🦒 Giraffe</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm9')">🦦 Meerkat</button>
-                </div>
-                <div id="m9-fb" class="feedback"></div>
-            </div>
+            for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
+            for (var j = 0; j < buttons.length; j++) buttons[j].classList.remove('active');
 
-            <div class="activity-card">
-                <h2>10. 3D Objects</h2>
-                <p class="prompt">What 3D shape is a round soccer ball? ⚽</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm10')">⚽ Sphere (Ball)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm10')">📦 Cube (Box)</button>
-                </div>
-                <div id="m10-fb" class="feedback"></div>
-            </div>
+            document.getElementById(subjectId).classList.add('active');
+            btnElement.classList.add('active');
+        }
 
-            <div class="activity-card">
-                <h2>11. Early Addition</h2>
-                <p class="prompt">1 monkey 🐒 + 1 monkey 🐒 = How many monkeys?</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm11')">1</button>
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm11')">2</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm11')">3</button>
-                </div>
-                <div id="m11-fb" class="feedback"></div>
-            </div>
+        function checkAnswer(button, isCorrect, feedbackId) {
+            var feedbackEl = document.getElementById(feedbackId + '-fb');
+            var parentGrid = button.parentElement;
+            var siblingButtons = parentGrid.getElementsByClassName('option-btn');
 
-            <div class="activity-card">
-                <h2>12. Time & Day Sequence</h2>
-                <p class="prompt">When do we sleep at night under the stars? 🌙</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'm12')">Night Time 🌙</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'm12')">Day Time ☀️</button>
-                </div>
-                <div id="m12-fb" class="feedback"></div>
-            </div>
-        </section>
+            for (var i = 0; i < siblingButtons.length; i++) {
+                siblingButtons[i].classList.remove('correct-btn', 'wrong-btn');
+            }
 
-        <!-- PHONICS / LANGUAGE SECTION (12 ACTIVITIES) -->
-        <section id="phonics" class="subject-section">
-            <div class="activity-card">
-                <h2>1. Initial Sound /s/</h2>
-                <p class="prompt">What sound does <strong>"Sun"</strong> start with? ☀️</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p1')">/s/ (S)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p1')">/b/ (B)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p1')">/m/ (M)</button>
-                </div>
-                <div id="p1-fb" class="feedback"></div>
-            </div>
+            if (isCorrect) {
+                button.classList.add('correct-btn');
+                if (feedbackEl) {
+                    feedbackEl.className = "feedback correct";
+                    feedbackEl.innerHTML = "🌟 Excelled! Correct Answer!";
+                }
+                if (button.getAttribute('data-scored') !== 'true') {
+                    stars += 1;
+                    button.setAttribute('data-scored', 'true');
+                    document.getElementById('star-count').innerText = stars;
+                    updateRank();
+                }
+            } else {
+                button.classList.add('wrong-btn');
+                if (feedbackEl) {
+                    feedbackEl.className = "feedback incorrect";
+                    feedbackEl.innerHTML = "❌ Try again!";
+                }
+            }
+        }
 
-            <div class="activity-card">
-                <h2>2. Initial Sound /a/</h2>
-                <p class="prompt">What sound does <strong>"Apple"</strong> start with? 🍎</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p2')">/a/ (A)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p2')">/t/ (T)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p2')">/p/ (P)</button>
-                </div>
-                <div id="p2-fb" class="feedback"></div>
-            </div>
+        function updateRank() {
+            var rankEl = document.getElementById('rank-badge');
+            if (stars >= 30) rankEl.innerText = "Safari Master 👑";
+            else if (stars >= 15) rankEl.innerText = "Safari Champion 🏆";
+            else if (stars >= 5) rankEl.innerText = "Junior Guide 🌿";
+            else rankEl.innerText = "Safari Explorer 🦁";
+        }
 
-            <div class="activity-card">
-                <h2>3. Initial Sound /t/</h2>
-                <p class="prompt">What sound does <strong>"Tiger"</strong> start with? 🐅</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p3')">/t/ (T)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p3')">/d/ (D)</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p3')">/s/ (S)</button>
-                </div>
-                <div id="p3-fb" class="feedback"></div>
-            </div>
+        function moveRobot() {
+            var feedbackEl = document.getElementById('grid-fb');
+            if (robotPos < 2) {
+                document.getElementById('c-' + robotPos).innerText = '';
+                robotPos += 1;
+                document.getElementById('c-' + robotPos).innerText = '🤖';
 
-            <div class="activity-card">
-                <h2>4. Rhyming Words (Cat)</h2>
-                <p class="prompt">Which word rhymes with <strong>"Cat"</strong>? 🐱</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p4')">Hat 🎩</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p4')">Dog 🐶</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p4')">Fish 🐟</button>
-                </div>
-                <div id="p4-fb" class="feedback"></div>
-            </div>
+                if (robotPos === 2) {
+                    if (feedbackEl) {
+                        feedbackEl.className = "feedback correct";
+                        feedbackEl.innerHTML = "🎉 Fantastic! The Rover reached the Zebra!";
+                    }
+                    stars += 2;
+                    document.getElementById('star-count').innerText = stars;
+                    updateRank();
+                }
+            }
+        }
 
-            <div class="activity-card">
-                <h2>5. Rhyming Words (Sun)</h2>
-                <p class="prompt">Which word rhymes with <strong>"Sun"</strong>? ☀️</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p5')">Run 🏃</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p5')">Tree 🌳</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p5')">Car 🚗</button>
-                </div>
-                <div id="p5-fb" class="feedback"></div>
-            </div>
-
-            <div class="activity-card">
-                <h2>6. Animal Auditory Sounds</h2>
-                <p class="prompt">Which animal makes a loud <strong>"ROAR"</strong>?</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p6')">🦁 Lion</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p6')">🐸 Frog</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p6')">🐥 Duck</button>
-                </div>
-                <div id="p6-fb" class="feedback"></div>
-            </div>
-
-            <div class="activity-card">
-                <h2>7. Vocabulary Building</h2>
-                <p class="prompt">What safari animal has a very long neck? 🦒</p>
-                <div class="options-grid">
-                    <button class="option-btn" onclick="checkAnswer(this, true, 'p7')">🦒 Giraffe</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p7')">🦛 Hippo</button>
-                    <button class="option-btn" onclick="checkAnswer(this, false, 'p7')">🦓 Zebra</b
+        function resetRobot() {
+            document.getElementById('c-' + robotPos).innerText = '';
+            robotPos = 0;
+            document.getElementById('c-0').innerText = '🤖';
+            document.getElementById('c-1').innerText = '';
+            document.getElementById('c-2').innerText = '🦓';
+            var
