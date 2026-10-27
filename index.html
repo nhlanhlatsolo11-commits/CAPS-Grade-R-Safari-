@@ -3,449 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CAPS Grade R Safari Express - Learning Through Play</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Fredoka for Playful Pedagogy -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Fredoka', 'sans-serif'],
-          },
-          colors: {
-            savanna: {
-              50: '#FFFBEB',
-              100: '#FEF3C7',
-              400: '#FBBF24',
-              500: '#F59E0B', // Sunshine Gold
-              600: '#D97706',
-            },
-            jungle: {
-              400: '#34D399',
-              500: '#10B981', // Savanna Green
-              600: '#059669',
-            },
-            sky: {
-              400: '#38BDF8',
-              500: '#06B6D4', // Vibrant Sky
-              600: '#0284C7',
-            },
-            coral: {
-              400: '#FB7185',
-              500: '#F43F5E', // Coral Red
-            }
-          },
-          animation: {
-            'bounce-gentle': 'bounce 2s infinite',
-            'pulse-slow': 'pulse 3s infinite',
-            'float': 'float 4s ease-in-out infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-10px)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-
+  <title>CAPS Grade R Safari Express</title>
   <style>
-    /* Global Child-Friendly Canvas Styling & Touch Fixes */
-    body {
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-      background: linear-gradient(180deg, #BAE6FD 0%, #FEF3C7 60%, #D1FAE5 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .game-card {
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif; background: linear-gradient(180deg, #e0f2fe 0%, #fef3c7 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 12px; color: #1e293b; }
     
-    .game-card:active {
-      transform: scale(0.94);
-    }
+    header { width: 100%; max-width: 500px; display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 10px 16px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 12px; }
+    .logo { font-size: 1.2rem; font-weight: 900; color: #d97706; display: flex; align-items: center; gap: 8px; }
+    .star-badge { background: #fef3c7; color: #d97706; font-weight: bold; padding: 6px 14px; border-radius: 999px; border: 2px solid #f59e0b; font-size: 1.1rem; }
+    
+    nav { width: 100%; max-width: 500px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .nav-btn { background: #ffffff; border: 3px solid #cbd5e1; border-radius: 16px; padding: 10px 4px; text-align: center; font-weight: bold; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
+    .nav-btn.active { border-color: #f59e0b; background: #fffbeb; transform: scale(1.03); box-shadow: 0 4px 10px rgba(245,158,11,0.2); }
+    .nav-btn .icon { font-size: 1.6rem; display: block; margin-bottom: 2px; }
+    
+    main { width: 100%; max-width: 500px; background: #ffffff; border-radius: 24px; padding: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; }
+    
+    .instruction-card { background: #e0f2fe; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; border: 2px solid #bae6fd; }
+    .speaker-btn { background: #0284c7; color: white; border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+    .instruction-text { font-size: 1rem; font-weight: bold; color: #0369a1; }
+    
+    .game-area { flex-grow: 1; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; padding: 10px 0; }
+    
+    .interactive-card { background: #f8fafc; border: 3px solid #e2e8f0; border-radius: 20px; width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: bold; cursor: pointer; transition: transform 0.15s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.04); }
+    .interactive-card:active { transform: scale(0.92); }
+    .interactive-card.correct { border-color: #22c55e; background: #dc2626; color: white; animation: pop 0.4s ease; }
+    
+    .basket-container { width: 100%; display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
+    .target-bin { width: 45%; background: #f1f5f9; border: 3px dashed #94a3b8; border-radius: 18px; padding: 16px 8px; text-align: center; }
+    .target-bin.active-bin { border-color: #10b981; background: #ecfdf5; }
+    
+    .celebration { display: none; text-align: center; padding: 20px; }
+    .celebration h2 { color: #16a34a; font-size: 1.8rem; margin-bottom: 8px; }
+    .next-btn { background: #16a34a; color: white; border: none; padding: 12px 28px; border-radius: 999px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 12px; box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
 
-    .drop-zone {
-      border: 4px dashed #F59E0B;
-      transition: all 0.3s ease;
-    }
-
-    .drop-zone.hovered {
-      background-color: rgba(245, 158, 11, 0.2);
-      border-color: #10B981;
-      transform: scale(1.03);
-    }
-
-    /* Print Styles for Assessment Report */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #print-modal, #print-modal * {
-        visibility: visible;
-      }
-      #print-modal {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: white;
-        color: black;
-      }
-      .no-print {
-        display: none !important;
-      }
+    @keyframes pop {
+      0% { transform: scale(0.8); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
-<body class="font-sans text-slate-800 flex flex-col justify-between min-h-screen">
+<body>
 
-  <!-- ==================== TOP NAVIGATION HEADER ==================== -->
-  <header class="w-full bg-white/90 backdrop-blur-md border-b-4 border-savanna-400 p-3 px-4 sticky top-0 z-30 shadow-md">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      
-      <!-- Logo / App Name -->
-      <div class="flex items-center gap-2 cursor-pointer" onclick="switchDomain('maths')">
-        <div class="bg-savanna-500 text-white p-2.5 rounded-2xl shadow-lg transform -rotate-3 hover:rotate-0 transition-transform">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C20.832 18.477 19.247 18 17.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-          </svg>
-        </div>
-        <div>
-          <h1 class="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-savanna-600 to-coral-500 leading-tight">
-            CAPS Grade R
-          </h1>
-          <p class="text-xs font-semibold text-slate-500 hidden sm:block">Safari Express Playland</p>
-        </div>
-      </div>
-
-      <!-- Star Counter & Controls -->
-      <div class="flex items-center gap-3">
-        
-        <!-- Stars Bank -->
-        <div class="flex items-center bg-amber-100 border-2 border-savanna-400 px-3 py-1.5 rounded-full shadow-inner gap-1.5">
-          <svg class="w-6 h-6 text-amber-500 animate-bounce-gentle fill-current" viewBox="0 0 24 24">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-          </svg>
-          <span id="star-count" class="text-xl font-bold text-amber-700">0</span>
-        </div>
-
-        <!-- Audio Prompt Repeat Button -->
-        <button onclick="repeatInstruction()" title="Listen Again" class="bg-sky-500 hover:bg-sky-600 active:scale-95 text-white p-2.5 rounded-2xl shadow-md border-b-4 border-sky-700 transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-          </svg>
-        </button>
-
-        <!-- Teacher / Parent Dashboard Button -->
-        <button onclick="toggleTeacherDashboard(true)" class="bg-purple-600 hover:bg-purple-700 active:scale-95 text-white px-3 py-2 rounded-2xl shadow-md border-b-4 border-purple-900 flex items-center gap-1 text-sm font-bold transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-          <span class="hidden md:inline">Dashboard</span>
-        </button>
-
-      </div>
-    </div>
+  <header>
+    <div class="logo">🦁 <span>CAPS Grade R</span></div>
+    <div class="star-badge">⭐ <span id="star-count">0</span></div>
   </header>
 
-  <!-- ==================== SUBJECT DOMAIN SELECTOR ==================== -->
-  <nav class="max-w-4xl mx-auto w-full px-4 mt-4">
-    <div class="grid grid-cols-3 gap-2 sm:gap-4 bg-white/80 p-2 rounded-3xl shadow-lg border-2 border-white">
-      
-      <!-- Mathematics Tab -->
-      <button id="tab-maths" onclick="switchDomain('maths')" class="domain-tab bg-savanna-500 text-white p-3 sm:p-4 rounded-2xl font-bold flex flex-col sm:flex-row items-center justify-center gap-2 shadow-md transition-all active:scale-95">
-        <span class="text-2xl sm:text-3xl">🦁</span>
-        <div class="text-center sm:text-left">
-          <div class="text-xs sm:text-sm uppercase tracking-wider opacity-90">CAPS Math</div>
-          <div class="text-sm sm:text-lg leading-tight">Numbers</div>
-        </div>
-      </button>
-
-      <!-- Language Tab -->
-      <button id="tab-language" onclick="switchDomain('language')" class="domain-tab bg-slate-200 text-slate-700 hover:bg-slate-300 p-3 sm:p-4 rounded-2xl font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all active:scale-95">
-        <span class="text-2xl sm:text-3xl">🐘</span>
-        <div class="text-center sm:text-left">
-          <div class="text-xs sm:text-sm uppercase tracking-wider opacity-90">CAPS Literacy</div>
-          <div class="text-sm sm:text-lg leading-tight">Phonics</div>
-        </div>
-      </button>
-
-      <!-- Life Skills Tab -->
-      <button id="tab-lifeskills" onclick="switchDomain('lifeskills')" class="domain-tab bg-slate-200 text-slate-700 hover:bg-slate-300 p-3 sm:p-4 rounded-2xl font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all active:scale-95">
-        <span class="text-2xl sm:text-3xl">🦒</span>
-        <div class="text-center sm:text-left">
-          <div class="text-xs sm:text-sm uppercase tracking-wider opacity-90">CAPS World</div>
-          <div class="text-sm sm:text-lg leading-tight">Life Skills</div>
-        </div>
-      </button>
-
-    </div>
+  <nav>
+    <button class="nav-btn active" onclick="switchSubject('maths')">
+      <span class="icon">🔢</span> Math
+    </button>
+    <button class="nav-btn" onclick="switchSubject('language')">
+      <span class="icon">🔤</span> Phonics
+    </button>
+    <button class="nav-btn" onclick="switchSubject('lifeskills')">
+      <span class="icon">🎨</span> Life Skills
+    </button>
   </nav>
 
-  <!-- ==================== SUB-MODULE SELECTOR ROW ==================== -->
-  <div id="submodule-nav" class="max-w-2xl mx-auto my-3 px-4 flex justify-center gap-3">
-    <!-- Dynamic Module Buttons Inserted via JS -->
-  </div>
-
-  <!-- ==================== MAIN GAME PLAY AREA ==================== -->
-  <main class="max-w-4xl mx-auto w-full px-4 mb-6 flex-grow flex flex-col justify-center">
-    
-    <div id="game-container" class="bg-white/90 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-xl border-4 border-white min-h-[420px] flex flex-col justify-between relative overflow-hidden">
-      
-      <!-- Audio Prompt Box / Voice Output Indicator -->
-      <div id="prompt-banner" class="bg-sky-100 border-2 border-sky-300 rounded-2xl p-3 mb-4 flex items-center gap-3 shadow-sm animate-pulse-slow">
-        <div class="bg-sky-500 text-white p-2 rounded-xl text-xl shrink-0">🔊</div>
-        <p id="prompt-text" class="text-base sm:text-xl font-bold text-sky-900 leading-snug">
-          Loading learning safari...
-        </p>
-      </div>
-
-      <!-- Active Interactive Content Slot -->
-      <div id="activity-stage" class="flex-grow flex flex-col items-center justify-center my-2 w-full">
-        <!-- Interactive Game Elements Generated Dynamically -->
-      </div>
-
-      <!-- Bottom Interactive Feedback Bar -->
-      <div id="feedback-bar" class="mt-4 pt-3 border-t-2 border-slate-100 flex items-center justify-between">
-        <div id="progress-indicator" class="flex gap-1.5">
-          <!-- Step dots populated dynamically -->
-        </div>
-
-        <button id="next-btn" onclick="nextQuestion()" class="hidden bg-jungle-500 hover:bg-jungle-600 text-white font-bold text-lg px-6 py-2.5 rounded-2xl shadow-lg border-b-4 border-jungle-700 active:scale-95 transition flex items-center gap-2">
-          <span>Next Play</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </button>
-      </div>
-
-    </div>
+  <main id="app-main">
+    <!-- Game Content Injected Dynamically -->
   </main>
 
-  <!-- ==================== TEACHER / PARENT DASHBOARD MODAL ==================== -->
-  <div id="teacher-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 border-4 border-purple-300 relative">
-      
-      <!-- Close Button -->
-      <button onclick="toggleTeacherDashboard(false)" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-700 p-2 rounded-full text-xl">
-        ✕
-      </button>
-
-      <div class="flex items-center gap-3 mb-6">
-        <div class="bg-purple-600 text-white p-3 rounded-2xl text-2xl">📊</div>
-        <div>
-          <h2 class="text-2xl font-bold text-purple-900">CAPS Grade R Assessment Matrix</h2>
-          <p class="text-sm text-slate-500">Real-time Formative Skill Telemetry & Progress Report</p>
-        </div>
-      </div>
-
-      <!-- Competency Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        
-        <!-- Maths Competencies -->
-        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
-          <h3 class="font-bold text-amber-900 flex items-center gap-2 mb-3">
-            <span>🦁</span> Mathematics Domain
-          </h3>
-          <div class="space-y-3">
-            <div>
-              <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-                <span>Numbers: 1-to-1 Counting & Subitizing</span>
-                <span id="stat-math-count">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div id="bar-math-count" class="bg-amber-500 h-full w-0 transition-all duration-500"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-                <span>Patterns & Algebra (AB/ABC Sequences)</span>
-                <span id="stat-math-pattern">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div id="bar-math-pattern" class="bg-amber-500 h-full w-0 transition-all duration-500"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Language Competencies -->
-        <div class="bg-sky-50 p-4 rounded-2xl border border-sky-200">
-          <h3 class="font-bold text-sky-900 flex items-center gap-2 mb-3">
-            <span>🐘</span> Home Language / Literacy
-          </h3>
-          <div class="space-y-3">
-            <div>
-              <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-                <span>Phonological Sound Identification</span>
-                <span id="stat-lang-phonics">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div id="bar-lang-phonics" class="bg-sky-500 h-full w-0 transition-all duration-500"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-                <span>Fine Motor Left-to-Right Tracking</span>
-                <span id="stat-lang-tracing">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div id="bar-lang-tracing" class="bg-sky-500 h-full w-0 transition-all duration-500"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Life Skills Competencies -->
-        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 md:col-span-2">
-          <h3 class="font-bold text-emerald-900 flex items-center gap-2 mb-3">
-            <span>🦒</span> Life Skills & Spatial Orientation
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-                <span>Attribute Sorting (Size, Shape, Color)</span>
-                <span id="stat-life-sorting">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div id="bar-life-sorting" class="bg-emerald-500 h-full w-0 transition-all duration-500"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-                <span>Spatial Concepts (In, On, Under, Beside)</span>
-                <span id="stat-life-spatial">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                <div id="bar-life-spatial" class="bg-emerald-500 h-full w-0 transition-all duration-500"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex flex-wrap gap-3 justify-between items-center pt-4 border-t border-slate-200 no-print">
-        <button onclick="resetTelemetry()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 px-4 py-2 rounded-xl font-bold text-sm transition">
-          Reset Progress Data
-        </button>
-        <div class="flex gap-2">
-          <button onclick="window.print()" class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-xl font-bold text-sm shadow transition">
-            Print Official CAPS Report
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Confetti Particle Overlay Canvas -->
-  <canvas id="confetti-canvas" class="pointer-events-none fixed inset-0 z-40"></canvas>
-
-  <!-- ==================== JAVASCRIPT ENGINE & LOGIC ==================== -->
   <script>
-    /* ==========================================================================
-       1. PWA & OFFLINE REGISTRATION (DYNAMIC INLINE SERVICE WORKER)
-       ========================================================================== */
-    const manifestData = {
-      name: "CAPS Grade R Safari Express",
-      short_name: "Grade R CAPS",
-      start_url: "./index.html",
-      display: "standalone",
-      background_color: "#FEF3C7",
-      theme_color: "#F59E0B",
-      icons: [{
-        src: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦁</text></svg>",
-        sizes: "192x192 512x512",
-        type: "image/svg+xml"
-      }]
+    let state = {
+      subject: 'maths',
+      stars: 0,
+      level: 1
     };
-    const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
-    const manifestUrl = URL.createObjectURL(manifestBlob);
-    const linkObj = document.createElement('link');
-    linkObj.rel = 'manifest';
-    linkObj.href = manifestUrl;
-    document.head.appendChild(linkObj);
 
-    // Dynamic Service Worker Blob registration
-    const swCode = `
-      const CACHE_NAME = 'caps-grader-v1';
-      self.addEventListener('install', (e) => self.skipWaiting());
-      self.addEventListener('activate', (e) => self.clients.claim());
-      self.addEventListener('fetch', (e) => {
-        e.respondWith(
-          caches.match(e.request).then((res) => res || fetch(e.request).catch(() => caches.match('./index.html')))
-        );
-      });
-    `;
-    if ('serviceWorker' in navigator) {
-      const swBlob = new Blob([swCode], { type: 'application/javascript' });
-      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(err => console.log('SW Note:', err));
+    const modules = {
+      maths: {
+        title: "Counting Safari",
+        prompt: "Tap the box with 3 Apples!",
+        speak: "Tap the box with three apples",
+        options: [
+          { label: "🍎", count: 1, isTarget: false },
+          { label: "🍎🍎🍎", count: 3, isTarget: true },
+          { label: "🍎🍎", count: 2, isTarget: false }
+        ]
+      },
+      language: {
+        title: "Phonics Safari",
+        prompt: "Find the picture starting with the sound /s/!",
+        speak: "Find the picture starting with the s sound",
+        options: [
+          { label: "☀️", text: "Sun", isTarget: true },
+          { label: "🐶", text: "Dog", isTarget: false },
+          { label: "🍎", text: "Apple", isTarget: false }
+        ]
+      },
+      lifeskills: {
+        title: "Shape Sorting",
+        prompt: "Tap all the Red Circles!",
+        speak: "Tap all the red circles",
+        options: [
+          { label: "🔴", shape: "Circle", isTarget: true },
+          { label: "🟦", shape: "Square", isTarget: false },
+          { label: "🔺", shape: "Triangle", isTarget: false }
+        ]
+      }
+    };
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+      }
     }
 
-    /* ==========================================================================
-       2. WEB AUDIO API SYNTHESIZER (SYNTHETIC SOUND EFFECTS)
-       ========================================================================== */
-    class SoundEngine {
-      constructor() {
-        this.ctx = null;
-      }
-      
-      init() {
-        if (!this.ctx) {
-          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-      }
+    function switchSubject(sub) {
+      state.subject = sub;
+      document.querySelectorAll('.nav-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', (sub === 'maths' && idx === 0) || (sub === 'language' && idx === 1) || (sub === 'lifeskills' && idx === 2));
+      });
+      renderLevel();
+    }
 
-      playPop() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.08);
-        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.08);
-      }
+    function renderLevel() {
+      const current = modules[state.subject];
+      const main = document.getElementById('app-main');
 
-      playSuccess() {
-        this.init();
-        if (!this.ctx) return;
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-        notes.forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.08);
-          gain.gain.setValueAtTime(0.2, this.ctx.currentTime + idx * 0.08);
-          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + idx * 0.08 + 0.2);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(this.ctx.currentTime + idx * 0.08);
-          osc.stop(this.ctx.currentTime + idx * 0.08 + 0.2);
-        });
-      }
+      main.innerHTML = `
+        <div class="instruction-card">
+          <button class="speaker-btn" onclick="speakText('${current.speak}')">🔊</button>
+          <div class="instruction-text">${current.prompt}</div>
+        </div>
 
-      playWhistle() {
-        this.init();
-        if (!this.ctx) return;
-        const osc = this.ctx.createOscillator();
-  
+        <div class="game-area">
+          ${current.options.map((opt, i) => `
+            <div class="interactive-card" onclick="checkAnswer(${opt.isTarget}, this)">
+              <span>${opt.label}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="celebration" id="celebration-box">
+          <h2>🎉 Excellent Job!</h2>
+          <p>You earned a star!</p>
+          <button class="next-btn" onclick="nextQuestion()">Play Next ➔</button>
+        </div>
+      `;
+
+      setTimeout(() => speakText(current.speak), 300);
+    }
+
+    function checkAnswer(isTarget, element) {
+      if (isTarget) {
+        element.style.borderColor = "#22c55e";
+        element.style.background = "#dcfce7";
+        state.stars += 1;
+        document.getElementById('star-count').innerText = state.stars;
+        speakText("Awesome! That is correct!");
+        
+        document.querySelectorAll('.interactive-card').forEach(c => c.style.pointerEvents = 'none');
+        document.getElementById('celebration-box').style.display = 'block';
+      } else {
+        element.style.borderColor = "#ef4444";
+        element.style.background = "#fee2e2";
+        speakText("Try again!");
+      }
+    }
+
+    function nextQuestion() {
+      renderLevel();
+    }
+
+    // Direct startup execution
+    window.onload = function() {
+      renderLevel();
+    };
+  </script>
+</body>
+</html>
+
