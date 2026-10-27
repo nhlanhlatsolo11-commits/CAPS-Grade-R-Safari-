@@ -1,253 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CAPS Grade R Safari Express</title>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2e7d32">
-    <link rel="manifest" href='data:application/manifest+json,{"name":"CAPS Grade R Safari Express","short_name":"Safari Express","start_url":"./index.html","display":"standalone","background_color":"#f4f9f4","theme_color":"#2e7d32","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/616/616412.png","sizes":"512x512","type":"image/png"}]}'>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #2e7d32; --primary-light: #4caf50; --secondary: #ff9800; --bg: #f4f9f4; --card: #ffffff; --text: #2c3e50; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Fredoka', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 2rem; }
-        header { background: linear-gradient(135deg, #1b5e20, #388e3c); color: #fff; padding: 1.25rem 1rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-        header p { font-size: 0.95rem; opacity: 0.95; }
-        .score-banner { background: #fff8e1; border-bottom: 3px solid #ffe082; padding: 0.75rem 1rem; display: flex; justify-content: space-around; font-weight: 700; font-size: 1.1rem; color: #e65100; }
-        .score-badge { background: #fff; padding: 0.4rem 1rem; border-radius: 20px; border: 2px solid #ffb74d; }
-        .nav-tabs { display: flex; justify-content: center; gap: 0.5rem; background: #e8f5e9; padding: 0.75rem 0.5rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
-        .tab-btn { background: #fff; border: 2px solid var(--primary-light); color: var(--primary); padding: 0.6rem 1rem; border-radius: 25px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
-        .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-        main { flex: 1; max-width: 850px; width: 100%; margin: 1.25rem auto; padding: 0 1rem; }
-        .subject-section { display: none; }
-        .subject-section.active { display: block; }
-        .activity-card { background: var(--card); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 2px solid #e2e8f0; }
-        .activity-card h2 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1.25rem; }
-        .prompt-container { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem; }
-        .prompt { font-size: 1.1rem; color: #334155; line-height: 1.4; flex: 1; }
-        .speak-btn { background: #e0f2fe; border: 2px solid #0284c7; color: #0369a1; border-radius: 12px; padding: 0.5rem 0.8rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
-        .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; }
-        .option-btn { background: #f8fafc; border: 3px solid #cbd5e1; border-radius: 12px; padding: 0.8rem 0.4rem; font-size: 1.15rem; font-weight: 700; color: #1e293b; cursor: pointer; text-align: center; }
-        .option-btn.correct-btn { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; }
-        .option-btn.wrong-btn { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
-        .feedback { margin-top: 0.85rem; padding: 0.75rem; border-radius: 10px; font-weight: 700; text-align: center; display: none; }
-        .feedback.correct { display: block; background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
-        .feedback.incorrect { display: block; background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
-        .coding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 280px; margin: 0.75rem auto; }
-        .grid-cell { aspect-ratio: 1; background: #e0f2fe; border: 3px dashed #7dd3fc; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
-        .controls { display: flex; justify-content: center; gap: 0.6rem; }
-        .control-btn { background: var(--secondary); color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
-        footer { text-align: center; padding: 1.25rem 1rem; font-size: 0.88rem; color: #475569; background: #e8f5e9; border-top: 1px solid #c8e6c9; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CAPS Grade R Safari Express</title>
+<meta name="theme-color" content="#ff7e5f">
+<link rel="manifest" href='data:application/manifest+json,{"name":"Safari Express","short_name":"Safari Express","start_url":"./index.html","display":"standalone","background_color":"#f4f9f4","theme_color":"#ff7e5f","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/616/616412.png","sizes":"512x512"}]}'>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#2e7d32;--secondary:#ff9800;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Fredoka',sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:#f4f9f4;color:#1e293b;display:flex;flex-direction:column;min-height:100vh;padding-bottom:2rem;}
+header{background:linear-gradient(135deg,#ff512f,#f09819 40%,#2e7d32);color:#fff;padding:1.2rem 1rem;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.2);border-bottom-left-radius:24px;border-bottom-right-radius:24px;}
+header h1{font-size:1.8rem;text-shadow:0 2px 4px rgba(0,0,0,.3);}
+.header-badge{background:rgba(255,255,255,.25);padding:.3rem .9rem;border-radius:20px;font-size:.85rem;font-weight:700;display:inline-block;margin-bottom:.4rem;}
+.animal-bar{display:flex;justify-content:center;gap:.6rem;margin-top:.8rem;}
+.animal-btn{font-size:1.8rem;background:#fff;border:3px solid #ffe082;border-radius:50%;width:48px;height:48px;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,.15);}
+.score-banner{background:#fff8e1;border-bottom:3px solid #ffe082;padding:.6rem 1rem;display:flex;justify-content:space-around;font-weight:700;color:#e65100;}
+.score-badge{background:#fff;padding:.3rem 1rem;border-radius:20px;border:2px solid #ffb74d;}
+.nav-tabs{display:flex;justify-content:center;gap:.4rem;background:#e8f5e9;padding:.75rem .5rem;position:sticky;top:0;z-index:100;}
+.tab-btn{background:#fff;border:2px solid #cbd5e1;padding:.5rem .9rem;border-radius:20px;font-weight:700;cursor:pointer;}
+.tab-btn.active[data-tab="maths"]{background:#2e7d32;color:#fff;}
+.tab-btn.active[data-tab="phonics"]{background:#0284c7;color:#fff;}
+.tab-btn.active[data-tab="lifeskills"]{background:#d97706;color:#fff;}
+.tab-btn.active[data-tab="coding"]{background:#7c3aed;color:#fff;}
+main{flex:1;max-width:850px;width:100%;margin:1rem auto;padding:0 1rem;}
+.subject-section{display:none;}
+.subject-section.active{display:block;}
+.card{background:#fff;border-radius:18px;padding:1.2rem;margin-bottom:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,.06);border:2px solid #e2e8f0;}
+.card h2{color:var(--primary);font-size:1.2rem;margin-bottom:.4rem;}
+.prompt-box{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.8rem;}
+.prompt{font-size:1.1rem;color:#334155;font-weight:600;}
+.spk-btn{background:#e0f2fe;border:2px solid #0284c7;color:#0369a1;border-radius:12px;padding:.4rem .8rem;font-weight:700;cursor:pointer;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.7rem;}
+.opt-btn{background:#f8fafc;border:3px solid #cbd5e1;border-radius:12px;padding:.8rem .4rem;font-size:1.1rem;font-weight:700;cursor:pointer;text-align:center;}
+.opt-btn.correct{background:#dcfce7!important;border-color:#22c55e!important;color:#15803d!important;}
+.opt-btn.wrong{background:#fee2e2!important;border-color:#ef4444!important;color:#b91c1c!important;}
+.fb{margin-top:.8rem;padding:.7rem;border-radius:10px;font-weight:700;text-align:center;display:none;}
+.fb.correct{display:block;background:#d1fae5;color:#065f46;}
+.fb.wrong{display:block;background:#ffe4e6;color:#9f1239;}
+.c-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:.8rem auto;}
+.cell{aspect-ratio:1;background:#e0f2fe;border:3px dashed #7dd3fc;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+.ctrls{display:flex;justify-content:center;gap:.6rem;}
+.ctrl-btn{background:var(--secondary);color:#fff;border:none;padding:.7rem 1.1rem;border-radius:10px;font-weight:700;cursor:pointer;}
+#c-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:999;}
+footer{text-align:center;padding:1.2rem;font-size:.85rem;color:#475569;background:#e8f5e9;border-top:2px solid #c8e6c9;}
+</style>
 </head>
 <body>
-
-    <header>
-        <h1>🦁 CAPS Grade R Safari Express</h1>
-        <p>Interactive Foundation Phase Learning Application</p>
-    </header>
-
-    <div class="score-banner">
-        <div class="score-badge">⭐ Stars: <span id="star-count">0</span></div>
-        <div class="score-badge">🏆 Rank: <span id="rank-badge">Safari Explorer</span></div>
-    </div>
-
-    <nav class="nav-tabs">
-        <button class="tab-btn active" onclick="tab('maths', this)">🔢 Mathematics (12)</button>
-        <button class="tab-btn" onclick="tab('phonics', this)">🔤 Language (12)</button>
-        <button class="tab-btn" onclick="tab('lifeskills', this)">🎨 Life Skills (12)</button>
-        <button class="tab-btn" onclick="tab('coding', this)">🤖 Coding & Robotics (12)</button>
-    </nav>
-
-    <main>
-        <section id="maths" class="subject-section active"></section>
-        <section id="phonics" class="subject-section"></section>
-        <section id="lifeskills" class="subject-section"></section>
-        <section id="coding" class="subject-section"></section>
-    </main>
-
-    <footer>
-        <p>CAPS Grade R Safari Express &bull; Developed by Nhlanhla Tsolo</p>
-    </footer>
-
-    <script>
-        var stars = 0, rPos = 0, saVoice = null;
-
-        function loadVoices() {
-            if ('speechSynthesis' in window) {
-                var v = window.speechSynthesis.getVoices();
-                saVoice = v.find(function(x) { return x.lang === 'en-ZA' || x.lang.includes('ZA'); }) || v.find(function(x) { return x.lang.startsWith('en'); });
-            }
-        }
-        if ('speechSynthesis' in window) { window.speechSynthesis.onvoiceschanged = loadVoices; loadVoices(); }
-
-        function speakText(txt) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                var u = new SpeechSynthesisUtterance(txt.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu, ''));
-                u.lang = 'en-ZA'; u.rate = 0.85; u.pitch = 1.1;
-                if (saVoice) u.voice = saVoice;
-                window.speechSynthesis.speak(u);
-            }
-        }
-
-        var data = {
-            maths: [
-                {t:"1. Counting Lions", p:"How many lions do you see?", o:["2","3","5"], c:1},
-                {t:"2. Shape Recognition", p:"Which 2D shape matches the round sun?", o:["Circle","Square","Triangle"], c:0},
-                {t:"3. Patterns & Sequence", p:"Complete the pattern: Apple, Banana, Apple, Banana, what comes next?", o:["Apple","Banana","Grapes"], c:0},
-                {t:"4. Size Comparison", p:"Which animal is bigger? Elephant or Ant?", o:["Elephant","Ant"], c:0},
-                {t:"5. More or Less", p:"Which group has more objects? 5 Blue dots or 2 Red dots?", o:["5 Blue Dots","2 Red Dots"], c:0},
-                {t:"6. Spatial Position", p:"Where is the bird perched? On the tree or under the tree?", o:["ON the tree","UNDER the tree"], c:0},
-                {t:"7. Number Recognition", p:"Which symbol is the number FOUR?", o:["2","4","7"], c:1},
-                {t:"8. Matching Sets", p:"Which number matches two apples?", o:["1","2","3"], c:1},
-                {t:"9. Height Comparison", p:"Which animal is taller? Giraffe or Meerkat?", o:["Giraffe","Meerkat"], c:0},
-                {t:"10. 3D Objects", p:"What 3D shape is a round soccer ball?", o:["Sphere","Cube"], c:0},
-                {t:"11. Early Addition", p:"1 monkey plus 1 monkey equals how many monkeys?", o:["1","2","3"], c:1},
-                {t:"12. Time & Day Sequence", p:"When do we sleep at night under the stars?", o:["Night Time","Day Time"], c:0}
-            ],
-            phonics: [
-                {t:"1. Initial Sound /s/", p:"What sound does Sun start with?", o:["/s/ (S)","/b/ (B)","/m/ (M)"], c:0},
-                {t:"2. Initial Sound /a/", p:"What sound does Apple start with?", o:["/a/ (A)","/t/ (T)","/p/ (P)"], c:0},
-                {t:"3. Initial Sound /t/", p:"What sound does Tiger start with?", o:["/t/ (T)","/d/ (D)","/s/ (S)"], c:0},
-                {t:"4. Rhyming Words (Cat)", p:"Which word rhymes with Cat?", o:["Hat","Dog","Fish"], c:0},
-                {t:"5. Rhyming Words (Sun)", p:"Which word rhymes with Sun?", o:["Run","Tree","Car"], c:0},
-                {t:"6. Animal Sounds", p:"Which animal makes a loud ROAR?", o:["Lion","Frog","Duck"], c:0},
-                {t:"7. Vocabulary", p:"What safari animal has a very long neck?", o:["Giraffe","Hippo","Zebra"], c:0},
-                {t:"8. Syllable Clapping", p:"Clap the word Sa-fa-ri. How many claps?", o:["1 Clap","2 Claps","3 Claps"], c:2},
-                {t:"9. Opposites", p:"What is the opposite of HOT?", o:["Cold","Warm"], c:0},
-                {t:"10. Story Sequence", p:"What comes first when growing a sunflower?", o:["Plant Seed","Pick Flower"], c:0},
-                {t:"11. Listening Discrimination", p:"Which animal word starts with /m/?", o:["Monkey","Elephant"], c:0},
-                {t:"12. Letter Matching", p:"Match lowercase letter a with its uppercase letter:", o:["A","B","M"], c:0}
-            ],
-            lifeskills: [
-                {t:"1. Personal Hygiene", p:"What must we do before eating food?", o:["Wash Hands","Go to Sleep"], c:0},
-                {t:"2. Road Safety", p:"What does a RED traffic light signal tell us to do?", o:["Stop","Run"], c:0},
-                {t:"3. Healthy Eating", p:"Which snack is healthy for our body?", o:["Fresh Apple","Sweet Candy"], c:0},
-                {t:"4. Body Awareness", p:"Which body part do we use to see safari animals?", o:["Eyes","Ears"], c:0},
-                {t:"5. Identifying Emotions", p:"How is this happy friend feeling?", o:["Happy","Sad"], c:0},
-                {t:"6. Weather Awareness", p:"What should we wear when it is raining?", o:["Raincoat","Swimsuit"], c:0},
-                {t:"7. Environment Care", p:"Where do we throw empty sweet wrappers?", o:["In Dustbin","On Ground"], c:0},
-                {t:"8. Water Safety", p:"What must you wear when playing near deep water?", o:["Life Jacket","Heavy Shoes"], c:0},
-                {t:"9. Community Helpers", p:"Who puts out dangerous fires?", o:["Firefighter","Chef"], c:0},
-                {t:"10. Good Manners", p:"When someone gives you a gift, what do you say?", o:["Thank You!","No way!"], c:0},
-                {t:"11. Four Seasons", p:"In which season do colorful flowers bloom?", o:["Spring","Winter"], c:0},
-                {t:"12. Animal Welfare", p:"How should we treat safari animals and pets?", o:["Gently and Kind","Roughly"], c:0}
-            ],
-            coding: [
-                {t:"1. Grid Navigation", p:"Guide Rover step by step to reach Zebra!", g:true},
-                {t:"2. Sequence & Order", p:"Which step comes FIRST in a robot instruction list?", o:["Start Power On","Stop"], c:0},
-                {t:"3. Directional Symbols", p:"Which arrow points to the RIGHT direction?", o:["Right Arrow","Left Arrow","Up Arrow"], c:0},
-                {t:"4. Debugging", p:"The robot got stuck on a rock! Fixing code is called...", o:["Debugging","Sleeping"], c:0},
-                {t:"5. Repeat / Loops", p:"To move 2 steps forward without repeating code, use a...", o:["Loop","Break"], c:0},
-                {t:"6. Inputs & Outputs", p:"Pressing a switch turns on a light. The switch is an...", o:["Input","Output"], c:0},
-                {t:"7. Sorting Algorithms", p:"Where should the RED coding card go?", o:["Red Box","Blue Box"], c:0},
-                {t:"8. Spatial Orientation", p:"Where is the sun located on the grid screen?", o:["Top Corner","Bottom Corner"], c:0},
-                {t:"9. Algorithm Steps", p:"Step-by-step instructions are called an...", o:["Algorithm","Mistake"], c:0},
-                {t:"10. Binary Logic", p:"What binary number usually means ON in robotics?", o:["1 (ON)","0 (OFF)"], c:0},
-                {t:"11. Obstacle Avoidance", p:"A river is in front of Rover! Which command avoids danger?", o:["Turn Around","Drive Forward"], c:0},
-                {t:"12. Mission Completion", p:"All 12 coding tasks finished! What does the Rover reach?", o:["Safari Camp!","Lost Forest"], c:0}
-            ]
-        };
-
-        function buildUI() {
-            for (var sub in data) {
-                var sec = document.getElementById(sub);
-                var h = '';
-                data[sub].forEach(function(a, i) {
-                    h += '<div class="activity-card"><h2>' + a.t + '</h2>';
-                    h += '<div class="prompt-container"><p class="prompt">' + a.p + '</p>';
-                    h += '<button class="speak-btn" onclick="speakText(\'' + a.p.replace(/'/g, "\\'") + '\')">🔊 Listen</button></div>';
-
-                    if (a.g) {
-                        h += '<div class="coding-grid"><div class="grid-cell" id="c-0">🤖</div><div class="grid-cell" id="c-1"></div><div class="grid-cell" id="c-2">🦓</div></div>';
-                        h += '<div class="controls"><button class="control-btn" onclick="mvBot()">Move Right ➡️</button><button class="control-btn" style="background:#64748b;" onclick="rstBot()">Reset 🔄</button></div><div id="g-fb" class="feedback"></div>';
-                    } else {
-                        var id = sub + '-' + i;
-                        h += '<div class="options-grid">';
-                        a.o.forEach(function(opt, oi) {
-                            h += '<button class="option-btn" onclick="chk(this,' + (oi === a.c) + ',\'' + id + '\')">' + opt + '</button>';
-                        });
-                        h += '</div><div id="' + id + '-fb" class="feedback"></div>';
-                    }
-                    h += '</div>';
-                });
-                sec.innerHTML = h;
-            }
-        }
-
-        function tab(id, btn) {
-            var s = document.getElementsByClassName('subject-section'), b = document.getElementsByClassName('tab-btn');
-            for (var i = 0; i < s.length; i++) s[i].classList.remove('active');
-            for (var j = 0; j < b.length; j++) b[j].classList.remove('active');
-            document.getElementById(id).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        function chk(btn, isC, id) {
-            var fb = document.getElementById(id + '-fb');
-            var siblings = btn.parentElement.getElementsByClassName('option-btn');
-            for (var i = 0; i < siblings.length; i++) siblings[i].classList.remove('correct-btn', 'wrong-btn');
-
-            if (isC) {
-                btn.classList.add('correct-btn');
-                if (fb) { fb.className = "feedback correct"; fb.innerHTML = "🌟 Excelled! Correct Answer!"; }
-                speakText("Excelled! That is correct!");
-                if (btn.getAttribute('data-scored') !== 'true') {
-                    stars++;
-                    btn.setAttribute('data-scored', 'true');
-                    document.getElementById('star-count').innerText = stars;
-                    updRank();
-                }
-            } else {
-                btn.classList.add('wrong-btn');
-                if (fb) { fb.className = "feedback incorrect"; fb.innerHTML = "❌ Try again!"; }
-                speakText("Not quite. Try again!");
-            }
-        }
-
-        function updRank() {
-            var r = document.getElementById('rank-badge');
-            if (stars >= 30) r.innerText = "Safari Master 👑";
-            else if (stars >= 15) r.innerText = "Safari Champion 🏆";
-            else if (stars >= 5) r.innerText = "Junior Guide 🌿";
-            else r.innerText = "Safari Explorer 🦁";
-        }
-
-        function mvBot() {
-            var fb = document.getElementById('g-fb');
-            if (rPos < 2) {
-                document.getElementById('c-' + rPos).innerText = '';
-                rPos++;
-                document.getElementById('c-' + rPos).innerText = '🤖';
-                if (rPos === 2) {
-                    if (fb) { fb.className = "feedback correct"; fb.innerHTML = "🎉 Fantastic! Rover reached the Zebra!"; }
-                    speakText("Fantastic! Rover reached the Zebra!");
-                    stars += 2;
-                    document.getElementById('star-count').innerText = stars;
-                    updRank();
-                }
-            }
-        }
-
-        function rstBot() {
-            document.getElementById('c-' + rPos).innerText = '';
-            rPos = 0;
-            document.getElementById('c-0').innerText = '🤖';
-            document.getElementById('c-1').innerText = '';
-            document.getElementById('c-2').innerText = '🦓';
-            var fb = document.getElementById('g-fb');
-            if (fb) fb.style.display = 'none';
-        }
-
-        buildUI();
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(function(){});
-        }
-    </script>
+<canvas id="c-canvas"></canvas>
+<header>
+<div class="header-badge">🦁 CAPS CURRICULUM PORTAL</div>
+<h1>Grade R Safari Express</h1>
+<p>Interactive Foundation Phase Learning Portal</p>
+<div class="animal-bar">
+<button class="animal-btn" onclick="tAnim('lion')">🦁</button>
+<button class="animal-btn" onclick="tAnim('elephant')">🐘</button>
+<button class="animal-btn" onclick="tAnim('giraffe')">🦒</button>
+<button class="animal-btn" onclick="tAnim('zebra')">🦓</button>
+<button class="animal-btn" onclick="tAnim('monkey')">🐒</button>
+</div>
+</header>
+<div class="score-banner">
+<div class="score-badge">⭐ Stars: <span id="s-cnt">0</span></div>
+<div class="score-badge">🏆 Rank: <span id="r-bdg">Safari Explorer</span></div>
+</div>
+<nav class="nav-tabs">
+<button class="tab-btn active" data-tab="maths" onclick="tab('maths',this)">🔢 Maths (12)</button>
+<button class="tab-btn" data-tab="phonics" onclick="tab('phonics',this)">🔤 Language (12)</button>
+<button class="tab-btn" data-tab="lifeskills" onclick="tab('lifeskills',this)">🎨 Life Skills (12)</button>
+<button class="tab-btn" data-tab="coding" onclick="tab('coding',this)">🤖 Coding (12)</button>
+</nav>
+<main>
+<section id="maths" class="subject-section active"></section>
+<section id="phonics" class="subject-section"></section>
+<section id="lifeskills" class="subject-section"></section>
+<section id="coding" class="subject-section"></section>
+</main>
+<footer>CAPS Grade R Safari Express &bull; Developed by Nhlanhla Tsolo</footer>
+<script>
+var stars=0,rPos=0,saV=null;
+function lV(){if('speechSynthesis'in window){var v=window.speechSynthesis.getVoices();saV=v.find(x=>x.lang==='en-ZA'||x.lang.includes('ZA'))||v.find(x=>x.lang.startsWith('en'));}}
+if('speechSynthesis'in window){window.speechSynthesis.onvoiceschanged=lV;lV();}
+function spk(t){if('speechSynthesis'in window){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu,''));u.lang='en-ZA';u.rate=0.85;if(saV)u.voice=saV;window.speechSynthesis.speak(u);}}
+function tAnim(type){try{var ctx=new(window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);if(type==='lion'){o.frequency.setValueAtTime(120,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(50,ctx.currentTime+.4);g.gain.setValueAtTime(.3,ctx.currentTime);o.start();o.stop(ctx.currentTime+.4);spk("I am a brave Safari Lion! Roar!");}else if(type==='elephant'){o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.3);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3);spk("I am a big Safari Elephant!");}else if(type==='giraffe')spk("I am a tall Safari Giraffe!");else if(type==='zebra')spk("I am a fast Safari Zebra!");else if(type==='monkey'){o.frequency.setValueAtTime(600,ctx.currentTime);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.2);spk("I am a playful Safari Monkey!");}}catch(e){}}
+function confetti(){var c=document.getElementById('c-canvas'),x=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;var p=[],cols=['#f59e0b','#10b981','#3b82f6','#ec4899','#8b5cf6'];for(var i=0;i<35;i++)p.push({x:c.width/2,y:c.height/2,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10-3,s:Math.random()*7+3,c:cols[Math.floor(Math.random()*cols.length)]});var t=setInterval(()=>{x.clearRect(0,0,c.width,c.height);p.forEach(k=>{k.x+=k.vx;k.y+=k.vy;k.vy+=.2;x.fillStyle=k.c;x.fillRect(k.x,k.y,k.s,k.s);});},20);setTimeout(()=>{clearInterval(t);x.clearRect(0,0,c.width,c.height);},1000);}
+var D={
+maths:[{t:"1. Counting Lions",p:"How many lions do you see?",o:["2","3","5"],c:1},{t:"2. Shape Recognition",p:"Which 2D shape matches the round sun?",o:["Circle","Square","Triangle"],c:0},{t:"3. Patterns & Sequence",p:"Complete pattern: Apple, Banana, Apple, Banana, what comes next?",o:["Apple","Banana","Grapes"],c:0},{t:"4. Size Comparison",p:"Which animal is bigger? Elephant or Ant?",o:["Elephant","Ant"],c:0},{t:"5. More or Less",p:"Which group has more? 5 Blue dots or 2 Red dots?",o:["5 Blue Dots","2 Red Dots"],c:0},{t:"6. Spatial Position",p:"Where is bird perched? On or under the tree?",o:["ON tree","UNDER tree"],c:0},{t:"7. Number Recognition",p:"Which symbol is number FOUR?",o:["2","4","7"],c:1},{t:"8. Matching Sets",p:"Which number matches two apples?",o:["1","2","3"],c:1},{t:"9. Height Comparison",p:"Which animal is taller? Giraffe or Meerkat?",o:["Giraffe","Meerkat"],c:0},{t:"10. 3D Objects",p:"What 3D shape is a round soccer ball?",o:["Sphere","Cube"],c:0},{t:"11. Early Addition",p:"1 monkey plus 1 monkey equals how many?",o:["1","2","3"],c:1},{t:"12. Time Sequence",p:"When do we sleep under the stars?",o:["Night Time","Day Time"],c:0}],
+phonics:[{t:"1. Initial /s/",p:"What sound does Sun start with?",o:["/s/ (S)","/b/ (B)","/m/ (M)"],c:0},{t:"2. Initial /a/",p:"What sound does Apple start with?",o:["/a/ (A)","/t/ (T)","/p/ (P)"],c:0},{t:"3. Initial /t/",p:"What sound does Tiger start with?",o:["/t/ (T)","/d/ (D)","/s/ (S)"],c:0},{t:"4. Rhyming (Cat)",p:"Which word rhymes with Cat?",o:["Hat","Dog","Fish"],c:0},{t:"5. Rhyming (Sun)",p:"Which word rhymes with Sun?",o:["Run","Tree","Car"],c:0},{t:"6. Animal Sounds",p:"Which animal makes a loud ROAR?",o:["Lion","Frog","Duck"],c:0},{t:"7. Vocabulary",p:"What animal has a very long neck?",o:["Giraffe","Hippo","Zebra"],c:0},{t:"8. Syllables",p:"Clap Sa-fa-ri. How many claps?",o:["1 Clap","2 Claps","3 Claps"],c:2},{t:"9. Opposites",p:"What is the opposite of HOT?",o:["Cold","Warm"],c:0},{t:"10. Story Sequence",p:"What comes first when growing a flower?",o:["Plant Seed","Pick Flower"],c:0},{t:"11. Listening",p:"Which animal word starts with /m/?",o:["Monkey","Elephant"],c:0},{t:"12. Letter Match",p:"Match lowercase 'a' with uppercase:",o:["A","B","M"],c:0}],
+lifeskills:[{t:"1. Hygiene",p:"What must we do before eating food?",o:["Wash Hands","Go to Sleep"],c:0},{t:"2. Road Safety",p:"What does RED traffic light tell us?",o:["Stop","Run"],c:0},{t:"3. Healthy Eating",p:"Which snack is healthy for our body?",o:["Fresh Apple","Sweet Candy"],c:0},{t:"4. Body Awareness",p:"Which body part do we use to see animals?",o:["Eyes","Ears"],c:0},{t:"5. Emotions",p:"How is this happy friend feeling?",o:["Happy","Sad"],c:0},{t:"6. Weather",p:"What should we wear when raining?",o:["Raincoat","Swimsuit"],c:0},{t:"7. Environment",p:"Where do we throw sweet wrappers?",o:["In Dustbin","On Ground"],c:0},{t:"8. Water Safety",p:"What must you wear near deep water?",o:["Life Jacket","Heavy Shoes"],c:0},{t:"9. Helpers",p:"Who puts out dangerous fires?",o:["Firefighter","Chef"],c:0},{t:"10. Manners",p:"When someone gives a gift, what do you say?",o:["Thank You!","No way!"],c:0},{t:"11. Seasons",p:"In which season do flowers bloom?",o:["Spring","Winter"],c:0},{t:"12. Animal Welfare",p:"How should we treat safari animals?",o:["Gently & Kind","Roughly"],c:0}],
+coding:[{t:"1. Grid Navigation",p:"Guide Rover step by step to Zebra!",g:1},{t:"2. Sequence",p:"Which step comes FIRST in robot instructions?",o:["Start / Power On","Stop"],c:0},{t:"3. Directions",p:"Which arrow points RIGHT?",o:["Right Arrow","Left Arrow","Up Arrow"],c:0},{t:"4. Debugging",p:"The robot got stuck! Fixing code is...",o:["Debugging","Sleeping"],c:0},{t:"5. Loops",p:"To move 2 steps without repeating code, use a...",o:["Loop","Break"],c:0},{t:"6. Input/Output",p:"Pressing a switch turns on light. Switch is...",o:["Input","Output"],c:0},{t:"7. Sorting",p:"Where should RED coding card go?",o:["Red Box","Blue Box"],c:0},{t:"8. Orientation",p:"Where is sun on grid screen?",o:["Top Corner","Bottom Corner"],c:0},{t:"9. Algorithm",p:"Step-by-step instructions are called...",o:["Algorithm","Mistake"],c:0},{t:"10. Binary Logic",p:"What binary number means ON in robotics?",o:["1 (ON)","0 (OFF)"],c:0},{t:"11. Obstacles",p:"River in front! Which command avoids danger?",o:["Turn Around","Drive Forward"],c:0},{t:"12. Completion",p:"All tasks finished! What does Rover reach?",o:["Safari Camp!","Lost Forest"],c:0}]
+};
+function build(){for(var sub in D){var sec=document.getElementById(sub),h='';D[sub].forEach((a,i)=>{h+='<div class="card"><h2>'+a.t+'</h2><div class="prompt-box"><p class="prompt">'+a.p+'</p><button class="spk-btn" onclick="spk(\''+a.p.replace(/'/g,"\\'")+'\')">🔊 Listen</button></div>';if(a.g){h+='<div class="c-grid"><div class="cell" id="c-0">🤖</div><div class="cell" id="c-1"></div><div class="cell" id="c-2">Zebra 🦓</div></div><div class="ctrls"><button class="ctrl-btn" onclick="mvBot()">Move Right ➡️</button><button class="ctrl-btn" style="background:#64748b" onclick="rstBot()">Reset 🔄</button></div><div id="g-fb" class="fb"></div>';}else{var id=sub+'-'+i;h+='<div class="grid">';a.o.forEach((opt,oi)=>{h+='<button class="opt-btn" onclick="chk(this,'+(oi===a.c)+',\''+id+'\')">'+opt+'</button>';});h+='</div><div id="'+id+'-fb" class="fb"></div>';}h+='</div>';});sec.innerHTML=h;}}
+function tab(id,btn){var s=document.getElementsByClassName('subject-section'),b=document.getElementsByClassName('tab-btn');for(var i=0;i<s.length;i++)s[i].classList.remove('active');for(var j=0;j<b.length;j++)b[j].classList.remove('active');document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function chk(btn,isC,id){var fb=document.getElementById(id+'-fb'),s=btn.parentElement.getElementsByClassName('opt-btn');for(var i=0;i<s.length;i++)s[i].classList.remove('correct','wrong');if(isC){btn.classList.add('correct');if(fb){fb.className="fb correct";fb.innerHTML="🌟 Excelled! Correct Answer!";}spk("Excelled! That is correct!");confetti();if(btn.getAttribute('data-scored')!=='true'){stars++;btn.setAttribute('data-scored','true');document.getElementById('s-cnt').innerText=stars;updRank();}}else{btn.classList.add('wrong');if(fb){fb.className="fb wrong";fb.innerHTML="❌ Try again!";}spk("Not quite. Try again!");}}
+function updRank(){var r=document.getElementById('r-bdg');if(stars>=30)r.innerText="Safari Master 👑";else if(stars>=15)r.innerText="Safari Champion 🏆";else if(stars>=5)r.innerText="Junior Guide 🌿";else r.innerText="Safari Explorer 🦁";}
+function mvBot(){var fb=document.getElementById('g-fb');if(rPos<2){document.getElementById('c-'+rPos).innerText='';rPos++;document.getElementById('c-'+rPos).innerText='🤖';if(rPos===2){if(fb){fb.className="fb correct";fb.innerHTML="🎉 Fantastic! Rover reached the Zebra!";}spk("Fantastic! Rover reached the Zebra!");confetti();stars+=2;document.getElementById('s-cnt').innerText=stars;updRank();}}}
+function rstBot(){document.getElementById('c-'+rPos).innerText='';rPos=0;document.getElementById('c-0').innerText='🤖';document.getElementById('c-1').innerText='';document.getElementById('c-2').innerText='Zebra 🦓';var fb=document.getElementById('g-fb');if(fb)fb.style.display='none';}
+build();
+if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+</script>
 </body>
 </html>
