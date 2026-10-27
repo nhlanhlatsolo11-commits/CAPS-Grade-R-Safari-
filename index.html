@@ -21,12 +21,12 @@ header p{font-size:.95rem;opacity:.95;text-shadow:0 1px 3px rgba(0,0,0,.2);}
 .animal-btn:active{transform:scale(1.25) rotate(12deg);}
 .score-banner{background:#fff8e1;border-bottom:3px solid #ffe082;padding:.7rem 1rem;display:flex;justify-content:space-around;font-weight:700;color:#e65100;font-size:1.05rem;}
 .score-badge{background:#fff;padding:.35rem 1.1rem;border-radius:20px;border:2px solid #ffb74d;box-shadow:0 2px 4px rgba(0,0,0,.05);}
-.nav-tabs{display:flex;justify-content:center;gap:.4rem;background:#e8f5e9;padding:.8rem .5rem;position:sticky;top:0;z-index:100;}
-.tab-btn{background:#fff;border:2.5px solid #cbd5e1;padding:.55rem 1rem;border-radius:22px;font-weight:700;cursor:pointer;color:#475569;box-shadow:0 3px 0 #cbd5e1;}
+.nav-tabs{display:flex;justify-content:center;gap:.4rem;background:#e8f5e9;padding:.8rem .5rem;position:sticky;top:0;z-index:100;flex-wrap:wrap;}
+.tab-btn{background:#fff;border:2.5px solid #cbd5e1;padding:.55rem 1rem;border-radius:22px;font-weight:700;cursor:pointer;color:#475569;box-shadow:0 3px 0 #cbd5e1;font-size:.9rem;}
 .tab-btn.active[data-tab="maths"]{background:#2e7d32;color:#fff;border-color:#1b5e20;box-shadow:0 3px 0 #1b5e20;}
 .tab-btn.active[data-tab="phonics"]{background:#0284c7;color:#fff;border-color:#0369a1;box-shadow:0 3px 0 #0369a1;}
 .tab-btn.active[data-tab="lifeskills"]{background:#d97706;color:#fff;border-color:#b45309;box-shadow:0 3px 0 #b45309;}
-.tab-btn.active[data-tab="coding"]{background:#7c3aed;color:#fff;border-color:#6d28d9;box-shadow:0 3px 0 #6d28d9;}
+.tab-btn.active[data-tab="stories"]{background:#7c3aed;color:#fff;border-color:#6d28d9;box-shadow:0 3px 0 #6d28d9;}
 main{flex:1;max-width:850px;width:100%;margin:1.2rem auto;padding:0 1rem;}
 .subject-section{display:none;}
 .subject-section.active{display:block;}
@@ -34,7 +34,7 @@ main{flex:1;max-width:850px;width:100%;margin:1.2rem auto;padding:0 1rem;}
 .card h2{color:var(--primary);font-size:1.25rem;margin-bottom:.5rem;}
 .prompt-box{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:1rem;}
 .prompt{font-size:1.15rem;color:#334155;font-weight:600;line-height:1.4;}
-.spk-btn{background:#e0f2fe;border:2px solid #0284c7;color:#0369a1;border-radius:14px;padding:.5rem .9rem;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #0284c7;}
+.spk-btn{background:#e0f2fe;border:2px solid #0284c7;color:#0369a1;border-radius:14px;padding:.5rem .9rem;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #0284c7;white-space:nowrap;}
 .spk-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #0284c7;}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.9rem;}
 .opt-btn{background:#f8fafc;border:3px solid #cbd5e1;border-radius:16px;padding:1.1rem .5rem;font-size:1.25rem;font-weight:700;color:#1e293b;cursor:pointer;text-align:center;box-shadow:0 5px 0 #cbd5e1;display:flex;flex-direction:column;align-items:center;gap:.3rem;}
@@ -45,10 +45,6 @@ main{flex:1;max-width:850px;width:100%;margin:1.2rem auto;padding:0 1rem;}
 .fb{margin-top:1rem;padding:.8rem;border-radius:12px;font-weight:700;text-align:center;display:none;font-size:1.05rem;}
 .fb.correct{display:block;background:#d1fae5;color:#065f46;border:2px solid #a7f3d0;}
 .fb.wrong{display:block;background:#ffe4e6;color:#9f1239;border:2px solid #fecdd3;}
-.c-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:280px;margin:1rem auto;}
-.cell{aspect-ratio:1;background:#e0f2fe;border:3px dashed #7dd3fc;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;}
-.ctrls{display:flex;justify-content:center;gap:.7rem;}
-.ctrl-btn{background:var(--secondary);color:#fff;border:none;padding:.75rem 1.2rem;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 #b56a00;}
 #c-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:999;}
 footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background:#e8f5e9;border-top:2px solid #c8e6c9;font-weight:600;}
 </style>
@@ -56,9 +52,9 @@ footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background
 <body>
 <canvas id="c-canvas"></canvas>
 <header>
-<div class="header-badge">🦁 CAPS CURRICULUM PORTAL</div>
+<div class="header-badge">🦁 CAPS GAUTENG ECD PORTAL</div>
 <h1>Grade R Safari Express</h1>
-<p>Interactive Foundation Phase Learning Application</p>
+<p>Term 1 Interactive Home Language & Activities</p>
 <div class="animal-bar">
 <button class="animal-btn" onclick="tAnim('lion')">🦁</button>
 <button class="animal-btn" onclick="tAnim('elephant')">🐘</button>
@@ -72,16 +68,16 @@ footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background
 <div class="score-badge">🏆 Rank: <span id="r-bdg">Safari Explorer</span></div>
 </div>
 <nav class="nav-tabs">
-<button class="tab-btn active" data-tab="maths" onclick="tab('maths',this)">🔢 Maths (12)</button>
-<button class="tab-btn" data-tab="phonics" onclick="tab('phonics',this)">🔤 Language (12)</button>
-<button class="tab-btn" data-tab="lifeskills" onclick="tab('lifeskills',this)">🎨 Life Skills (12)</button>
-<button class="tab-btn" data-tab="coding" onclick="tab('coding',this)">🤖 Coding (12)</button>
+<button class="tab-btn active" data-tab="maths" onclick="tab('maths',this)">🔢 Maths</button>
+<button class="tab-btn" data-tab="phonics" onclick="tab('phonics',this)">🔤 Phonics</button>
+<button class="tab-btn" data-tab="lifeskills" onclick="tab('lifeskills',this)">🎨 Life Skills</button>
+<button class="tab-btn" data-tab="stories" onclick="tab('stories',this)">📖 Term 1 Stories</button>
 </nav>
 <main>
 <section id="maths" class="subject-section active"></section>
 <section id="phonics" class="subject-section"></section>
 <section id="lifeskills" class="subject-section"></section>
-<section id="coding" class="subject-section"></section>
+<section id="stories" class="subject-section"></section>
 </main>
 <footer>CAPS Grade R Safari Express &bull; Developed by Nhlanhla Tsolo</footer>
 <script>
@@ -89,73 +85,48 @@ if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then
 var stars=0,rPos=0,saV=null;
 function lV(){if('speechSynthesis'in window){var v=window.speechSynthesis.getVoices();saV=v.find(x=>x.lang==='en-ZA'||x.lang.includes('ZA'))||v.find(x=>x.lang.startsWith('en'));}}
 if('speechSynthesis'in window){window.speechSynthesis.onvoiceschanged=lV;lV();}
-function spk(t){if('speechSynthesis'in window){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu,''));u.lang='en-ZA';u.rate=0.85;if(saV)u.voice=saV;window.speechSynthesis.speak(u);}}
-function tAnim(type){try{var ctx=new(window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);if(type==='lion'){o.frequency.setValueAtTime(120,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(50,ctx.currentTime+.4);g.gain.setValueAtTime(.3,ctx.currentTime);o.start();o.stop(ctx.currentTime+.4);spk("I am a brave Safari Lion! Roar!");}else if(type==='elephant'){o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.3);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3);spk("I am a big Safari Elephant!");}else if(type==='giraffe')spk("I am a tall Safari Giraffe!");else if(type==='zebra')spk("I am a fast Safari Zebra!");else if(type==='monkey'){o.frequency.setValueAtTime(600,ctx.currentTime);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.2);spk("I am a playful Safari Monkey!");}}catch(e){}}
+function spk(t){if('speechSynthesis'in window){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu,''));u.lang='en-ZA';u.rate=0.82;if(saV)u.voice=saV;window.speechSynthesis.speak(u);}}
+function tAnim(type){try{var ctx=new(window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);if(type==='lion'){o.frequency.setValueAtTime(120,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(50,ctx.currentTime+.4);g.gain.setValueAtTime(.3,ctx.currentTime);o.start();o.stop(ctx.currentTime+.4);spk("Roar! I am a brave Safari Lion!");}else if(type==='elephant'){o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.3);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3);spk("I am a big Safari Elephant!");}else if(type==='giraffe')spk("I am a tall Safari Giraffe!");else if(type==='zebra')spk("I am a fast Safari Zebra!");else if(type==='monkey'){o.frequency.setValueAtTime(600,ctx.currentTime);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.2);spk("I am a playful Safari Monkey!");}}catch(e){}}
 function confetti(){var c=document.getElementById('c-canvas'),x=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;var p=[],cols=['#f59e0b','#10b981','#3b82f6','#ec4899','#8b5cf6'];for(var i=0;i<35;i++)p.push({x:c.width/2,y:c.height/2,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10-3,s:Math.random()*7+3,c:cols[Math.floor(Math.random()*cols.length)]});var t=setInterval(()=>{x.clearRect(0,0,c.width,c.height);p.forEach(k=>{k.x+=k.vx;k.y+=k.vy;k.vy+=.2;x.fillStyle=k.c;x.fillRect(k.x,k.y,k.s,k.s);});},20);setTimeout(()=>{clearInterval(t);x.clearRect(0,0,c.width,c.height);},1000);}
+
+/* TERM 1 ACTIVITY GUIDE DATASET */
 var D={
 maths:[
 {t:"1. Counting Lions",p:"How many lions do you see? 🦁 🦁 🦁",o:[{i:"2️⃣",l:"2"},{i:"3️⃣",l:"3"},{i:"5️⃣",l:"5"}],c:1},
-{t:"2. Shape Recognition",p:"Which 2D shape matches the round sun?",o:[{i:"🔴",l:"Circle"},{i:"🟦",l:"Square"},{i:"🔺",l:"Triangle"}],c:0},
+{t:"2. Shape Recognition",p:"Which 2D shape matches Ali's round ball? ⚽",o:[{i:"🔴",l:"Circle"},{i:"🟦",l:"Square"},{i:"🔺",l:"Triangle"}],c:0},
 {t:"3. Patterns & Sequence",p:"Complete pattern: Apple 🍎, Banana 🍌, Apple 🍎, Banana 🍌...",o:[{i:"🍎",l:"Apple"},{i:"🍌",l:"Banana"},{i:"🍇",l:"Grapes"}],c:0},
-{t:"4. Size Comparison",p:"Which animal is BIGGER?",o:[{i:"🐘",l:"Elephant"},{i:"🐜",l:"Ant"}],c:0},
-{t:"5. More or Less",p:"Which group has MORE objects?",o:[{i:"🔵🔵🔵",l:"5 Blue"},{i:"🔴🔴",l:"2 Red"}],c:0},
-{t:"6. Spatial Position",p:"Where is the bird perched?",o:[{i:"🌳🐦",l:"ON Tree"},{i:"🌳\n🐦",l:"UNDER Tree"}],c:0},
-{t:"7. Number Recognition",p:"Which symbol is number FOUR?",o:[{i:"2️⃣",l:"Two"},{i:"4️⃣",l:"Four"},{i:"7️⃣",l:"Seven"}],c:1},
-{t:"8. Matching Sets",p:"Which number matches two apples? 🍎 🍎",o:[{i:"1️⃣",l:"One"},{i:"2️⃣",l:"Two"},{i:"3️⃣",l:"Three"}],c:1},
-{t:"9. Height Comparison",p:"Which animal is TALLER?",o:[{i:"🦒",l:"Giraffe"},{i:"🦦",l:"Meerkat"}],c:0},
-{t:"10. 3D Objects",p:"What 3D shape is a round soccer ball?",o:[{i:"⚽",l:"Sphere"},{i:"📦",l:"Cube"}],c:0},
-{t:"11. Early Addition",p:"1 monkey 🐒 + 1 monkey 🐒 = How many?",o:[{i:"1️⃣",l:"One"},{i:"2️⃣",l:"Two"},{i:"3️⃣",l:"Three"}],c:1},
-{t:"12. Time Sequence",p:"When do we sleep under the stars?",o:[{i:"🌙",l:"Night Time"},{i:"☀️",l:"Day Time"}],c:0}
+{t:"4. Size Comparison",p:"Which animal is BIGGER?",o:[{i:"🐘",l:"Elephant"},{i:"🐜",l:"Ant"}],c:0}
 ],
 phonics:[
-{t:"1. Initial Sound /s/",p:"Listen carefully! s... s... s... What sound does Sun ☀️ start with?",spkTxt:"Listen carefully! s... s... s... What sound does Sun start with? Is it s, b, or m?",o:[{i:"☀️",l:"Sound /s/"},{i:"🐝",l:"Sound /b/"},{i:"🐒",l:"Sound /m/"}],c:0},
-{t:"2. Initial Sound /a/",p:"Listen carefully! a... a... a... What sound does Apple 🍎 start with?",spkTxt:"Listen carefully! a... a... a... What sound does Apple start with? Is it a, t, or p?",o:[{i:"🍎",l:"Sound /a/"},{i:"🐅",l:"Sound /t/"},{i:"🐧",l:"Sound /p/"}],c:0},
-{t:"3. Initial Sound /t/",p:"Listen carefully! t... t... t... What sound does Tiger 🐅 start with?",spkTxt:"Listen carefully! t... t... t... What sound does Tiger start with? Is it t, d, or s?",o:[{i:"🐅",l:"Sound /t/"},{i:"🐶",l:"Sound /d/"},{i:"☀️",l:"Sound /s/"}],c:0},
-{t:"4. Rhyming Words",p:"Which picture rhymes with Cat 🐱?",spkTxt:"Which word rhymes with Cat? Cat, Hat! Cat, Dog! or Cat, Fish!",o:[{i:"🎩",l:"Hat"},{i:"🐶",l:"Dog"},{i:"🐟",l:"Fish"}],c:0},
-{t:"5. Rhyming Words",p:"Which picture rhymes with Sun ☀️?",spkTxt:"Which word rhymes with Sun? Sun, Run! Sun, Tree! or Sun, Car!",o:[{i:"🏃",l:"Run"},{i:"🌳",l:"Tree"},{i:"🚗",l:"Car"}],c:0},
-{t:"6. Animal Sounds",p:"Which animal makes a loud ROAR sound?",spkTxt:"Which animal makes a loud roar sound?",o:[{i:"🦁",l:"Lion"},{i:"🐸",l:"Frog"},{i:"🐥",l:"Duck"}],c:0},
-{t:"7. Vocabulary",p:"Which animal has a very long neck?",spkTxt:"Which safari animal has a very long neck?",o:[{i:"🦒",l:"Giraffe"},{i:"🦛",l:"Hippo"},{i:"🦓",l:"Zebra"}],c:0},
-{t:"8. Syllables",p:"Clap Sa-fa-ri 🦁. How many claps do you hear?",spkTxt:"Clap Sa-fa-ri! Sa... fa... ri... How many claps do you hear?",o:[{i:"👏",l:"1 Clap"},{i:"👏👏",l:"2 Claps"},{i:"👏👏👏",l:"3 Claps"}],c:2},
-{t:"9. Opposites",p:"What is the opposite of HOT ☀️?",spkTxt:"What is the opposite of hot?",o:[{i:"🧊",l:"Cold"},{i:"🔥",l:"Warm"}],c:0},
-{t:"10. Story Sequence",p:"What comes FIRST when growing a flower?",spkTxt:"What comes first when growing a flower? Planting a seed, or picking the flower?",o:[{i:"🌱",l:"Plant Seed"},{i:"🌻",l:"Pick Flower"}],c:0},
-{t:"11. Listening",p:"Listen! m... m... m... Which animal starts with /m/?",spkTxt:"Listen! m... m... m... Which animal starts with sound m? Monkey or Elephant?",o:[{i:"🐒",l:"Monkey"},{i:"🐘",l:"Elephant"}],c:0},
-{t:"12. Letter Match",p:"Match lowercase 'a' with uppercase letter:",spkTxt:"Match lowercase letter a with its capital letter!",o:[{i:"🅰️",l:"Letter A"},{i:"🅱️",l:"Letter B"},{i:"Ⓜ️",l:"Letter M"}],c:0}
+{t:"1. Sound /s/ (The Green Dress)",p:"Listen carefully! s... s... s... What sound does Sun start with?",spkTxt:"Listen carefully! s... s... s... What sound does Sun start with?",o:[{i:"☀️",l:"Sound /s/"},{i:"🐝",l:"Sound /b/"},{i:"🐒",l:"Sound /m/"}],c:0},
+{t:"2. Sound /f/ (Run Lindi Run)",p:"Listen carefully! f... f... f... What sound does Finish start with?",spkTxt:"Listen carefully! f... f... f... What sound does Finish start with?",o:[{i:"🏁",l:"Sound /f/"},{i:"🐱",l:"Sound /c/"},{i:"🌳",l:"Sound /r/"}],c:0},
+{t:"3. Sound /b/ (Ali and the Paint)",p:"Listen carefully! b... b... b... What sound does Ball start with?",spkTxt:"Listen carefully! b... b... b... What sound does Ball start with?",o:[{i:"⚽",l:"Sound /b/"},{i:"☀️",l:"Sound /s/"},{i:"🌊",l:"Sound /w/"}],c:0},
+{t:"4. Sound /w/ (A Beautiful Day)",p:"Listen carefully! w... w... w... What sound does Water start with?",spkTxt:"Listen carefully! w... w... w... What sound does Water start with?",o:[{i:"💧",l:"Sound /w/"},{i:"🍎",l:"Sound /a/"},{i:"🐅",l:"Sound /t/"}],c:0},
+{t:"5. Sound /t/ (Teacher Akinyi)",p:"Listen carefully! t... t... t... What sound does Teacher start with?",spkTxt:"Listen carefully! t... t... t... What sound does Teacher start with?",o:[{i:"👩‍🏫",l:"Sound /t/"},{i:"🐒",l:"Sound /m/"},{i:"🚗",l:"Sound /r/"}],c:0}
 ],
 lifeskills:[
-{t:"1. Personal Hygiene",p:"What must we do before eating food 🍎?",o:[{i:"🧼",l:"Wash Hands"},{i:"😴",l:"Go Sleep"}],c:0},
-{t:"2. Road Safety",p:"What does a RED traffic light signal tell us? 🚦",o:[{i:"🛑",l:"Stop"},{i:"🏃",l:"Run"}],c:0},
-{t:"3. Healthy Eating",p:"Which snack is healthy for our body?",o:[{i:"🍎",l:"Fresh Apple"},{i:"🍬",l:"Sweet Candy"}],c:0},
-{t:"4. Body Awareness",p:"Which body part do we use to SEE safari animals?",o:[{i:"👀",l:"Eyes"},{i:"👂",l:"Ears"}],c:0},
-{t:"5. Emotions",p:"How is this friend feeling? 😊",o:[{i:"😊",l:"Happy"},{i:"😢",l:"Sad"}],c:0},
-{t:"6. Weather",p:"What should we wear when it is raining 🌧️?",o:[{i:"🧥",l:"Raincoat"},{i:"🩳",l:"Swimsuit"}],c:0},
-{t:"7. Environment",p:"Where do we throw empty sweet wrappers?",o:[{i:"🗑️",l:"In Dustbin"},{i:"🌿",l:"On Ground"}],c:0},
-{t:"8. Water Safety",p:"What must you wear near deep water 🏊?",o:[{i:"🤿",l:"Life Jacket"},{i:"👟",l:"Heavy Shoes"}],c:0},
-{t:"9. Community Helpers",p:"Who puts out dangerous fires 🚒?",o:[{i:"🧑‍🚒",l:"Firefighter"},{i:"👨‍🍳",l:"Chef"}],c:0},
-{t:"10. Good Manners",p:"When someone gives a gift, what do you say?",o:[{i:"🎁❤️",l:"Thank You!"},{i:"❌",l:"No way!"}],c:0},
-{t:"11. Four Seasons",p:"In which season do colorful flowers bloom?",o:[{i:"🌸",l:"Spring"},{i:"❄️",l:"Winter"}],c:0},
-{t:"12. Animal Welfare",p:"How should we treat safari animals 🐾?",o:[{i:"❤️",l:"Gently & Kind"},{i:"⚡",l:"Roughly"}],c:0}
+{t:"1. Personal Hygiene",p:"What must Zinzi and Sam do before eating food?",o:[{i:"🧼",l:"Wash Hands"},{i:"😴",l:"Go Sleep"}],c:0},
+{t:"2. Healthy Living",p:"What did Lindi eat for breakfast to stay strong?",o:[{i:"🥣",l:"Warm Porridge"},{i:"🍬",l:"Sweet Candy"}],c:0},
+{t:"3. Body Awareness",p:"Where did little Ali rub the red paint?",o:[{i:"🔴",l:"Tummy"},{i:"👃",l:"Nose"}],c:0},
+{t:"4. Outdoor Picnic",p:"What did Nicholas and his family pack food in?",o:[{i:"🧺",l:"Picnic Basket"},{i:"🎒",l:"School Bag"}],c:0}
 ],
-coding:[
-{t:"1. Grid Navigation",p:"Guide Rover 🤖 step by step to Zebra 🦓!",g:1},
-{t:"2. Sequence",p:"Which step comes FIRST in robot instructions?",o:[{i:"🟢",l:"Start Power"},{i:"🔴",l:"Stop"}],c:0},
-{t:"3. Directions",p:"Which arrow points to the RIGHT?",o:[{i:"➡️",l:"Right"},{i:"⬅️",l:"Left"},{i:"⬆️",l:"Up"}],c:0},
-{t:"4. Debugging",p:"The robot got stuck! Fixing code is called...",o:[{i:"🐛",l:"Debugging"},{i:"😴",l:"Sleeping"}],c:0},
-{t:"5. Repeat Loops",p:"To repeat steps without adding code, use a...",o:[{i:"🔁",l:"Loop"},{i:"⏹️",l:"Break"}],c:0},
-{t:"6. Input/Output",p:"Pressing a switch 🔘 turns on light 💡. Switch is...",o:[{i:"📥",l:"Input"},{i:"📤",l:"Output"}],c:0},
-{t:"7. Color Sorting",p:"Where should the RED coding card go? 🔴",o:[{i:"🔴",l:"Red Box"},{i:"🔵",l:"Blue Box"}],c:0},
-{t:"8. Spatial Orientation",p:"Where is the sun ☀️ located on the grid?",o:[{i:"⬆️",l:"Top Corner"},{i:"⬇️",l:"Bottom"}],c:0},
-{t:"9. Algorithm Steps",p:"Step-by-step instructions are called an...",o:[{i:"📋",l:"Algorithm"},{i:"❌",l:"Mistake"}],c:0},
-{t:"10. Binary Logic",p:"What binary number means ON in robotics?",o:[{i:"1️⃣",l:"1 (ON)"},{i:"0️⃣",l:"0 (OFF)"}],c:0},
-{t:"11. Obstacles",p:"River in front! Which command avoids danger?",o:[{i:"↪️",l:"Turn Around"},{i:"➡️",l:"Drive On"}],c:0},
-{t:"12. Mission Completion",p:"All tasks finished! What does Rover reach?",o:[{i:"⛺",l:"Safari Camp!"},{i:"🌲",l:"Lost Forest"}],c:0}
+stories:[
+{t:"1. The Green Dress",p:"Zinzi couldn't find her green dress. Where did Spot the dog sleep?",spkTxt:"Story 1. The Green Dress. Zinzi could not find her green dress. Where did Spot the dog sleep? Was it in the cupboard, or under the bed?",o:[{i:"🚪",l:"In Cupboard"},{i:"🛏️",l:"Under Bed"}],c:0},
+{t:"2. Run Lindi Run",p:"Lindi loved to run fast! Who gave Lindi a shiny medal at the end of the race?",spkTxt:"Story 2. Run Lindi Run. Lindi loved to run fast! Who gave Lindi a shiny medal at the end of the race?",o:[{i:"👨🏽‍🦱",l:"Mr Ibrahim"},{i:"👶",l:"Little Brother"}],c:0},
+{t:"3. Ali and the Paint",p:"Ali painted parts of his body! What colour paint did he put on his nose?",spkTxt:"Story 3. Ali and the Paint. Ali painted parts of his body! What colour paint did he put on his nose?",o:[{i:"🟢",l:"Green Paint"},{i:"🔵",l:"Blue Paint"}],c:0},
+{t:"4. A Beautiful Day",p:"Nicholas went on a family picnic near what natural landmark?",spkTxt:"Story 4. A Beautiful Day. Nicholas went on a family picnic near what natural landmark?",o:[{i:"🌊",l:"The River"},{i:"⛰️",l:"The Mountain"}],c:0},
+{t:"5. Teacher Akinyi",p:"What did Mandisa and Thabo plant outside with Teacher Akinyi?",spkTxt:"Story 5. Teacher Akinyi. What did Mandisa and Thabo plant outside with Teacher Akinyi?",o:[{i:"🌱",l:"Mealie Seed"},{i:"🌹",l:"Rose Flower"}],c:0}
 ]
 };
-function build(){for(var sub in D){var sec=document.getElementById(sub),h='';D[sub].forEach((a,i)=>{var sTxt = a.spkTxt || a.p; h+='<div class="card"><h2>'+a.t+'</h2><div class="prompt-box"><p class="prompt">'+a.p+'</p><button class="spk-btn" onclick="spk(\''+sTxt.replace(/'/g,"\\'")+'\')">🔊 Listen</button></div>';if(a.g){h+='<div class="c-grid"><div class="cell" id="c-0">🤖</div><div class="cell" id="c-1"></div><div class="cell" id="c-2">🦓</div></div><div class="ctrls"><button class="ctrl-btn" onclick="mvBot()">Move Right ➡️</button><button class="ctrl-btn" style="background:#64748b" onclick="rstBot()">Reset 🔄</button></div><div id="g-fb" class="fb"></div>';}else{var id=sub+'-'+i;h+='<div class="grid">';a.o.forEach((opt,oi)=>{h+='<button class="opt-btn" onclick="chk(this,'+(oi===a.c)+',\''+id+'\')"><span class="pic-icon">'+opt.i+'</span><span>'+opt.l+'</span></button>';});h+='</div><div id="'+id+'-fb" class="fb"></div>';}h+='</div>';});sec.innerHTML=h;}}
+
+function build(){for(var sub in D){var sec=document.getElementById(sub),h='';D[sub].forEach((a,i)=>{var sTxt = a.spkTxt || a.p; h+='<div class="card"><h2>'+a.t+'</h2><div class="prompt-box"><p class="prompt">'+a.p+'</p><button class="spk-btn" onclick="spk(\''+sTxt.replace(/'/g,"\\'")+'\')">🔊 Listen</button></div>';var id=sub+'-'+i;h+='<div class="grid">';a.o.forEach((opt,oi)=>{h+='<button class="opt-btn" onclick="chk(this,'+(oi===a.c)+',\''+id+'\')"><span class="pic-icon">'+opt.i+'</span><span>'+opt.l+'</span></button>';});h+='</div><div id="'+id+'-fb" class="fb"></div></div>';});sec.innerHTML=h;}}
+
 function tab(id,btn){var s=document.getElementsByClassName('subject-section'),b=document.getElementsByClassName('tab-btn');for(var i=0;i<s.length;i++)s[i].classList.remove('active');for(var j=0;j<b.length;j++)b[j].classList.remove('active');document.getElementById(id).classList.add('active');btn.classList.add('active');}
+
 function chk(btn,isC,id){var fb=document.getElementById(id+'-fb'),s=btn.parentElement.getElementsByClassName('opt-btn');for(var i=0;i<s.length;i++)s[i].classList.remove('correct','wrong');if(isC){btn.classList.add('correct');if(fb){fb.className="fb correct";fb.innerHTML="🌟 Excelled! Correct Answer!";}spk("Excelled! That is correct!");confetti();if(btn.getAttribute('data-scored')!=='true'){stars++;btn.setAttribute('data-scored','true');document.getElementById('s-cnt').innerText=stars;updRank();}}else{btn.classList.add('wrong');if(fb){fb.className="fb wrong";fb.innerHTML="❌ Try again!";}spk("Not quite. Try again!");}}
+
 function updRank(){var r=document.getElementById('r-bdg');if(stars>=30)r.innerText="Safari Master 👑";else if(stars>=15)r.innerText="Safari Champion 🏆";else if(stars>=5)r.innerText="Junior Guide 🌿";else r.innerText="Safari Explorer 🦁";}
-function mvBot(){var fb=document.getElementById('g-fb');if(rPos<2){document.getElementById('c-'+rPos).innerText='';rPos++;document.getElementById('c-'+rPos).innerText='🤖';if(rPos===2){if(fb){fb.className="fb correct";fb.innerHTML="🎉 Fantastic! Rover reached the Zebra!";}spk("Fantastic! Rover reached the Zebra!");confetti();stars+=2;document.getElementById('s-cnt').innerText=stars;updRank();}}}
-function rstBot(){document.getElementById('c-'+rPos).innerText='';rPos=0;document.getElementById('c-0').innerText='🤖';document.getElementById('c-1').innerText='';document.getElementById('c-2').innerText='🦓';var fb=document.getElementById('g-fb');if(fb)fb.style.display='none';}
+
 build();
 </script>
 </body>
