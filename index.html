@@ -19,8 +19,11 @@ header p{font-size:.95rem;opacity:.95;text-shadow:0 1px 3px rgba(0,0,0,.2);}
 .animal-bar{display:flex;justify-content:center;gap:.7rem;margin-top:1rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.3);}
 .animal-btn{font-size:1.9rem;background:rgba(255,255,255,.95);border:3px solid #ffe082;border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .15s;}
 .animal-btn:active{transform:scale(1.25) rotate(12deg);}
-.score-banner{background:#fff8e1;border-bottom:3px solid #ffe082;padding:.7rem 1rem;display:flex;justify-content:space-around;font-weight:700;color:#e65100;font-size:1.05rem;}
+.score-banner{background:#fff8e1;border-bottom:3px solid #ffe082;padding:.7rem 1rem;display:flex;justify-content:space-around;font-weight:700;color:#e65100;font-size:1.05rem;align-items:center;}
 .score-badge{background:#fff;padding:.35rem 1.1rem;border-radius:20px;border:2px solid #ffb74d;box-shadow:0 2px 4px rgba(0,0,0,.05);}
+.level-toggle{display:flex;background:#ffe082;padding:.2rem;border-radius:20px;border:2px solid #f57c00;gap:.2rem;}
+.lvl-btn{background:transparent;border:none;padding:.3rem .8rem;border-radius:16px;font-weight:700;cursor:pointer;color:#b45309;font-size:.85rem;}
+.lvl-btn.active{background:#e65100;color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);}
 .nav-tabs{display:flex;justify-content:center;gap:.4rem;background:#e8f5e9;padding:.8rem .5rem;position:sticky;top:0;z-index:100;flex-wrap:wrap;}
 .tab-btn{background:#fff;border:2.5px solid #cbd5e1;padding:.55rem 1rem;border-radius:22px;font-weight:700;cursor:pointer;color:#475569;box-shadow:0 3px 0 #cbd5e1;font-size:.9rem;}
 .tab-btn.active[data-tab="maths"]{background:#2e7d32;color:#fff;border-color:#1b5e20;box-shadow:0 3px 0 #1b5e20;}
@@ -75,13 +78,17 @@ footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background
 <div class="score-banner">
 <div class="score-badge">⭐ Stars: <span id="s-cnt">0</span></div>
 <div class="score-badge">🏆 Rank: <span id="r-bdg">Safari Explorer</span></div>
+<div class="level-toggle">
+<button id="btn-lvl1" class="lvl-btn active" onclick="setLvl(1)">Level 1</button>
+<button id="btn-lvl2" class="lvl-btn" onclick="setLvl(2)">Level 2</button>
+</div>
 </div>
 <nav class="nav-tabs">
-<button class="tab-btn active" data-tab="maths" onclick="tab('maths',this)">🔢 Maths (15)</button>
-<button class="tab-btn" data-tab="phonics" onclick="tab('phonics',this)">🔤 Phonics (15)</button>
-<button class="tab-btn" data-tab="coding" onclick="tab('coding',this)">🤖 Coding &amp; Robotics (12)</button>
-<button class="tab-btn" data-tab="lifeskills" onclick="tab('lifeskills',this)">🎨 Life Skills (12)</button>
-<button class="tab-btn" data-tab="stories" onclick="tab('stories',this)">📖 Stories (25)</button>
+<button class="tab-btn active" data-tab="maths" onclick="tab('maths',this)">🔢 Maths (30)</button>
+<button class="tab-btn" data-tab="phonics" onclick="tab('phonics',this)">🔤 Phonics (30)</button>
+<button class="tab-btn" data-tab="coding" onclick="tab('coding',this)">🤖 Coding &amp; Robotics (24)</button>
+<button class="tab-btn" data-tab="lifeskills" onclick="tab('lifeskills',this)">🎨 Life Skills (24)</button>
+<button class="tab-btn" data-tab="stories" onclick="tab('stories',this)">📖 Stories (50)</button>
 </nav>
 <main>
 <section id="maths" class="subject-section active"></section>
@@ -93,98 +100,129 @@ footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background
 <footer>CAPS Grade R Safari Express &bull; Developed by Nhlanhla Tsolo</footer>
 <script>
 if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(regs){for(var r of regs){r.unregister();}});}
-var stars=0,rPos=0,saV=null;
+var stars=0,saV=null,curLvl=1;
 function lV(){if('speechSynthesis'in window){var v=window.speechSynthesis.getVoices();saV=v.find(x=>x.lang==='en-ZA'||x.lang.includes('ZA'))||v.find(x=>x.lang.startsWith('en'));}}
 if('speechSynthesis'in window){window.speechSynthesis.onvoiceschanged=lV;lV();}
 function spk(t){if('speechSynthesis'in window){window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu,''));u.lang='en-ZA';u.rate=0.82;if(saV)u.voice=saV;window.speechSynthesis.speak(u);}}
 function tAnim(type){try{var ctx=new(window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);if(type==='lion'){o.frequency.setValueAtTime(120,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(50,ctx.currentTime+.4);g.gain.setValueAtTime(.3,ctx.currentTime);o.start();o.stop(ctx.currentTime+.4);spk("Roar! I am a brave Safari Lion!");}else if(type==='elephant'){o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.3);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3);spk("I am a big Safari Elephant!");}else if(type==='giraffe')spk("I am a tall Safari Giraffe!");else if(type==='zebra')spk("I am a fast Safari Zebra!");else if(type==='monkey'){o.frequency.setValueAtTime(600,ctx.currentTime);g.gain.setValueAtTime(.2,ctx.currentTime);o.start();o.stop(ctx.currentTime+.2);spk("I am a playful Safari Monkey!");}}catch(e){}}
 function confetti(){var c=document.getElementById('c-canvas'),x=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;var p=[],cols=['#f59e0b','#10b981','#3b82f6','#ec4899','#8b5cf6'];for(var i=0;i<35;i++)p.push({x:c.width/2,y:c.height/2,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10-3,s:Math.random()*7+3,c:cols[Math.floor(Math.random()*cols.length)]});var t=setInterval(()=>{x.clearRect(0,0,c.width,c.height);p.forEach(k=>{k.x+=k.vx;k.y+=k.vy;k.vy+=.2;x.fillStyle=k.c;x.fillRect(k.x,k.y,k.s,k.s);});},20);setTimeout(()=>{clearInterval(t);x.clearRect(0,0,c.width,c.height);},1000);}
 
-var D={
+var D1={
 maths:[
 {t:"1. Counting Lions",p:"How many lions do you see? 🦁 🦁 🦁",o:[{i:"2️⃣",l:"2"},{i:"3️⃣",l:"3"},{i:"5️⃣",l:"5"}],c:1},
 {t:"2. Shape Recognition",p:"Which 2D shape matches Ali's round ball? ⚽",o:[{i:"🔴",l:"Circle"},{i:"🟦",l:"Square"},{i:"🔺",l:"Triangle"}],c:0},
-{t:"3. Patterns & Sequence",p:"Complete pattern: Apple 🍎, Banana 🍌, Apple 🍎, Banana 🍌...",o:[{i:"🍎",l:"Apple"},{i:"🍌",l:"Banana"},{i:"🍇",l:"Grapes"}],c:0},
-{t:"4. Size Comparison",p:"Which animal is BIGGER?",o:[{i:"🐘",l:"Elephant"},{i:"🐜",l:"Ant"}],c:0},
-{t:"5. Counting Zebras",p:"How many zebras are drinking water? 🦓 🦓",o:[{i:"1️⃣",l:"1"},{i:"2️⃣",l:"2"},{i:"4️⃣",l:"4"}],c:1},
-{t:"6. Number Match",p:"Find the number that matches 5 fingers 🖐️",o:[{i:"3️⃣",l:"3"},{i:"5️⃣",l:"5"},{i:"1️⃣",l:"1"}],c:1},
-{t:"7. Height Comparison",p:"Which animal is TALLER?",o:[{i:"🦒",l:"Giraffe"},{i:"🐢",l:"Tortoise"}],c:0},
-{t:"8. Length Comparison",p:"Which snake is LONGER? 🐍",o:[{i:"📏",l:"Long Snake"},{i:"🐛",l:"Short Worm"}],c:0},
-{t:"9. Weight Comparison",p:"Which object is HEAVIER?",o:[{i:"🪨",l:"Big Rock"},{i:"🪶",l:"Light Feather"}],c:0},
+{t:"3. Patterns & Sequence",p:"Complete pattern: Apple 🍎, Banana 🍌, Apple 🍎, Banana 🍌...",o:[{i:"🍌",l:"Banana"},{i:"🍎",l:"Apple"},{i:"🍇",l:"Grapes"}],c:1},
+{t:"4. Size Comparison",p:"Which animal is BIGGER?",o:[{i:"🐜",l:"Ant"},{i:"🐘",l:"Elephant"},{i:"🐈",l:"Cat"}],c:1},
+{t:"5. Counting Zebras",p:"How many zebras are drinking water? 🦓 🦓",o:[{i:"4️⃣",l:"4"},{i:"1️⃣",l:"1"},{i:"2️⃣",l:"2"}],c:2},
+{t:"6. Number Match",p:"Find the number that matches 5 fingers 🖐️",o:[{i:"5️⃣",l:"5"},{i:"3️⃣",l:"3"},{i:"1️⃣",l:"1"}],c:0},
+{t:"7. Height Comparison",p:"Which animal is TALLER?",o:[{i:"🐢",l:"Tortoise"},{i:"🦒",l:"Giraffe"},{i:"🐕",l:"Dog"}],c:1},
+{t:"8. Length Comparison",p:"Which snake is LONGER? 🐍",o:[{i:"🐛",l:"Short Worm"},{i:"📏",l:"Long Snake"}],c:1},
+{t:"9. Weight Comparison",p:"Which object is HEAVIER?",o:[{i:"🪶",l:"Light Feather"},{i:"🪨",l:"Big Rock"}],c:1},
 {t:"10. Position: Inside & Outside",p:"Where is the dog? 🐶🏠",o:[{i:"🚪",l:"Inside House"},{i:"🌳",l:"Far Outside"}],c:0},
-{t:"11. Position: Top & Bottom",p:"Which animal is at the TOP of the tree? 🐒🌴",o:[{i:"🐒",l:"Monkey on Top"},{i:"🌱",l:"Grass Bottom"}],c:0},
-{t:"12. Sorting Colors",p:"Which object is YELLOW like the sun? ☀️",o:[{i:"🍋",l:"Lemon"},{i:"🫐",l:"Blueberry"}],c:0},
-{t:"13. Simple Addition",p:"1 Mealie seed plus 1 Mealie seed makes how many? 🌱 + 🌱",o:[{i:"2️⃣",l:"2 Seeds"},{i:"3️⃣",l:"3 Seeds"}],c:0},
-{t:"14. Capacity",p:"Which container holds MORE water? 🪣 vs ☕",o:[{i:"🪣",l:"Big Bucket"},{i:"☕",l:"Small Cup"}],c:0},
+{t:"11. Position: Top & Bottom",p:"Which animal is at the TOP of the tree? 🐒🌴",o:[{i:"🌱",l:"Grass Bottom"},{i:"🐒",l:"Monkey on Top"}],c:1},
+{t:"12. Sorting Colors",p:"Which object is YELLOW like the sun? ☀️",o:[{i:"🫐",l:"Blueberry"},{i:"🍋",l:"Lemon"},{i:"🔴",l:"Red Cherry"}],c:1},
+{t:"13. Simple Addition",p:"1 Mealie seed plus 1 Mealie seed makes how many? 🌱 + 🌱",o:[{i:"3️⃣",l:"3 Seeds"},{i:"2️⃣",l:"2 Seeds"}],c:1},
+{t:"14. Capacity",p:"Which container holds MORE water? 🪣 vs ☕",o:[{i:"☕",l:"Small Cup"},{i:"🪣",l:"Big Bucket"}],c:1},
 {t:"15. Time & Routine",p:"When do we see the bright Sun and wake up? ☀️",o:[{i:"🌅",l:"Morning"},{i:"🌙",l:"Nighttime"}],c:0}
 ],
 phonics:[
-{t:"1. Sound /s/ (The Green Dress)",p:"Listen carefully! s... s... s... What sound does Sun start with?",spkTxt:"Listen carefully! s... s... s... What sound does Sun start with?",o:[{i:"☀️",l:"Sound /s/"},{i:"🐝",l:"Sound /b/"},{i:"🐒",l:"Sound /m/"}],c:0},
-{t:"2. Sound /f/ (Run Lindi Run)",p:"Listen carefully! f... f... f... What sound does Finish start with?",spkTxt:"Listen carefully! f... f... f... What sound does Finish start with?",o:[{i:"🏁",l:"Sound /f/"},{i:"🐱",l:"Sound /c/"},{i:"🌳",l:"Sound /r/"}],c:0},
-{t:"3. Sound /b/ (Ali and the Paint)",p:"Listen carefully! b... b... b... What sound does Ball start with?",spkTxt:"Listen carefully! b... b... b... What sound does Ball start with?",o:[{i:"⚽",l:"Sound /b/"},{i:"☀️",l:"Sound /s/"},{i:"🌊",l:"Sound /w/"}],c:0},
-{t:"4. Sound /w/ (A Beautiful Day)",p:"Listen carefully! w... w... w... What sound does Water start with?",spkTxt:"Listen carefully! w... w... w... What sound does Water start with?",o:[{i:"💧",l:"Sound /w/"},{i:"🍎",l:"Sound /a/"},{i:"🐅",l:"Sound /t/"}],c:0},
-{t:"5. Sound /t/ (Teacher Akinyi)",p:"Listen carefully! t... t... t... What sound does Teacher start with?",spkTxt:"Listen carefully! t... t... t... What sound does Teacher start with?",o:[{i:"👩‍🏫",l:"Sound /t/"},{i:"🐒",l:"Sound /m/"},{i:"🚗",l:"Sound /r/"}],c:0},
-{t:"6. Sound /a/ (Apple)",p:"What sound does Apple start with? 🍎",spkTxt:"What sound does Apple start with?",o:[{i:"🍎",l:"Sound /a/"},{i:"🐍",l:"Sound /s/"},{i:"⚽",l:"Sound /b/"}],c:0},
+{t:"1. Sound /s/ (The Green Dress)",p:"What sound does Sun start with? ☀️",spkTxt:"What sound does Sun start with?",o:[{i:"🐝",l:"Sound /b/"},{i:"☀️",l:"Sound /s/"},{i:"🐒",l:"Sound /m/"}],c:1},
+{t:"2. Sound /f/ (Run Lindi Run)",p:"What sound does Finish start with? 🏁",spkTxt:"What sound does Finish start with?",o:[{i:"🏁",l:"Sound /f/"},{i:"🐱",l:"Sound /c/"},{i:"🌳",l:"Sound /r/"}],c:0},
+{t:"3. Sound /b/ (Ali and the Paint)",p:"What sound does Ball start with? ⚽",spkTxt:"What sound does Ball start with?",o:[{i:"☀️",l:"Sound /s/"},{i:"⚽",l:"Sound /b/"},{i:"🌊",l:"Sound /w/"}],c:1},
+{t:"4. Sound /w/ (A Beautiful Day)",p:"What sound does Water start with? 💧",spkTxt:"What sound does Water start with?",o:[{i:"🍎",l:"Sound /a/"},{i:"🐅",l:"Sound /t/"},{i:"💧",l:"Sound /w/"}],c:2},
+{t:"5. Sound /t/ (Teacher Akinyi)",p:"What sound does Teacher start with? 👩‍🏫",spkTxt:"What sound does Teacher start with?",o:[{i:"👩‍🏫",l:"Sound /t/"},{i:"🐒",l:"Sound /m/"},{i:"🚗",l:"Sound /r/"}],c:0},
+{t:"6. Sound /a/ (Apple)",p:"What sound does Apple start with? 🍎",spkTxt:"What sound does Apple start with?",o:[{i:"🐍",l:"Sound /s/"},{i:"🍎",l:"Sound /a/"},{i:"⚽",l:"Sound /b/"}],c:1},
 {t:"7. Sound /m/ (Monkey)",p:"What sound does Monkey start with? 🐒",spkTxt:"What sound does Monkey start with?",o:[{i:"🐒",l:"Sound /m/"},{i:"💧",l:"Sound /w/"},{i:"🏁",l:"Sound /f/"}],c:0},
-{t:"8. Sound /p/ (Pig)",p:"What sound does Pig start with? 🐷",spkTxt:"What sound does Pig start with?",o:[{i:"🐷",l:"Sound /p/"},{i:"☀️",l:"Sound /s/"},{i:"👩‍🏫",l:"Sound /t/"}],c:0},
-{t:"9. Rhyming Words",p:"Which word rhymes with CAT? 🐱",spkTxt:"Which word rhymes with CAT?",o:[{i:"🎩",l:"Hat"},{i:"🐶",l:"Dog"},{i:"🚗",l:"Car"}],c:0},
-{t:"10. Beginning Sound",p:"Which picture starts with sound /d/ for Dog? 🐕",spkTxt:"Which picture starts with sound /d for dog?",o:[{i:"🐕",l:"Dog"},{i:"🍎",l:"Apple"},{i:"⚽",l:"Ball"}],c:0},
-{t:"11. Syllable Clapping",p:"How many claps in ELEPHANT? 🐘",spkTxt:"How many claps in elephant? E-le-phant.",o:[{i:"3️⃣",l:"3 Claps"},{i:"1️⃣",l:"1 Clap"}],c:0},
-{t:"12. Oral Vocabulary",p:"What do we use to listen to stories? 👂",spkTxt:"What do we use to listen to stories?",o:[{i:"👂",l:"Ears"},{i:"👁️",l:"Eyes"}],c:0},
+{t:"8. Sound /p/ (Pig)",p:"What sound does Pig start with? 🐷",spkTxt:"What sound does Pig start with?",o:[{i:"☀️",l:"Sound /s/"},{i:"🐷",l:"Sound /p/"},{i:"👩‍🏫",l:"Sound /t/"}],c:1},
+{t:"9. Rhyming Words",p:"Which word rhymes with CAT? 🐱",spkTxt:"Which word rhymes with CAT?",o:[{i:"🐶",l:"Dog"},{i:"🎩",l:"Hat"},{i:"🚗",l:"Car"}],c:1},
+{t:"10. Beginning Sound",p:"Which picture starts with sound /d/ for Dog? 🐕",spkTxt:"Which picture starts with sound /d for dog?",o:[{i:"🍎",l:"Apple"},{i:"🐕",l:"Dog"},{i:"⚽",l:"Ball"}],c:1},
+{t:"11. Syllable Clapping",p:"How many claps in ELEPHANT? 🐘",spkTxt:"How many claps in elephant? E-le-phant.",o:[{i:"1️⃣",l:"1 Clap"},{i:"3️⃣",l:"3 Claps"}],c:1},
+{t:"12. Oral Vocabulary",p:"What do we use to listen to stories? 👂",spkTxt:"What do we use to listen to stories?",o:[{i:"👁️",l:"Eyes"},{i:"👂",l:"Ears"}],c:1},
 {t:"13. Letter Recognition",p:"Find uppercase letter S 🔤",spkTxt:"Find uppercase letter S.",o:[{i:"🔤",l:"Letter S"},{i:"🔠",l:"Letter A"}],c:0},
-{t:"14. Story Sequence",p:"What happened first when waking up? 🌅",spkTxt:"What happened first when waking up?",o:[{i:"🛏️",l:"Get out of bed"},{i:"🌙",l:"Go to sleep"}],c:0},
+{t:"14. Story Sequence",p:"What happened first when waking up? 🌅",spkTxt:"What happened first when waking up?",o:[{i:"🌙",l:"Go to sleep"},{i:"🛏️",l:"Get out of bed"}],c:1},
 {t:"15. Sound /c/ (Cat)",p:"What sound does Cat start with? 🐈",spkTxt:"What sound does Cat start with?",o:[{i:"🐈",l:"Sound /c/"},{i:"💧",l:"Sound /w/"},{i:"☀️",l:"Sound /s/"}],c:0}
 ],
 coding:[
-{t:"1. Robotic Direction",p:"Program the Safari Rover to move FORWARD! ⬆️",spkTxt:"Program the Safari Rover to move forward!",o:[{i:"⬆️",l:"Forward Move"},{i:"⬇️",l:"Backward Move"}],c:0},
+{t:"1. Robotic Direction",p:"Program the Safari Rover to move FORWARD! ⬆️",spkTxt:"Program the Safari Rover to move forward!",o:[{i:"⬇️",l:"Backward Move"},{i:"⬆️",l:"Forward Move"}],c:1},
 {t:"2. Unplugged Algorithm",p:"Which step comes FIRST when brushing teeth? 🦷",spkTxt:"Which step comes first when brushing teeth?",o:[{i:"🪥",l:"Put paste on brush"},{i:"😁",l:"Smile clean teeth"}],c:0},
-{t:"3. Coding Turn",p:"Turn RIGHT to navigate around the thorn tree ➡️",spkTxt:"Turn right to navigate around the thorn tree.",o:[{i:"➡️",l:"Turn Right"},{i:"⬅️",l:"Turn Left"}],c:0},
+{t:"3. Coding Turn",p:"Turn RIGHT to navigate around the thorn tree ➡️",spkTxt:"Turn right to navigate around the thorn tree.",o:[{i:"⬅️",l:"Turn Left"},{i:"➡️",l:"Turn Right"}],c:1},
 {t:"4. Pattern Loops",p:"Complete the coding loop: 🔴 🔵 🔴 🔵...",spkTxt:"Complete the coding loop, red, blue, red, blue.",o:[{i:"🔵",l:"Blue Circle"},{i:"🔴",l:"Red Circle"}],c:0},
-{t:"5. Bee-Bot Navigation",p:"Guide the Bee-Bot 2 steps FORWARD to the flower 🐝🌸",spkTxt:"Guide the Bee Bot 2 steps forward to the flower.",o:[{i:"⬆️⬆️",l:"Two Steps Up"},{i:"⬇️⬇️",l:"Two Steps Down"}],c:0},
+{t:"5. Bee-Bot Navigation",p:"Guide the Bee-Bot 2 steps FORWARD to the flower 🐝🌸",spkTxt:"Guide the Bee Bot 2 steps forward to the flower.",o:[{i:"⬇️⬇️",l:"Two Steps Down"},{i:"⬆️⬆️",l:"Two Steps Up"}],c:1},
 {t:"6. Conditional Logic",p:"IF the traffic light is RED, what must the robot do? 🚦",spkTxt:"If the traffic light is red, what must the robot do?",o:[{i:"🛑",l:"Stop"},{i:"🚗",l:"Go Fast"}],c:0},
-{t:"7. Step-by-Step Instructions",p:"What instruction comes first to make tea? ☕",spkTxt:"What instruction comes first to make tea?",o:[{i:"🔥",l:"Boil Water"},{i:"🧋",l:"Drink Tea"}],c:0},
+{t:"7. Step-by-Step Instructions",p:"What instruction comes first to make tea? ☕",spkTxt:"What instruction comes first to make tea?",o:[{i:"🧋",l:"Drink Tea"},{i:"🔥",l:"Boil Water"}],c:1},
 {t:"8. Coding Debugging",p:"The robot went the wrong way! Which arrow reverses direction? 🔄",spkTxt:"Which arrow reverses direction?",o:[{i:"⬅️",l:"Left Arrow"},{i:"⬆️",l:"Forward Arrow"}],c:0},
-{t:"9. Robot Body Movement",p:"Follow algorithm: 1. Clap hands 👏 2. Stomp feet 🦶 What is next?",spkTxt:"Follow algorithm: clap hands, stomp feet. What is next?",o:[{i:"🛷",l:"Spin Around"},{i:"😴",l:"Sleep"}],c:0},
+{t:"9. Robot Body Movement",p:"Follow algorithm: 1. Clap hands 👏 2. Stomp feet 🦶 What is next?",spkTxt:"Follow algorithm: clap hands, stomp feet. What is next?",o:[{i:"😴",l:"Sleep"},{i:"🛷",l:"Spin Around"}],c:1},
 {t:"10. Grid Navigation",p:"Move 1 step UP and 1 step RIGHT on the game mat 🗺️",spkTxt:"Move one step up and one step right on the game mat.",o:[{i:"↗️",l:"Diagonal Move"},{i:"⬇️",l:"Down Move"}],c:0},
-{t:"11. Robot Sound Output",p:"What sound does our friendly classroom robot make when finishing a task? 🤖",spkTxt:"What sound does our friendly classroom robot make when finishing a task?",o:[{i:"🎵",l:"Beep Boop Bop"},{i:"🦁",l:"Roar"}],c:0},
+{t:"11. Robot Sound Output",p:"What sound does our friendly classroom robot make when finishing a task? 🤖",spkTxt:"What sound does our friendly classroom robot make when finishing a task?",o:[{i:"🦁",l:"Roar"},{i:"🎵",l:"Beep Boop Bop"}],c:1},
 {t:"12. Coding Sequence",p:"Arrange dressing in order: Put on shoes 👟 vs Put on socks 🧦. Which goes FIRST?",spkTxt:"Which goes first, socks or shoes?",o:[{i:"🧦",l:"Put on Socks"},{i:"👟",l:"Put on Shoes"}],c:0}
 ],
 lifeskills:[
-{t:"1. Personal Hygiene",p:"What must Zinzi and Sam do before eating food? 🧼",spkTxt:"What must Zinzi and Sam do before eating food?",o:[{i:"🧼",l:"Wash Hands"},{i:"😴",l:"Go Sleep"}],c:0},
+{t:"1. Personal Hygiene",p:"What must Zinzi and Sam do before eating food? 🧼",spkTxt:"What must Zinzi and Sam do before eating food?",o:[{i:"😴",l:"Go Sleep"},{i:"🧼",l:"Wash Hands"}],c:1},
 {t:"2. Healthy Living",p:"What did Lindi eat for breakfast to stay strong? 🥣",spkTxt:"What did Lindi eat for breakfast to stay strong?",o:[{i:"🥣",l:"Warm Porridge"},{i:"🍬",l:"Sweet Candy"}],c:0},
-{t:"3. Body Awareness",p:"Where did little Ali rub the red paint? 🔴",spkTxt:"Where did little Ali rub the red paint?",o:[{i:"🔴",l:"Tummy"},{i:"👃",l:"Nose"}],c:0},
-{t:"4. Outdoor Picnic",p:"What did Nicholas and his family pack food in? 🧺",spkTxt:"What did Nicholas and his family pack food in?",o:[{i:"🧺",l:"Picnic Basket"},{i:"🎒",l:"School Bag"}],c:0},
+{t:"3. Body Awareness",p:"Where did little Ali rub the red paint? 🔴",spkTxt:"Where did little Ali rub the red paint?",o:[{i:"👃",l:"Nose"},{i:"🔴",l:"Tummy"}],c:1},
+{t:"4. Outdoor Picnic",p:"What did Nicholas and his family pack food in? 🧺",spkTxt:"What did Nicholas and his family pack food in?",o:[{i:"🎒",l:"School Bag"},{i:"🧺",l:"Picnic Basket"}],c:1},
 {t:"5. Classroom Safety",p:"How do we walk safely in the classroom corridor? 🚶🏽‍♂️",spkTxt:"How do we walk safely in the classroom corridor?",o:[{i:"🚶🏽‍♂️",l:"Walk Calmly"},{i:"🏃🏽‍♂️",l:"Run Fast"}],c:0},
-{t:"6. Emotions",p:"How do you feel when you win a prize at school? 😊",spkTxt:"How do you feel when you win a prize at school?",o:[{i:"😊",l:"Happy & Proud"},{i:"😢",l:"Sad"}],c:0},
+{t:"6. Emotions",p:"How do you feel when you win a prize at school? 😊",spkTxt:"How do you feel when you win a prize at school?",o:[{i:"😢",l:"Sad"},{i:"😊",l:"Happy & Proud"}],c:1},
 {t:"7. Road Safety",p:"What must you do before crossing the street? 🛑",spkTxt:"What must you do before crossing the street?",o:[{i:"👀",l:"Look Left & Right"},{i:"🏃🏾‍♂️",l:"Run across fast"}],c:0},
-{t:"8. Caring for Animals",p:"How should we treat our school pets and animals? 🐾",spkTxt:"How should we treat our school pets and animals?",o:[{i:"💝",l:"Gentle & Kind"},{i:"🪵",l:"Throw sticks"}],c:0},
+{t:"8. Caring for Animals",p:"How should we treat our school pets and animals? 🐾",spkTxt:"How should we treat our school pets and animals?",o:[{i:"🪵",l:"Throw sticks"},{i:"💝",l:"Gentle & Kind"}],c:1},
 {t:"9. Water Conservation",p:"What should you do after washing your hands at the tap? 🚰",spkTxt:"What should you do after washing your hands at the tap?",o:[{i:"🔒",l:"Turn off tap tightly"},{i:"💦",l:"Leave water running"}],c:0},
-{t:"10. Healthy Foods",p:"Which food gives our body healthy vitamins? 🍎",spkTxt:"Which food gives our body healthy vitamins?",o:[{i:"🍎",l:"Fresh Apple"},{i:"🍭",l:"Lollipop"}],c:0},
-{t:"11. Good Manners",p:",What do we say when someone gives us a gift? 🎁",spkTxt:"What do we say when someone gives us a gift?",o:[{i:"🙏",l:"Thank You"},{i:"🤫",l:"Quiet"}],c:0},
+{t:"10. Healthy Foods",p:"Which food gives our body healthy vitamins? 🍎",spkTxt:"Which food gives our body healthy vitamins?",o:[{i:"🍭",l:"Lollipop"},{i:"🍎",l:"Fresh Apple"}],c:1},
+{t:"11. Good Manners",p:"What do we say when someone gives us a gift? 🎁",spkTxt:"What do we say when someone gives us a gift?",o:[{i:"🤫",l:"Quiet"},{i:"🙏",l:"Thank You"}],c:1},
 {t:"12. Weather Awareness",p:"What do we wear when it is raining outside? 🌧️",spkTxt:"What do we wear when it is raining outside?",o:[{i:"🧥",l:"Raincoat & Boots"},{i:"🩳",l:"Swimwear"}],c:0}
 ]
 };
-  var SData=[
+
+var D2={
+maths:[
+{t:"1. Advanced Counting",p:"If you have 3 lions 🦁 and 2 more join, how many lions in total?",o:[{i:"4️⃣",l:"4 Lions"},{i:"5️⃣",l:"5 Lions"},{i:"6️⃣",l:"6 Lions"}],c:1},
+{t:"2. Complex Patterns",p:"Complete pattern: Circle 🔴, Square 🟦, Triangle 🔺, Circle 🔴, Square 🟦...",o:[{i:"🟦",l:"Square"},{i:"🔴",l:"Circle"},{i:"🔺",l:"Triangle"}],c:2},
+{t:"3. Spatial Reasoning",p:"Which animal is between the tree and the river? 🌳🦁🌊",o:[{i:"🌊",l:"River"},{i:"🦁",l:"Lion"},{i:"🌳",l:"Tree"}],c:1},
+{t:"4. Advanced Sorting",p:"Which group contains only wild safari animals? 🦁🦓 vs 🐕🐈",o:[{i:"🦁🦓",l:"Lion & Zebra"},{i:"🐕🐈",l:"Dog & Cat"}],c:0},
+{t:"5. Measurement Logic",p:"If a Giraffe is taller than an Elephant, and an Elephant is taller than a Dog, who is shortest?",o:[{i:"🦒",l:"Giraffe"},{i:"🐘",l:"Elephant"},{i:"🐕",l:"Dog"}],c:2}
+],
+phonics:[
+{t:"1. Beginning Blends",p:"What sound does the word 'Snake' begin with? 🐍",o:[{i:"🐝",l:"Sound /b/"},{i:"🐍",l:"Sound /s/"},{i:"🐒",l:"Sound /m/"}],c:1},
+{t:"2. Rhyme Challenge",p:"Which word does NOT rhyme with CAT, MAT, and HAT? 🐱",o:[{i:"🎩",l:"Hat"},{i:"🚗",l:"Car"},{i:"🐈",l:"Cat"}],c:1},
+{t:"3. Syllable Counting",p:"How many clapping syllables in 'Hippopotamus'? 🦛",o:[{i:"4️⃣",l:"4 Syllables"},{i:"5️⃣",l:"5 Syllables"},{i:"2️⃣",l:"2 Syllables"}],c:1},
+{t:"4. Ending Sound",p:"What is the ending sound of the word BUS? 🚌",o:[{i:"🚌",l:"Sound /s/"},{i:"🍎",l:"Sound /a/"},{i:"⚽",l:"Sound /b/"}],c:0},
+{t:"5. Vowel Sound",p:"Which animal name starts with vowel sound /a/ for Ant? 🐜",o:[{i:"🐘",l:"Elephant"},{i:"🐜",l:"Ant"},{i:"🦁",l:"Lion"}],c:1}
+],
+coding:[
+{t:"1. Conditional Loops",p:"IF the robot sees a tree 🌳, what is the optimal sequence to bypass it?",o:[{i:"➡️⬆️➡️",l:"Right, Up, Right"},{i:"💥",l:"Crash Forward"}],c:0},
+{t:"2. Algorithm Debugging",p:"Algorithm: 1. Wake up 🌅 2. Brush teeth 🦷 3. Sleep 😴. What step is missing before school?",o:[{i:"🎒",l:"Pack School Bag"},{i:"🌙",l:"Nighttime"}],c:0},
+{t:"3. Multi-Step Grid",p:"Bee-Bot starts at (0,0). Move 2 steps UP and 2 steps RIGHT. Where is it? 🗺️",o:[{i:"📍",l:"Coordinate (2,2)"},{i:"🏠",l:"Start Position"}],c:0},
+{t:"4. Pattern Decomposition",p:"Decompose sequence: Clap, Stomp, Clap, Stomp... What pattern rule repeats?",o:[{i:"🔄",l:"Clap & Stomp Loop"},{i:"❌",l:"Random Noise"}],c:0},
+{t:"5. Robot Logic Gate",p:"IF battery is LOW 🔋 AND task is unfinished, what should the robot do?",o:[{i:"🔌",l:"Recharge Battery"},{i:"💤",l:"Turn Off Forever"}],c:0}
+],
+lifeskills:[
+{t:"1. Emergency Preparedness",p:"Who should you call or seek if you get lost on a school trip? 👩‍🏫",o:[{i:"👤",l:"Stranger"},{i:"👮‍♀️",l:"Teacher or Officer"}],c:1},
+{t:"2. Conflict Resolution",p:"If another child takes your toy without asking, what is the best positive action?",o:[{i:"🗣️",l:"Use words to share"},{i:"🪵",l:"Fight back"}],c:0},
+{t:"3. Environmental Health",p:"Why is it important to recycle plastic bottles instead of littering? ♻️",o:[{i:"🌍",l:"Keep Earth Clean"},{i:"🗑️",l:"Hide trash"}],c:0},
+{t:"4. Personal Safety",p:"Is it safe to touch a stray animal or a hot kitchen stove? 🔥",o:[{i:"❌",l:"No, unsafe"},{i:"✅",l:"Yes, safe"}],c:0},
+{t:"5. Community Collaboration",p:"Why do we clean up our classroom together during tidy-up time? 🧹",o:[{i:"🤝",l:"Teamwork & Order"},{i:"🏃🏽‍♂️",l:"Run away"}],c:0}
+]
+};
+  var SData1=[
 {
 id:"story1",name:"1. The Green Dress",
-storyText:"Story 1. The Green Dress. Zinzi woke up early in the morning and wanted to wear her special green dress to school. But wait! The green dress was missing from her chair. Zinzi looked everywhere. She looked in the wardrobe, she looked behind the door, and then she heard a little snore. Inside the dark cupboard[span_0](start_span)[span_0](end_span), Spot the cheeky puppy was sleeping soundly on top of the green dress! Zinzi giggled and gently woke Spot up so she could wear her favourite dress.",
+storyText:"Story 1. The Green Dress. Zinzi woke up early in the morning and wanted to wear her special green dress to school. But wait! The green dress was missing from her chair. Zinzi looked everywhere. She looked in the wardrobe, she looked behind the door, and then she heard a little snore. Inside the dark cupboard, Spot the cheeky puppy was sleeping soundly on top of the green dress! Zinzi giggled and gently woke Spot up so she could wear her favourite dress.",
 qs:[
-{t:"Comprehension 1: The Missing Dress",p:"What special color dress did Zinzi want to wear to school?",spkTxt:"What special color dress did Zinzi want to wear to school?",o:[{i:"🟢",l:"Green Dress"},{i:"🔴",l:"Red Dress"}],c:0},
+{t:"Comprehension 1: The Missing Dress",p:"What special color dress did Zinzi want to wear to school?",spkTxt:"What special color dress did Zinzi want to wear to school?",o:[{i:"🔴",l:"Red Dress"},{i:"🟢",l:"Green Dress"}],c:1},
 {t:"Comprehension 2: Spot's Hiding Spot",p:"Where was Spot the puppy sleeping with the green dress?",spkTxt:"Where was Spot the puppy sleeping with the green dress?",o:[{i:"🚪",l:"In Cupboard"},{i:"🛏️",l:"Under Bed"}],c:0},
 {t:"Comprehension 3: Morning Routine",p:"When did Zinzi look for her green dress?",spkTxt:"When did Zinzi look for her green dress?",o:[{i:"🌅",l:"In the Morning"},{i:"🌙",l:"At Nighttime"}],c:0},
-{t:"Comprehension 4: Character Action",p:"How did Zinzi feel when she found Spot?",spkTxt:"How did Zinzi feel when she found Spot?",o:[{i:"😄",l:"Giggled & Happy"},{i:"😢",l:"Crying"}],c:0},
+{t:"Comprehension 4: Character Action",p:"How did Zinzi feel when she found Spot?",spkTxt:"How did Zinzi feel when she found Spot?",o:[{i:"😢",l:"Crying"},{i:"😄",l:"Giggled & Happy"}],c:1},
 {t:"Comprehension 5: Coding Sequence",p:"Program the path: Walk 1 step FORWARD to open the cupboard door! 🚪",spkTxt:"Program the path: Walk one step forward to open the cupboard door.",o:[{i:"⬆️",l:"1 Step Forward"},{i:"⬇️",l:"1 Step Backward"}],c:0}
 ]
 },
 {
 id:"story2",name:"2. Run Lindi Run",
-storyText:"Story 2. Run Lindi Run. Sports day at school was filled with excitement and cheering. Lindi loved to run fast like the cheetahs on the safari plains. Mr. Ibrahim, the friendly shopkeeper[span_1](start_span)[span_1](end_span) who always watched the races, stood at the start line with his whistle ready. When Mr. Ibrahim[span_2](start_span)[span_2](end_span) blew the whistle, Lindi pumped her arms and sped down the grass track, crossing the finish line first with a huge smile to receive her shiny medal.",
+storyText:"Story 2. Run Lindi Run. Sports day at school was filled with excitement and cheering. Lindi loved to run fast like the cheetahs on the safari plains. Mr. Ibrahim, the friendly shopkeeper who always watched the races, stood at the start line with his whistle ready. When Mr. Ibrahim blew the whistle, Lindi pumped her arms and sped down the grass track, crossing the finish line first with a huge smile to receive her shiny medal.",
 qs:[
-{t:"Comprehension 1: The Race",p:"What special school event was taking place?",spkTxt:"What special school event was taking place?",o:[{i:"🏃🏽‍♀️",l:"Sports Day Race"},{i:"🎨",l:"Art Exhibition"}],c:0},
+{t:"Comprehension 1: The Race",p:"What special school event was taking place?",spkTxt:"What special school event was taking place?",o:[{i:"🎨",l:"Art Exhibition"},{i:"🏃🏽‍♀️",l:"Sports Day Race"}],c:1},
 {t:"Comprehension 2: Mr. Ibrahim's Role",p:"Who is Mr. Ibrahim in the story?",spkTxt:"Who is Mr Ibrahim in the story?",o:[{i:"🏪",l:"Friendly Shopkeeper"},{i:"🦁",l:"Safari Lion"}],c:0},
-{t:"Comprehension 3: Starting Signal",p:"What did Mr. Ibrahim use to start the race?",spkTxt:"What did Mr Ibrahim use to start the race?",o:[{i:"🎺",l:"Whistle"},{i:"🔔",l:"Bell"}],c:0},
+{t:"Comprehension 3: Starting Signal",p:"What did Mr. Ibrahim use to start the race?",spkTxt:"What did Mr Ibrahim use to start the race?",o:[{i:"🔔",l:"Bell"},{i:"🎺",l:"Whistle"}],c:1},
 {t:"Comprehension 4: Finishing the Race",p:"How did Lindi finish the grass track race?",spkTxt:"How did Lindi finish the grass track race?",o:[{i:"🥇",l:"Crossed First"},{i:"🛏️",l:"Stopped to Sleep"}],c:0},
-{t:"Comprehension 5: Coding Direction",p:"Program Lindi's running direction: Run straight FORWARD! ➡️",spkTxt:"Program Lindis running direction: Run straight forward.",o:[{i:"➡️",l:"Run Forward"},{i:"⬅️",l:"Run Backward"}],c:0}
+{t:"Comprehension 5: Coding Direction",p:"Program Lindi's running direction: Run straight FORWARD! ➡️",spkTxt:"Program Lindis running direction: Run straight forward.",o:[{i:"⬅️",l:"Run Backward"},{i:"➡️",l:"Run Forward"}],c:1}
 ]
 },
 {
@@ -192,9 +230,9 @@ id:"story3",name:"3. Ali and the Paint",
 storyText:"Story 3. Ali and the Paint. During creative arts time, Teacher Akinyi handed out pots of bright, colorful finger paint. Little Ali was very curious. He dipped his little finger right into the vibrant paint pots. Instead of just painting on paper, Ali tapped his finger on his tummy, made dots on his cheeks, and gave himself a bright green painted nose! Everyone in class laughed with joy at Ali's funny painted face.",
 qs:[
 {t:"Comprehension 1: Creative Arts",p:"What did Teacher Akinyi hand out in class?",spkTxt:"What did Teacher Akinyi hand out in class?",o:[{i:"🎨",l:"Finger Paint Pots"},{i:"📚",l:"Reading Books"}],c:0},
-{t:"Comprehension 2: Ali's Paint Spot",p:"What colour paint did Ali put on his nose?",spkTxt:"What colour paint did Ali put on his nose?",o:[{i:"🟢",l:"Green Paint"},{i:"🔵",l:"Blue Paint"}],c:0},
+{t:"Comprehension 2: Ali's Paint Spot",p:"What colour paint did Ali put on his nose?",spkTxt:"What colour paint did Ali put on his nose?",o:[{i:"🔵",l:"Blue Paint"},{i:"🟢",l:"Green Paint"}],c:1},
 {t:"Comprehension 3: Body Awareness",p:"Where else did Ali tap his painted fingers?",spkTxt:"Where else did Ali tap his painted fingers?",o:[{i:"🔴",l:"On his tummy"},{i:"🦶",l:"On his toes"}],c:0},
-{t:"Comprehension 4: Classroom Reaction",p:"How did the class react to Ali's painted face?",spkTxt:"How did the class react to Ali's painted face?",o:[{i:"😆",l:"Laughed with Joy"},{i:"😠",l:"Got Angry"}],c:0},
+{t:"Comprehension 4: Classroom Reaction",p:"How did the class react to Ali's painted face?",spkTxt:"How did the class react to Ali's painted face?",o:[{i:"😠",l:"Got Angry"},{i:"😆",l:"Laughed with Joy"}],c:1},
 {t:"Comprehension 5: Coding Algorithm",p:"Algorithm step 1: Dip finger in paint 🎨. Step 2: What comes next?",spkTxt:"Algorithm step 1: Dip finger in paint. What comes next?",o:[{i:"👆",l:"Tap on Nose"},{i:"😴",l:"Go to Sleep"}],c:0}
 ]
 },
@@ -202,27 +240,93 @@ qs:[
 id:"story4",name:"4. A Beautiful Day",
 storyText:"Story 4. A Beautiful Day. It was a warm, sunny Saturday morning. Nicholas and his family packed a big picnic basket filled with sandwiches, fresh fruit, and juice bottles. They walked down the grassy path to the sparkling riverbank. Little birds were singing in the trees, and dragonflies danced over the flowing water. Nicholas helped spread the blanket on the green grass for a wonderful family picnic outdoors.",
 qs:[
-{t:"Comprehension 1: Weather",p:"What was the weather like on Saturday morning?",spkTxt:"What was the weather like on Saturday morning?",o:[{i:"☀️",l:"Warm & Sunny"},{i:"🌧️",l:"Cold & Rainy"}],c:0},
+{t:"Comprehension 1: Weather",p:"What was the weather like on Saturday morning?",spkTxt:"What was the weather like on Saturday morning?",o:[{i:"🌧️",l:"Cold & Rainy"},{i:"☀️",l:"Warm & Sunny"}],c:1},
 {t:"Comprehension 2: Packing Food",p:"What did Nicholas and his family pack food in?",spkTxt:"What did Nicholas and his family pack food in?",o:[{i:"🧺",l:"Picnic Basket"},{i:"🎒",l:"School Bag"}],c:0},
-{t:"Comprehension 3: Destination",p:"Where did the family walk to for their picnic?",spkTxt:"Where did the family walk to for their picnic?",o:[{i:"🌊",l:"Sparkling Riverbank"},{i:"⛰️",l:"Mountain Top"}],c:0},
+{t:"Comprehension 3: Destination",p:"Where did the family walk to for their picnic?",spkTxt:"Where did the family walk to for their picnic?",o:[{i:"⛰️",l:"Mountain Top"},{i:"🌊",l:"Sparkling Riverbank"}],c:1},
 {t:"Comprehension 4: Nature Sounds",p:"What animals were singing in the trees?",spkTxt:"What animals were singing in the trees?",o:[{i:"🐦",l:"Little Birds"},{i:"🦁",l:"Lions"}],c:0},
-{t:"Comprehension 5: Coding Grid",p:"Guide Nicholas 2 steps FORWARD across the grass to the river 🧺🌊",spkTxt:"Guide Nicholas two steps forward across the grass to the river.",o:[{i:"⬆️⬆️",l:"Two Steps Forward"},{i:"⬇️⬇️",l:"Two Steps Back"}],c:0}
+{t:"Comprehension 5: Coding Grid",p:"Guide Nicholas 2 steps FORWARD across the grass to the river 🧺🌊",spkTxt:"Guide Nicholas two steps forward across the grass to the river.",o:[{i:"⬇️⬇️",l:"Two Steps Back"},{i:"⬆️⬆️",l:"Two Steps Forward"}],c:1}
 ]
 },
 {
 id:"story5",name:"5. Teacher Akinyi",
 storyText:"Story 5. Teacher Akinyi. At school today, Teacher Akinyi taught the children how seeds grow into food. Mandisa and Thabo held small, smooth brown seeds in their tiny hands. They walked outside to the school garden plot. With their little garden trowels, they dug small holes in the rich soil, placed the mealie seeds inside, and watered them gently with clean water, waiting for them to sprout.",
 qs:[
-{t:"Comprehension 1: Teacher's Lesson",p:"What did Teacher Akinyi teach the children about?",spkTxt:"What did Teacher Akinyi teach the children about?",o:[{i:"🌱",l:"How seeds grow"},{i:"🚗",l:"Driving cars"}],c:0},
+{t:"Comprehension 1: Teacher's Lesson",p:"What did Teacher Akinyi teach the children about?",spkTxt:"What did Teacher Akinyi teach the children about?",o:[{i:"🚗",l:"Driving cars"},{i:"🌱",l:"How seeds grow"}],c:1},
 {t:"Comprehension 2: The Seeds",p:"What kind of seeds did Mandisa and Thabo hold?",spkTxt:"What kind of seeds did Mandisa and Thabo hold?",o:[{i:"🌽",l:"Mealie Seeds"},{i:"🌹",l:"Rose Flowers"}],c:0},
-{t:"Comprehension 3: Garden Tool",p:"What tool did they use to dig holes in the soil?",spkTxt:"What tool did they use to dig holes in the soil?",o:[{i:"🥄",l:"Garden Trowel"},{i:"🔨",l:"Hammer"}],c:0},
+{t:"Comprehension 3: Garden Tool",p:"What tool did they use to dig holes in the soil?",spkTxt:"What tool did they use to dig holes in the soil?",o:[{i:"🔨",l:"Hammer"},{i:"🥄",l:"Garden Trowel"}],c:1},
 {t:"Comprehension 4: Nurturing Plants",p:"What did they pour over the seeds after planting?",spkTxt:"What did they pour over the seeds after planting?",o:[{i:"💧",l:"Clean Water"},{i:"🔥",l:"Hot Fire"}],c:0},
-{t:"Comprehension 5: Coding Loop",p:"Complete garden loop: 1. Dig hole 🕳️ 2. Plant seed 🌱 3. What is next?",spkTxt:"Complete garden loop: dig hole, plant seed. What is next?",o:[{i:"💦",l:"Water Plant"},{i:"😴",l:"Go Sleep"}],c:0}
+{t:"Comprehension 5: Coding Loop",p:"Complete garden loop: 1. Dig hole 🕳️ 2. Plant seed 🌱 3. What is next?",spkTxt:"Complete garden loop: dig hole, plant seed. What is next?",o:[{i:"😴",l:"Go Sleep"},{i:"💦",l:"Water Plant"}],c:1}
 ]
 }
 ];
 
+var SData2=[
+{
+id:"story1",name:"1. The Green Dress",
+storyText:"Story 1. The Green Dress. Advanced Story Analysis for Level 2 Learners.",
+qs:[
+{t:"Level 2 Analysis 1",p:"Why did Zinzi look everywhere for her green dress?",spkTxt:"Why did Zinzi look everywhere for her green dress?",o:[{i:"🪑",l:"Missing from Chair"},{i:"🗑️",l:"Thrown Away"}],c:0},
+{t:"Level 2 Analysis 2",p:"What sound did Zinzi hear before finding Spot?",spkTxt:"What sound did Zinzi hear before finding Spot?",o:[{i:"🔊",l:"A Little Snore"},{i:"🚗",l:"Car Horn"}],c:0},
+{t:"Level 2 Analysis 3",p:"What trait did Spot show by hiding?",spkTxt:"What trait did Spot show by hiding?",o:[{i:"🐕",l:"Cheeky & Playful"},{i:"😠",l:"Mean"}],c:0},
+{t:"Level 2 Analysis 4",p:"What was Spot sleeping on top of?",spkTxt:"What was Spot sleeping on top of?",o:[{i:"🟢",l:"The Green Dress"},{i:"👟",l:"Shoes"}],c:0},
+{t:"Level 2 Analysis 5",p:"Algorithm: 1. Wake up 🌅 2. Search room 🔍 3. What is next?",spkTxt:"Algorithm: Wake up, search room. What is next?",o:[{i:"😴",l:"Go back to sleep"},{i:"🎉",l:"Find dress & giggle"}],c:1}
+]
+},
+{
+id:"story2",name:"2. Run Lindi Run",
+storyText:"Story 2. Run Lindi Run. Advanced Story Analysis for Level 2 Learners.",
+qs:[
+{t:"Level 2 Analysis 1",p:"Lindi ran fast like what animal on the safari plains?",spkTxt:"Lindi ran fast like what animal on the safari plains?",o:[{i:"🐢",l:"Tortoise"},{i:"🐆",l:"Cheetah"}],c:1},
+{t:"Level 2 Analysis 2",p:"Where was Mr. Ibrahim standing with his whistle?",spkTxt:"Where was Mr Ibrahim standing with his whistle?",o:[{i:"🏁",l:"Start Line"},{i:"🏠",l:"At Home"}],c:0},
+{t:"Level 2 Analysis 3",p:"What did Lindi do with her arms when running?",spkTxt:"What did Lindi do with her arms when running?",o:[{i:"🛑",l:"Held them still"},{i:"💪",l:"Pumped her arms"}],c:1},
+{t:"Level 2 Analysis 4",p:"What medal did Lindi receive at the finish line?",spkTxt:"What medal did Lindi receive at the finish line?",o:[{i:"🥇",l:"Shiny Gold Medal"},{i:"🥉",l:"Bronze Medal"}],c:0},
+{t:"Level 2 Analysis 5",p:"Coding sequence: 1. Whistle blows 🎺 2. Run track 🏃🏽‍♀️ 3. What is next?",spkTxt:"Coding sequence: whistle blows, run track. What is next?",o:[{i:"🏅",l:"Receive Medal"},{i:"😴",l:"Sleep"}],c:0}
+]
+},
+{
+id:"story3",name:"3. Ali and the Paint",
+storyText:"Story 3. Ali and the Paint. Advanced Story Analysis for Level 2 Learners.",
+qs:[
+{t:"Level 2 Analysis 1",p:"What lesson activity was taking place in class?",spkTxt:"What lesson activity was taking place in class?",o:[{i:"🎨",l:"Creative Finger Paint"},{i:"🔢",l:"Maths Algebra"}],c:0},
+{t:"Level 2 Analysis 2",p:"How did Ali behave when given the paint?",spkTxt:"How did Ali behave when given the paint?",o:[{i:"🤔",l:"Very Curious"},{i:"😴",l:"Bored"}],c:0},
+{t:"Level 2 Analysis 3",p:"Where did Ali NOT put paint according to the story?",spkTxt:"Where did Ali NOT put paint according to the story?",o:[{i:"👃",l:"Green Nose"},{i:"🧢",l:"On a Hat"}],c:1},
+{t:"Level 2 Analysis 4",p:"What emotion did the class show?",spkTxt:"What emotion did the class show?",o:[{i:"😂",l:"Laughed with Joy"},{i:"😢",l:"Cried"}],c:0},
+{t:"Level 2 Analysis 5",p:"Algorithm: 1. Dip finger 🎨 2. Tap tummy 🔴 3. What is next?",spkTxt:"Algorithm: dip finger, tap tummy. What is next?",o:[{i:"👃",l:"Paint Nose Green"},{i:"🍽️",l:"Eat food"}],c:0}
+]
+},
+{
+id:"story4",name:"4. A Beautiful Day",
+storyText:"Story 4. A Beautiful Day. Advanced Story Analysis for Level 2 Learners.",
+qs:[
+{t:"Level 2 Analysis 1",p:"What day of the week was the family picnic?",spkTxt:"What day of the week was the family picnic?",o:[{i:"🏫",l:"School Monday"},{i:"☀️",l:"Saturday Morning"}],c:1},
+{t:"Level 2 Analysis 2",p:"What insect danced over the flowing water?",spkTxt:"What insect danced over the flowing water?",o:[{i:"🦟",l:"Dragonflies"},{i:"🐜",l:"Ants"}],c:0},
+{t:"Level 2 Analysis 3",p:"What did Nicholas help spread on the green grass?",spkTxt:"What did Nicholas help spread on the green grass?",o:[{i:"🧺",l:"Picnic Blanket"},{i:"🛏️",l:"Bed Mattress"}],c:0},
+{t:"Level 2 Analysis 4",p:"What did the family pack inside their basket?",spkTxt:"What did the family pack inside their basket?",o:[{i:"🥪",l:"Sandwiches & Fruit"},{i:"🧱",l:"Bricks"}],c:0},
+{t:"Level 2 Analysis 5",p:"Coding step: 1. Pack basket 🧺 2. Walk to river 🌊 3. What is next?",spkTxt:"Coding step: pack basket, walk to river. What is next?",o:[{i:"🧺",l:"Spread Picnic Blanket"},{i:"😴",l:"Go Sleep"}],c:0}
+]
+},
+{
+id:"story5",name:"5. Teacher Akinyi",
+storyText:"Story 5. Teacher Akinyi. Advanced Story Analysis for Level 2 Learners.",
+qs:[
+{t:"Level 2 Analysis 1",p:"Mandisa and Thabo held what kind of seeds?",spkTxt:"Mandisa and Thabo held what kind of seeds?",o:[{i:"🌹",l:"Rose Seeds"},{i:"🌽",l:"Small Brown Mealie Seeds"}],c:1},
+{t:"Level 2 Analysis 2",p:"Where did the children walk to plant seeds?",spkTxt:"Where did the children walk to plant seeds?",o:[{i:"🌱",l:"School Garden Plot"},{i:"🛋️",l:"Living Room"}],c:0},
+{t:"Level 2 Analysis 3",p:"What soil condition was needed to dig holes?",spkTxt:"What soil condition was needed to dig holes?",o:[{i:"🏜️",l:"Dry Sand"},{i:"🌿",l:"Rich Soil"}],c:1},
+{t:"Level 2 Analysis 4",p:"Why did they water the seeds with clean water?",spkTxt:"Why did they water the seeds with clean water?",o:[{i:"🌱",l:"To help them sprout"},{i:"🚗",l:"To wash a car"}],c:0},
+{t:"Level 2 Analysis 5",p:"Algorithm loop: 1. Dig 🕳️ 2. Plant 🌱 3. Water 💧 4. What is next?",spkTxt:"Algorithm loop: dig, plant, water. What is next?",o:[{i:"🌿",l:"Wait for Sprout"},{i:"🔥",l:"Burn Plant"}],c:0}
+]
+}
+];
+
+function setLvl(lvl){
+curLvl=lvl;
+document.getElementById('btn-lvl1').className="lvl-btn"+(lvl===1?" active":"");
+document.getElementById('btn-lvl2').className="lvl-btn"+(lvl===2?" active":"");
+build();
+}
+
 function build(){
+var D = (curLvl===1) ? D1 : D2;
 for(var sub in D){
 var sec=document.getElementById(sub),h='';
 D[sub].forEach((a,i)=>{
@@ -238,7 +342,8 @@ h+='</div><div id="'+id+'-fb" class="fb"></div></div>';
 sec.innerHTML=h;
 }
 
-var sSec=document.getElementById('stories'), sH='<div class="card"><h2>📖 Term 1 Authentic Story Rooms & Activities</h2><p class="prompt" style="margin-bottom:1rem;">Listen to the full story read aloud by the narrator, then complete all 5 fun activities below!</p><div class="story-nav">';
+var sSec=document.getElementById('stories'), SData = (curLvl===1) ? SData1 : SData2;
+var sH='<div class="card"><h2>📖 Term 1 Authentic Story Rooms & Activities (Level '+curLvl+')</h2><p class="prompt" style="margin-bottom:1rem;">Listen to the full story read aloud by the narrator, then complete all 5 fun activities below!</p><div class="story-nav">';
 SData.forEach((st,idx)=>{
 sH+='<button class="story-tab-btn '+(idx===0?'active':'')+'" onclick="switchStory(\''+st.id+'\',this)">'+st.name+'</button>';
 });
