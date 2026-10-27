@@ -145,14 +145,6 @@
             line-height: 1.5;
         }
 
-        .visual-display {
-            font-size: 2.5rem;
-            text-align: center;
-            margin: 1rem 0;
-            letter-spacing: 0.5rem;
-            user-select: none;
-        }
-
         .options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -306,10 +298,10 @@
     </div>
 
     <nav class="nav-tabs">
-        <button class="tab-btn active" data-tab="maths">🔢 Mathematics (12)</button>
-        <button class="tab-btn" data-tab="phonics">🔤 Language (12)</button>
-        <button class="tab-btn" data-tab="lifeskills">🎨 Life Skills (12)</button>
-        <button class="tab-btn" data-tab="coding">🤖 Coding & Robotics (12)</button>
+        <button class="tab-btn active" onclick="switchTab('maths', this)">🔢 Mathematics (12)</button>
+        <button class="tab-btn" onclick="switchTab('phonics', this)">🔤 Language (12)</button>
+        <button class="tab-btn" onclick="switchTab('lifeskills', this)">🎨 Life Skills (12)</button>
+        <button class="tab-btn" onclick="switchTab('coding', this)">🤖 Coding & Robotics (12)</button>
     </nav>
 
     <main>
@@ -319,9 +311,9 @@
                 <h2>1. Counting Lions</h2>
                 <p class="prompt">How many lions do you see? 🦁 🦁 🦁</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m1" data-correct="false">2</button>
-                    <button class="option-btn" data-act="m1" data-correct="true">3</button>
-                    <button class="option-btn" data-act="m1" data-correct="false">5</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm1')">2</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm1')">3</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm1')">5</button>
                 </div>
                 <div id="m1-fb" class="feedback"></div>
             </div>
@@ -330,9 +322,9 @@
                 <h2>2. Shape Recognition</h2>
                 <p class="prompt">Which 2D shape matches the round sun? ☀️</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m2" data-correct="true">🔴 Circle</button>
-                    <button class="option-btn" data-act="m2" data-correct="false">🟦 Square</button>
-                    <button class="option-btn" data-act="m2" data-correct="false">🔺 Triangle</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm2')">🔴 Circle</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm2')">🟦 Square</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm2')">🔺 Triangle</button>
                 </div>
                 <div id="m2-fb" class="feedback"></div>
             </div>
@@ -341,9 +333,9 @@
                 <h2>3. Patterns & Sequence</h2>
                 <p class="prompt">Complete the pattern: 🍎 🍌 🍎 🍌 ❓</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m3" data-correct="true">🍎 Apple</button>
-                    <button class="option-btn" data-act="m3" data-correct="false">🍌 Banana</button>
-                    <button class="option-btn" data-act="m3" data-correct="false">🍇 Grapes</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm3')">🍎 Apple</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm3')">🍌 Banana</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm3')">🍇 Grapes</button>
                 </div>
                 <div id="m3-fb" class="feedback"></div>
             </div>
@@ -352,8 +344,8 @@
                 <h2>4. Size Comparison</h2>
                 <p class="prompt">Which animal is BIGGER? 🐘 vs 🐜</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m4" data-correct="true">🐘 Elephant</button>
-                    <button class="option-btn" data-act="m4" data-correct="false">🐜 Ant</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm4')">🐘 Elephant</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm4')">🐜 Ant</button>
                 </div>
                 <div id="m4-fb" class="feedback"></div>
             </div>
@@ -362,8 +354,8 @@
                 <h2>5. More or Less</h2>
                 <p class="prompt">Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m5" data-correct="true">🔵 5 Blue Dots</button>
-                    <button class="option-btn" data-act="m5" data-correct="false">🔴 2 Red Dots</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm5')">🔵 5 Blue Dots</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm5')">🔴 2 Red Dots</button>
                 </div>
                 <div id="m5-fb" class="feedback"></div>
             </div>
@@ -372,8 +364,8 @@
                 <h2>6. Spatial Position</h2>
                 <p class="prompt">Where is the bird perched? 🐦 🌳</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m6" data-correct="true">ON the tree</button>
-                    <button class="option-btn" data-act="m6" data-correct="false">UNDER the tree</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm6')">ON the tree</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm6')">UNDER the tree</button>
                 </div>
                 <div id="m6-fb" class="feedback"></div>
             </div>
@@ -382,9 +374,9 @@
                 <h2>7. Number Recognition</h2>
                 <p class="prompt">Which symbol is the number <strong>FOUR</strong>?</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m7" data-correct="false">2</button>
-                    <button class="option-btn" data-act="m7" data-correct="true">4</button>
-                    <button class="option-btn" data-act="m7" data-correct="false">7</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm7')">2</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm7')">4</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm7')">7</button>
                 </div>
                 <div id="m7-fb" class="feedback"></div>
             </div>
@@ -393,9 +385,9 @@
                 <h2>8. Matching Sets</h2>
                 <p class="prompt">Which number matches two apples? 🍎 🍎</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m8" data-correct="false">1</button>
-                    <button class="option-btn" data-act="m8" data-correct="true">2</button>
-                    <button class="option-btn" data-act="m8" data-correct="false">3</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm8')">1</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm8')">2</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm8')">3</button>
                 </div>
                 <div id="m8-fb" class="feedback"></div>
             </div>
@@ -404,8 +396,8 @@
                 <h2>9. Height Comparison</h2>
                 <p class="prompt">Which animal is TALLER? 🦒 vs 🦦</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m9" data-correct="true">🦒 Giraffe</button>
-                    <button class="option-btn" data-act="m9" data-correct="false">🦦 Meerkat</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm9')">🦒 Giraffe</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm9')">🦦 Meerkat</button>
                 </div>
                 <div id="m9-fb" class="feedback"></div>
             </div>
@@ -414,8 +406,8 @@
                 <h2>10. 3D Objects</h2>
                 <p class="prompt">What 3D shape is a round soccer ball? ⚽</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m10" data-correct="true">⚽ Ball (Sphere)</button>
-                    <button class="option-btn" data-act="m10" data-correct="false">📦 Box (Cube)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm10')">⚽ Sphere (Ball)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm10')">📦 Cube (Box)</button>
                 </div>
                 <div id="m10-fb" class="feedback"></div>
             </div>
@@ -424,9 +416,9 @@
                 <h2>11. Early Addition</h2>
                 <p class="prompt">1 monkey 🐒 + 1 monkey 🐒 = How many monkeys?</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m11" data-correct="false">1</button>
-                    <button class="option-btn" data-act="m11" data-correct="true">2</button>
-                    <button class="option-btn" data-act="m11" data-correct="false">3</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm11')">1</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm11')">2</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm11')">3</button>
                 </div>
                 <div id="m11-fb" class="feedback"></div>
             </div>
@@ -435,8 +427,8 @@
                 <h2>12. Time & Day Sequence</h2>
                 <p class="prompt">When do we sleep at night under the stars? 🌙</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="m12" data-correct="true">Night Time 🌙</button>
-                    <button class="option-btn" data-act="m12" data-correct="false">Day Time ☀️</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm12')">Night Time 🌙</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm12')">Day Time ☀️</button>
                 </div>
                 <div id="m12-fb" class="feedback"></div>
             </div>
@@ -448,9 +440,9 @@
                 <h2>1. Initial Sound /s/</h2>
                 <p class="prompt">What sound does <strong>"Sun"</strong> start with? ☀️</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p1" data-correct="true">/s/ (S)</button>
-                    <button class="option-btn" data-act="p1" data-correct="false">/b/ (B)</button>
-                    <button class="option-btn" data-act="p1" data-correct="false">/m/ (M)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p1')">/s/ (S)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p1')">/b/ (B)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p1')">/m/ (M)</button>
                 </div>
                 <div id="p1-fb" class="feedback"></div>
             </div>
@@ -459,9 +451,9 @@
                 <h2>2. Initial Sound /a/</h2>
                 <p class="prompt">What sound does <strong>"Apple"</strong> start with? 🍎</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p2" data-correct="true">/a/ (A)</button>
-                    <button class="option-btn" data-act="p2" data-correct="false">/t/ (T)</button>
-                    <button class="option-btn" data-act="p2" data-correct="false">/p/ (P)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p2')">/a/ (A)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p2')">/t/ (T)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p2')">/p/ (P)</button>
                 </div>
                 <div id="p2-fb" class="feedback"></div>
             </div>
@@ -470,9 +462,9 @@
                 <h2>3. Initial Sound /t/</h2>
                 <p class="prompt">What sound does <strong>"Tiger"</strong> start with? 🐅</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p3" data-correct="true">/t/ (T)</button>
-                    <button class="option-btn" data-act="p3" data-correct="false">/d/ (D)</button>
-                    <button class="option-btn" data-act="p3" data-correct="false">/s/ (S)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p3')">/t/ (T)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p3')">/d/ (D)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p3')">/s/ (S)</button>
                 </div>
                 <div id="p3-fb" class="feedback"></div>
             </div>
@@ -481,9 +473,9 @@
                 <h2>4. Rhyming Words (Cat)</h2>
                 <p class="prompt">Which word rhymes with <strong>"Cat"</strong>? 🐱</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p4" data-correct="true">Hat 🎩</button>
-                    <button class="option-btn" data-act="p4" data-correct="false">Dog 🐶</button>
-                    <button class="option-btn" data-act="p4" data-correct="false">Fish 🐟</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p4')">Hat 🎩</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p4')">Dog 🐶</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p4')">Fish 🐟</button>
                 </div>
                 <div id="p4-fb" class="feedback"></div>
             </div>
@@ -492,9 +484,9 @@
                 <h2>5. Rhyming Words (Sun)</h2>
                 <p class="prompt">Which word rhymes with <strong>"Sun"</strong>? ☀️</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p5" data-correct="true">Run 🏃</button>
-                    <button class="option-btn" data-act="p5" data-correct="false">Tree 🌳</button>
-                    <button class="option-btn" data-act="p5" data-correct="false">Car 🚗</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p5')">Run 🏃</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p5')">Tree 🌳</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p5')">Car 🚗</button>
                 </div>
                 <div id="p5-fb" class="feedback"></div>
             </div>
@@ -503,9 +495,9 @@
                 <h2>6. Animal Auditory Sounds</h2>
                 <p class="prompt">Which animal makes a loud <strong>"ROAR"</strong>?</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p6" data-correct="true">🦁 Lion</button>
-                    <button class="option-btn" data-act="p6" data-correct="false">🐸 Frog</button>
-                    <button class="option-btn" data-act="p6" data-correct="false">🐥 Duck</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p6')">🦁 Lion</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p6')">🐸 Frog</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p6')">🐥 Duck</button>
                 </div>
                 <div id="p6-fb" class="feedback"></div>
             </div>
@@ -514,12 +506,6 @@
                 <h2>7. Vocabulary Building</h2>
                 <p class="prompt">What safari animal has a very long neck? 🦒</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p7" data-correct="true">🦒 Giraffe</button>
-                    <button class="option-btn" data-act="p7" data-correct="false">🦛 Hippo</button>
-                    <button class="option-btn" data-act="p7" data-correct="false">🦓 Zebra</button>
-                </div>
-                <div id="p7-fb" class="feedback"></div>
-            </div>
-
-            <div class="activity-card">
-                <h2>8. Syllable Clapp
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p7')">🦒 Giraffe</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p7')">🦛 Hippo</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p7')">🦓 Zebra</b
