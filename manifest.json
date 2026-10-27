@@ -7,7 +7,9 @@
   "theme_color": "#ff7e5f",
   "lang": "en",
   "orientation": "portrait",
-  "categories": ["education"],
+  "categories": [
+    "education"
+  ],
   "icons": [
     {
       "src": "icon-512.png",
