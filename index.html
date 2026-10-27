@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>CAPS Grade R Safari Express</title>
   
-  <!-- Foundation Phase / Junior Primary Print Fonts (Fredoka & Nunito) -->
+  <!-- Foundation Phase Junior Primary Print Fonts (Fredoka & Nunito) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ==========================================================================
-       1. JUNIOR PRIMARY PRINT TYPOGRAPHY & THEME
-       ========================================================================== */
     :root {
       --bg-sky: #e0f2fe;
       --bg-warm: #fef3c7;
@@ -46,7 +43,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding: 12px;
       color: var(--text-dark);
       overflow-x: hidden;
@@ -60,7 +57,7 @@
       gap: 12px;
     }
 
-    /* Top Navigation Bar */
+    /* Top Header Bar */
     header {
       background: var(--card-white);
       border-radius: 20px;
@@ -140,7 +137,7 @@
     .btn-repeat { background: var(--sky-dark); }
     .btn-dashboard { background: var(--purple-accent); }
 
-    /* Domain Tabs */
+    /* Domain Nav Tabs */
     nav.domain-nav {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -189,9 +186,9 @@
     }
     .domain-tab.active-lifeskills .tab-label { color: var(--jungle-dark); }
 
-    /* Task Navigation Stepper Bar */
+    /* Task Stepper Bar */
     .task-stepper-bar {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
       padding: 8px 12px;
       display: flex;
@@ -247,7 +244,7 @@
       color: white;
     }
 
-    /* Main Activity Card */
+    /* Main Play Card */
     main.play-card {
       background: var(--card-white);
       border-radius: 24px;
@@ -260,7 +257,7 @@
       justify-content: space-between;
     }
 
-    /* Prompt Box */
+    /* Prompt Banner */
     .prompt-banner {
       background: #e0f2fe;
       border: 2px solid #bae6fd;
@@ -601,7 +598,7 @@
         <button class="speaker-icon-btn" onclick="repeatInstruction()">🔊</button>
         <div class="prompt-text-wrap">
           <div id="task-concept-tag" class="prompt-tag">CAPS Skill Target</div>
-          <div id="prompt-display-text" class="prompt-main-text">Loading Safari Activity...</div>
+          <div id="prompt-display-text" class="prompt-main-text">Ready to Learn!</div>
         </div>
       </div>
 
@@ -669,12 +666,14 @@
   <canvas id="confetti-canvas"></canvas>
 
   <script>
-    /* 1. SYNTHETIC AUDIO ENGINE */
+    /* 1. BULLETPROOF SYNTHETIC AUDIO ENGINE */
     class SoundEffects {
       constructor() { this.ctx = null; }
       init() {
         try {
-          if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+          }
         } catch(e) {}
       }
 
@@ -682,6 +681,7 @@
         try {
           this.init();
           if (!this.ctx) return;
+          if (this.ctx.state === 'suspended') this.ctx.resume();
           const notes = [523.25, 659.25, 783.99, 1046.50];
           notes.forEach((freq, i) => {
             const osc = this.ctx.createOscillator();
@@ -701,6 +701,7 @@
         try {
           this.init();
           if (!this.ctx) return;
+          if (this.ctx.state === 'suspended') this.ctx.resume();
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'sine';
@@ -715,7 +716,7 @@
     }
     const sound = new SoundEffects();
 
-    /* 2. SPEECH NARRATOR */
+    /* 2. SPEECH NARRATOR (Strictly On User Interaction) */
     let lastSpokenInstruction = "";
 
     function speakPrompt(text) {
@@ -738,4 +739,4 @@
     /* 3. 36 CAPS GRADE R LEARNING ACTIVITIES */
     const capsActivities = {
       maths: [
-        { id: 1, tag: "Counting 1-5"
+        { id: 1, tag: "Coun
