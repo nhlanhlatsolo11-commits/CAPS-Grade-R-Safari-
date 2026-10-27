@@ -12,7 +12,7 @@
 
   <style>
     /* ==========================================================================
-       1. JUNIOR PRIMARY (JP) THEME & PRINT TYPOGRAPHY
+       1. JUNIOR PRIMARY PRINT TYPOGRAPHY & THEME
        ========================================================================== */
     :root {
       --bg-sky: #e0f2fe;
@@ -39,9 +39,8 @@
       touch-action: manipulation;
     }
 
-    /* Strict Junior Primary print font stack - NO script or cursive fallbacks */
     body {
-      font-family: 'Fredoka', 'Nunito', Arial, Helvetica, sans-serif;
+      font-family: 'Fredoka', 'Nunito', 'Comic Sans MS', sans-serif;
       background: linear-gradient(180deg, var(--bg-sky) 0%, var(--bg-warm) 60%, #d1fae5 100%);
       min-height: 100vh;
       display: flex;
@@ -53,7 +52,6 @@
       overflow-x: hidden;
     }
 
-    /* Container Wrap */
     .app-container {
       width: 100%;
       max-width: 600px;
@@ -62,7 +60,7 @@
       gap: 12px;
     }
 
-    /* Header Bar */
+    /* Top Navigation Bar */
     header {
       background: var(--card-white);
       border-radius: 20px;
@@ -95,7 +93,6 @@
       font-weight: 700;
       color: var(--savanna-dark);
       line-height: 1.1;
-      letter-spacing: 0.3px;
     }
 
     .brand-subtitle {
@@ -121,7 +118,6 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
     }
 
     .action-btn {
@@ -140,14 +136,11 @@
       font-family: inherit;
     }
 
-    .action-btn:active {
-      transform: scale(0.92);
-    }
-
+    .action-btn:active { transform: scale(0.92); }
     .btn-repeat { background: var(--sky-dark); }
     .btn-dashboard { background: var(--purple-accent); }
 
-    /* Domain Tabs Navigation */
+    /* Domain Tabs */
     nav.domain-nav {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -196,7 +189,7 @@
     }
     .domain-tab.active-lifeskills .tab-label { color: var(--jungle-dark); }
 
-    /* Task Pagination Stepper Bar */
+    /* Task Navigation Stepper Bar */
     .task-stepper-bar {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 16px;
@@ -254,7 +247,7 @@
       color: white;
     }
 
-    /* Main Play Arena Card */
+    /* Main Activity Card */
     main.play-card {
       background: var(--card-white);
       border-radius: 24px;
@@ -265,10 +258,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
     }
 
-    /* Instruction Prompt Box */
+    /* Prompt Box */
     .prompt-banner {
       background: #e0f2fe;
       border: 2px solid #bae6fd;
@@ -277,7 +269,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
     .speaker-icon-btn {
@@ -296,9 +287,7 @@
       box-shadow: 0 3px 6px rgba(2, 132, 199, 0.3);
     }
 
-    .prompt-text-wrap {
-      flex-grow: 1;
-    }
+    .prompt-text-wrap { flex-grow: 1; }
 
     .prompt-tag {
       font-size: 0.7rem;
@@ -315,7 +304,7 @@
       line-height: 1.3;
     }
 
-    /* Activity Interactive Grid Area */
+    /* Options Stage */
     .activity-stage {
       flex-grow: 1;
       display: flex;
@@ -352,9 +341,7 @@
       text-align: center;
     }
 
-    .option-card:active {
-      transform: scale(0.92);
-    }
+    .option-card:active { transform: scale(0.92); }
 
     .option-emoji {
       font-size: 2.5rem;
@@ -368,7 +355,6 @@
       color: #334155;
     }
 
-    /* Answer Verification Visuals */
     .option-card.correct {
       border-color: var(--jungle-green) !important;
       background: #dcfce7 !important;
@@ -393,7 +379,7 @@
       75% { transform: translateX(8px); }
     }
 
-    /* Success Banner & Next Action Row */
+    /* Celebration Footer */
     .success-footer {
       display: none;
       background: #ecfdf5;
@@ -401,7 +387,6 @@
       border-radius: 18px;
       padding: 12px;
       text-align: center;
-      animation: fadeIn 0.3s ease;
     }
 
     .success-title {
@@ -428,7 +413,7 @@
       font-family: inherit;
     }
 
-    /* Teacher & Parent Dashboard Modal */
+    /* Dashboard Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -545,7 +530,6 @@
       font-family: inherit;
     }
 
-    /* Confetti Canvas */
     #confetti-canvas {
       position: fixed;
       inset: 0;
@@ -558,7 +542,7 @@
 
   <div class="app-container">
     
-    <!-- ==================== TOP NAVIGATION HEADER ==================== -->
+    <!-- HEADER -->
     <header>
       <div class="brand" onclick="switchDomain('maths')">
         <div class="brand-icon">🦁</div>
@@ -583,7 +567,7 @@
       </div>
     </header>
 
-    <!-- ==================== SUBJECT DOMAIN TABS ==================== -->
+    <!-- DOMAIN NAVIGATION TABS -->
     <nav class="domain-nav">
       <div id="tab-maths" class="domain-tab active-maths" onclick="switchDomain('maths')">
         <span class="tab-icon">🔢</span>
@@ -604,19 +588,15 @@
       </div>
     </nav>
 
-    <!-- ==================== TASK PAGINATION STEPPER ==================== -->
+    <!-- TASK STEPPER BAR -->
     <div class="task-stepper-bar">
       <button id="prev-task-btn" class="step-btn" onclick="prevTask()">◀ Prev</button>
-      <div id="step-pills-container" class="step-pills">
-        <!-- 12 Step Dots Generated Dynamically via JS -->
-      </div>
+      <div id="step-pills-container" class="step-pills"></div>
       <button id="next-task-btn" class="step-btn" onclick="nextTask()">Next ▶</button>
     </div>
 
-    <!-- ==================== MAIN PLAY ARENA ==================== -->
+    <!-- MAIN PLAY CARD -->
     <main class="play-card">
-      
-      <!-- Audio Instruction Banner -->
       <div class="prompt-banner">
         <button class="speaker-icon-btn" onclick="repeatInstruction()">🔊</button>
         <div class="prompt-text-wrap">
@@ -625,24 +605,19 @@
         </div>
       </div>
 
-      <!-- Activity Options Stage -->
-      <div class="activity-stage" id="activity-stage">
-        <!-- Interactive Choices Rendered Dynamically via JS -->
-      </div>
+      <div class="activity-stage" id="activity-stage"></div>
 
-      <!-- Celebration & Next Action Banner -->
       <div id="success-footer" class="success-footer">
         <div class="success-title">🎉 Excellent Job! Star Earned! ⭐</div>
         <button class="next-activity-btn" onclick="nextTask()">
           <span>Next Activity</span> ➔
         </button>
       </div>
-
     </main>
 
   </div>
 
-  <!-- ==================== TEACHER / PARENT DASHBOARD MODAL ==================== -->
+  <!-- TELEMETRY DASHBOARD MODAL -->
   <div id="dashboard-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -654,7 +629,6 @@
         Formative progress tracking across all 36 CAPS Grade R learning tasks.
       </p>
 
-      <!-- Mathematics Progress -->
       <div class="telemetry-group">
         <div class="telemetry-head" style="color: var(--savanna-dark);">
           <span>🦁 Mathematics Domain</span>
@@ -665,7 +639,6 @@
         </div>
       </div>
 
-      <!-- Language / Phonics Progress -->
       <div class="telemetry-group">
         <div class="telemetry-head" style="color: var(--sky-dark);">
           <span>🐘 Home Language / Phonics</span>
@@ -676,7 +649,6 @@
         </div>
       </div>
 
-      <!-- Life Skills Progress -->
       <div class="telemetry-group">
         <div class="telemetry-head" style="color: var(--jungle-dark);">
           <span>🦒 Life Skills & Spatial World</span>
@@ -694,35 +666,15 @@
     </div>
   </div>
 
-  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- ==================== JAVASCRIPT ENGINE & LOGIC ==================== -->
   <script>
-    /* ==========================================================================
-       1. SYNTHETIC SOUND ENGINE (WEB AUDIO API)
-       ========================================================================== */
+    /* 1. SYNTHETIC AUDIO ENGINE */
     class SoundEffects {
       constructor() { this.ctx = null; }
       init() {
         try {
           if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        } catch(e) { console.log("AudioContext not supported", e); }
-      }
-
-      playPop() {
-        try {
-          this.init();
-          if (!this.ctx) return;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(300, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(700, this.ctx.currentTime + 0.08);
-          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
-          osc.connect(gain); gain.connect(this.ctx.destination);
-          osc.start(); osc.stop(this.ctx.currentTime + 0.08);
         } catch(e) {}
       }
 
@@ -730,4 +682,60 @@
         try {
           this.init();
           if (!this.ctx) return;
-          const notes = [523.25, 6
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime + i * 0.08);
+            gain.gain.setValueAtTime(0.2, this.ctx.currentTime + i * 0.08);
+            gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + i * 0.08 + 0.2);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            osc.start(this.ctx.currentTime + i * 0.08);
+            osc.stop(this.ctx.currentTime + i * 0.08 + 0.2);
+          });
+        } catch(e) {}
+      }
+
+      playTryAgain() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(180, this.ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+          osc.connect(gain); gain.connect(this.ctx.destination);
+          osc.start(); osc.stop(this.ctx.currentTime + 0.2);
+        } catch(e) {}
+      }
+    }
+    const sound = new SoundEffects();
+
+    /* 2. SPEECH NARRATOR */
+    let lastSpokenInstruction = "";
+
+    function speakPrompt(text) {
+      lastSpokenInstruction = text;
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 0.85;
+          utterance.pitch = 1.1;
+          window.speechSynthesis.speak(utterance);
+        }
+      } catch(e) {}
+    }
+
+    function repeatInstruction() {
+      if (lastSpokenInstruction) speakPrompt(lastSpokenInstruction);
+    }
+
+    /* 3. 36 CAPS GRADE R LEARNING ACTIVITIES */
+    const capsActivities = {
+      maths: [
+        { id: 1, tag: "Counting 1-5"
