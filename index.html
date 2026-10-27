@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CAPS Grade R Safari Express</title>
-  
+  <title>CAPS Grade R Safari Express Playland</title>
+
   <!-- Foundation Phase Junior Primary Print Fonts (Fredoka & Nunito) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +38,7 @@
     }
 
     body {
-      font-family: 'Fredoka', 'Nunito', 'Comic Sans MS', sans-serif;
+      font-family: 'Fredoka', 'Nunito', sans-serif;
       background: linear-gradient(180deg, var(--bg-sky) 0%, var(--bg-warm) 60%, #d1fae5 100%);
       min-height: 100vh;
       display: flex;
@@ -598,7 +599,7 @@
         <button class="speaker-icon-btn" onclick="repeatInstruction()">🔊</button>
         <div class="prompt-text-wrap">
           <div id="task-concept-tag" class="prompt-tag">CAPS Skill Target</div>
-          <div id="prompt-display-text" class="prompt-main-text">Ready to Learn!</div>
+          <div id="prompt-display-text" class="prompt-main-text">Loading Task...</div>
         </div>
       </div>
 
@@ -666,65 +667,73 @@
   <canvas id="confetti-canvas"></canvas>
 
   <script>
+    /* ZERO BACKTICKS GUARANTEE: All JS strings use single quotes (') and '+' concatenation */
+
     /* 1. BULLETPROOF SYNTHETIC AUDIO ENGINE */
-    class SoundEffects {
-      constructor() { this.ctx = null; }
-      init() {
-        try {
-          if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
-            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-          }
-        } catch(e) {}
-      }
-
-      playSuccess() {
-        try {
-          this.init();
-          if (!this.ctx) return;
-          if (this.ctx.state === 'suspended') this.ctx.resume();
-          const notes = [523.25, 659.25, 783.99, 1046.50];
-          notes.forEach((freq, i) => {
-            const osc = this.ctx.createOscillator();
-            const gain = this.ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, this.ctx.currentTime + i * 0.08);
-            gain.gain.setValueAtTime(0.2, this.ctx.currentTime + i * 0.08);
-            gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + i * 0.08 + 0.2);
-            osc.connect(gain); gain.connect(this.ctx.destination);
-            osc.start(this.ctx.currentTime + i * 0.08);
-            osc.stop(this.ctx.currentTime + i * 0.08 + 0.2);
-          });
-        } catch(e) {}
-      }
-
-      playTryAgain() {
-        try {
-          this.init();
-          if (!this.ctx) return;
-          if (this.ctx.state === 'suspended') this.ctx.resume();
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(220, this.ctx.currentTime);
-          osc.frequency.linearRampToValueAtTime(180, this.ctx.currentTime + 0.2);
-          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
-          osc.connect(gain); gain.connect(this.ctx.destination);
-          osc.start(); osc.stop(this.ctx.currentTime + 0.2);
-        } catch(e) {}
-      }
+    function SoundEffects() {
+      this.ctx = null;
     }
-    const sound = new SoundEffects();
+    SoundEffects.prototype.init = function() {
+      try {
+        if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+          var AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
+        }
+      } catch(e) {}
+    };
 
-    /* 2. SPEECH NARRATOR (Strictly On User Interaction) */
-    let lastSpokenInstruction = "";
+    SoundEffects.prototype.playSuccess = function() {
+      try {
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        var notes = [523.25, 659.25, 783.99, 1046.50];
+        var self = this;
+        notes.forEach(function(freq, i) {
+          var osc = self.ctx.createOscillator();
+          var gain = self.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, self.ctx.currentTime + i * 0.08);
+          gain.gain.setValueAtTime(0.2, self.ctx.currentTime + i * 0.08);
+          gain.gain.linearRampToValueAtTime(0.01, self.ctx.currentTime + i * 0.08 + 0.2);
+          osc.connect(gain);
+          gain.connect(self.ctx.destination);
+          osc.start(self.ctx.currentTime + i * 0.08);
+          osc.stop(self.ctx.currentTime + i * 0.08 + 0.2);
+        });
+      } catch(e) {}
+    };
+
+    SoundEffects.prototype.playTryAgain = function() {
+      try {
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        var osc = this.ctx.createOscillator();
+        var gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(180, this.ctx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.2);
+      } catch(e) {}
+    };
+
+    var sound = new SoundEffects();
+
+    /* 2. SPEECH NARRATOR ENGINE */
+    var lastSpokenInstruction = '';
 
     function speakPrompt(text) {
       lastSpokenInstruction = text;
       try {
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(text);
+          var utterance = new SpeechSynthesisUtterance(text);
           utterance.rate = 0.85;
           utterance.pitch = 1.1;
           window.speechSynthesis.speak(utterance);
@@ -733,10 +742,4 @@
     }
 
     function repeatInstruction() {
-      if (lastSpokenInstruction) speakPrompt(lastSpokenInstruction);
-    }
-
-    /* 3. 36 CAPS GRADE R LEARNING ACTIVITIES */
-    const capsActivities = {
-      maths: [
-        { id: 1, tag: "Coun
+      if (lastSpokenInstruction) speakPrompt(lastS
