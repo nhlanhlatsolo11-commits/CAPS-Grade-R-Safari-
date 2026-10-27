@@ -61,7 +61,7 @@ footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background
 <body>
 <canvas id="c-canvas"></canvas>
 <header>
-<div class="header-badge">🦁 CAPS GAUTENG ECD PORTAL</div>
+<div class="header-badge">🇿🇦 CAPS SOUTH AFRICA ECD PORTAL</div>
 <h1>Grade R Safari Express</h1>
 <p>Term 1 Coding & Robotics, Maths, Phonics, Life Skills & Stories</p>
 <div class="animal-bar">
@@ -81,7 +81,7 @@ footer{text-align:center;padding:1.4rem;font-size:.9rem;color:#475569;background
 <button class="tab-btn" data-tab="phonics" onclick="tab('phonics',this)">🔤 Phonics (15)</button>
 <button class="tab-btn" data-tab="coding" onclick="tab('coding',this)">🤖 Coding &amp; Robotics (12)</button>
 <button class="tab-btn" data-tab="lifeskills" onclick="tab('lifeskills',this)">🎨 Life Skills (12)</button>
-<button class="tab-btn" data-tab="stories" onclick="tab('stories',this)">📖 Term 1 Stories</button>
+<button class="tab-btn" data-tab="stories" onclick="tab('stories',this)">📖 Stories (25)</button>
 </nav>
 <main>
 <section id="maths" class="subject-section active"></section>
@@ -168,31 +168,61 @@ lifeskills:[
 var SData=[
 {
 id:"story1",name:"1. The Green Dress",
-storyText:"Story 1. The Green Dress. Zinzi woke up early in the morning and wanted to wear her special green dress to school. But wait! The green dress was missing from her chair. Zinzi looked everywhere. She looked in the wardrobe, she looked behind the door, and then she heard a little snore. Underneath the cozy bed, Spot the cheeky puppy was sleeping soundly on top of the green dress! Zinzi giggled and gently woke Spot up so she could wear her favourite dress.",
-q:{t:"Story Quiz: The Green Dress",p:"Where did Spot the puppy sleep with the green dress?",spkTxt:"Where did Spot the puppy sleep with the green dress?",o:[{i:"🚪",l:"In Cupboard"},{i:"🛏️",l:"Under Bed"}],c:1}
+storyText:"Story 1. The Green Dress. Zinzi woke up early in the morning and wanted to wear her special green dress to school. But wait! The green dress was missing from her chair. Zinzi looked everywhere. She looked in the wardrobe, she looked behind the door, and then she heard a little snore. Inside the dark cupboard[span_0](start_span)[span_0](end_span), Spot the cheeky puppy was sleeping soundly on top of the green dress! Zinzi giggled and gently woke Spot up so she could wear her favourite dress.",
+qs:[
+{t:"Comprehension 1: The Missing Dress",p:"What special color dress did Zinzi want to wear to school?",spkTxt:"What special color dress did Zinzi want to wear to school?",o:[{i:"🟢",l:"Green Dress"},{i:"🔴",l:"Red Dress"}],c:0},
+{t:"Comprehension 2: Spot's Hiding Spot",p:"Where was Spot the puppy sleeping with the green dress?",spkTxt:"Where was Spot the puppy sleeping with the green dress?",o:[{i:"🚪",l:"In Cupboard"},{i:"🛏️",l:"Under Bed"}],c:0},
+{t:"Comprehension 3: Morning Routine",p:"When did Zinzi look for her green dress?",spkTxt:"When did Zinzi look for her green dress?",o:[{i:"🌅",l:"In the Morning"},{i:"🌙",l:"At Nighttime"}],c:0},
+{t:"Comprehension 4: Character Action",p:"How did Zinzi feel when she found Spot?",spkTxt:"How did Zinzi feel when she found Spot?",o:[{i:"😄",l:"Giggled & Happy"},{i:"😢",l:"Crying"}],c:0},
+{t:"Comprehension 5: Coding Sequence",p:"Program the path: Walk 1 step FORWARD to open the cupboard door! 🚪",spkTxt:"Program the path: Walk one step forward to open the cupboard door.",o:[{i:"⬆️",l:"1 Step Forward"},{i:"⬇️",l:"1 Step Backward"}],c:0}
+]
 },
 {
 id:"story2",name:"2. Run Lindi Run",
-storyText:"Story 2. Run Lindi Run. Sports day at school was filled with excitement and cheering. Lindi loved to run fast like the cheetahs on the safari plains. When the whistle blew, Lindi pumped her arms and sped down the grass track. She crossed the finish line first with a huge smile. Mr Ibrahim, the smiling teacher, stepped forward and proudly placed a shiny gold medal around Lindi's neck for running her personal best.",
-q:{t:"Story Quiz: Run Lindi Run",p:"Who gave Lindi a shiny gold medal at the end of the race?",spkTxt:"Who gave Lindi a shiny gold medal at the end of the race?",o:[{i:"👨🏽‍🦱",l:"Mr Ibrahim"},{i:"👶",l:"Little Brother"}],c:0}
+storyText:"Story 2. Run Lindi Run. Sports day at school was filled with excitement and cheering. Lindi loved to run fast like the cheetahs on the safari plains. Mr. Ibrahim, the friendly shopkeeper[span_1](start_span)[span_1](end_span) who always watched the races, stood at the start line with his whistle ready. When Mr. Ibrahim[span_2](start_span)[span_2](end_span) blew the whistle, Lindi pumped her arms and sped down the grass track, crossing the finish line first with a huge smile to receive her shiny medal.",
+qs:[
+{t:"Comprehension 1: The Race",p:"What special school event was taking place?",spkTxt:"What special school event was taking place?",o:[{i:"🏃🏽‍♀️",l:"Sports Day Race"},{i:"🎨",l:"Art Exhibition"}],c:0},
+{t:"Comprehension 2: Mr. Ibrahim's Role",p:"Who is Mr. Ibrahim in the story?",spkTxt:"Who is Mr Ibrahim in the story?",o:[{i:"🏪",l:"Friendly Shopkeeper"},{i:"🦁",l:"Safari Lion"}],c:0},
+{t:"Comprehension 3: Starting Signal",p:"What did Mr. Ibrahim use to start the race?",spkTxt:"What did Mr Ibrahim use to start the race?",o:[{i:"🎺",l:"Whistle"},{i:"🔔",l:"Bell"}],c:0},
+{t:"Comprehension 4: Finishing the Race",p:"How did Lindi finish the grass track race?",spkTxt:"How did Lindi finish the grass track race?",o:[{i:"🥇",l:"Crossed First"},{i:"🛏️",l:"Stopped to Sleep"}],c:0},
+{t:"Comprehension 5: Coding Direction",p:"Program Lindi's running direction: Run straight FORWARD! ➡️",spkTxt:"Program Lindis running direction: Run straight forward.",o:[{i:"➡️",l:"Run Forward"},{i:"⬅️",l:"Run Backward"}],c:0}
+]
 },
 {
 id:"story3",name:"3. Ali and the Paint",
 storyText:"Story 3. Ali and the Paint. During creative arts time, Teacher Akinyi handed out pots of bright, colorful finger paint. Little Ali was very curious. He dipped his little finger right into the vibrant paint pots. Instead of just painting on paper, Ali tapped his finger on his tummy, made dots on his cheeks, and gave himself a bright green painted nose! Everyone in class laughed with joy at Ali's funny painted face.",
-q:{t:"Story Quiz: Ali and the Paint",p:"What colour paint did Ali put on his nose?",spkTxt:"What colour paint did Ali put on his nose?",o:[{i:"🟢",l:"Green Paint"},{i:"🔵",l:"Blue Paint"}],c:0}
+qs:[
+{t:"Comprehension 1: Creative Arts",p:"What did Teacher Akinyi hand out in class?",spkTxt:"What did Teacher Akinyi hand out in class?",o:[{i:"🎨",l:"Finger Paint Pots"},{i:"📚",l:"Reading Books"}],c:0},
+{t:"Comprehension 2: Ali's Paint Spot",p:"What colour paint did Ali put on his nose?",spkTxt:"What colour paint did Ali put on his nose?",o:[{i:"🟢",l:"Green Paint"},{i:"🔵",l:"Blue Paint"}],c:0},
+{t:"Comprehension 3: Body Awareness",p:"Where else did Ali tap his painted fingers?",spkTxt:"Where else did Ali tap his painted fingers?",o:[{i:"🔴",l:"On his tummy"},{i:"🦶",l:"On his toes"}],c:0},
+{t:"Comprehension 4: Classroom Reaction",p:"How did the class react to Ali's painted face?",spkTxt:"How did the class react to Ali's painted face?",o:[{i:"😆",l:"Laughed with Joy"},{i:"😠",l:"Got Angry"}],c:0},
+{t:"Comprehension 5: Coding Algorithm",p:"Algorithm step 1: Dip finger in paint 🎨. Step 2: What comes next?",spkTxt:"Algorithm step 1: Dip finger in paint. What comes next?",o:[{i:"👆",l:"Tap on Nose"},{i:"😴",l:"Go to Sleep"}],c:0}
+]
 },
 {
 id:"story4",name:"4. A Beautiful Day",
 storyText:"Story 4. A Beautiful Day. It was a warm, sunny Saturday morning. Nicholas and his family packed a big picnic basket filled with sandwiches, fresh fruit, and juice bottles. They walked down the grassy path to the sparkling riverbank. Little birds were singing in the trees, and dragonflies danced over the flowing water. Nicholas helped spread the blanket on the green grass for a wonderful family picnic outdoors.",
-q:{t:"Story Quiz: A Beautiful Day",p:"Nicholas went on a family picnic near what natural landmark?",spkTxt:"Nicholas went on a family picnic near what natural landmark?",o:[{i:"🌊",l:"The River"},{i:"⛰️",l:"The Mountain"}],c:0}
+qs:[
+{t:"Comprehension 1: Weather",p:"What was the weather like on Saturday morning?",spkTxt:"What was the weather like on Saturday morning?",o:[{i:"☀️",l:"Warm & Sunny"},{i:"🌧️",l:"Cold & Rainy"}],c:0},
+{t:"Comprehension 2: Packing Food",p:"What did Nicholas and his family pack food in?",spkTxt:"What did Nicholas and his family pack food in?",o:[{i:"🧺",l:"Picnic Basket"},{i:"🎒",l:"School Bag"}],c:0},
+{t:"Comprehension 3: Destination",p:"Where did the family walk to for their picnic?",spkTxt:"Where did the family walk to for their picnic?",o:[{i:"🌊",l:"Sparkling Riverbank"},{i:"⛰️",l:"Mountain Top"}],c:0},
+{t:"Comprehension 4: Nature Sounds",p:"What animals were singing in the trees?",spkTxt:"What animals were singing in the trees?",o:[{i:"🐦",l:"Little Birds"},{i:"🦁",l:"Lions"}],c:0},
+{t:"Comprehension 5: Coding Grid",p:"Guide Nicholas 2 steps FORWARD across the grass to the river 🧺🌊",spkTxt:"Guide Nicholas two steps forward across the grass to the river.",o:[{i:"⬆️⬆️",l:"Two Steps Forward"},{i:"⬇️⬇️",l:"Two Steps Back"}],c:0}
+]
 },
 {
 id:"story5",name:"5. Teacher Akinyi",
 storyText:"Story 5. Teacher Akinyi. At school today, Teacher Akinyi taught the children how seeds grow into food. Mandisa and Thabo held small, smooth brown seeds in their tiny hands. They walked outside to the school garden plot. With their little garden trowels, they dug small holes in the rich soil, placed the mealie seeds inside, and watered them gently with clean water, waiting for them to sprout.",
-q:{t:"Story Quiz: Teacher Akinyi",p:"What did Mandisa and Thabo plant outside with Teacher Akinyi?",spkTxt:"What did Mandisa and Thabo plant outside with Teacher Akinyi?",o:[{i:"🌱",l:"Mealie Seed"},{i:"🌹",l:"Rose Flower"}],c:0}
+qs:[
+{t:"Comprehension 1: Teacher's Lesson",p:"What did Teacher Akinyi teach the children about?",spkTxt:"What did Teacher Akinyi teach the children about?",o:[{i:"🌱",l:"How seeds grow"},{i:"🚗",l:"Driving cars"}],c:0},
+{t:"Comprehension 2: The Seeds",p:"What kind of seeds did Mandisa and Thabo hold?",spkTxt:"What kind of seeds did Mandisa and Thabo hold?",o:[{i:"🌽",l:"Mealie Seeds"},{i:"🌹",l:"Rose Flowers"}],c:0},
+{t:"Comprehension 3: Garden Tool",p:"What tool did they use to dig holes in the soil?",spkTxt:"What tool did they use to dig holes in the soil?",o:[{i:"🥄",l:"Garden Trowel"},{i:"🔨",l:"Hammer"}],c:0},
+{t:"Comprehension 4: Nurturing Plants",p:"What did they pour over the seeds after planting?",spkTxt:"What did they pour over the seeds after planting?",o:[{i:"💧",l:"Clean Water"},{i:"🔥",l:"Hot Fire"}],c:0},
+{t:"Comprehension 5: Coding Loop",p:"Complete garden loop: 1. Dig hole 🕳️ 2. Plant seed 🌱 3. What is next?",spkTxt:"Complete garden loop: dig hole, plant seed. What is next?",o:[{i:"💦",l:"Water Plant"},{i:"😴",l:"Go Sleep"}],c:0}
+]
 }
 ];
-
+  <script>
 function build(){
 for(var sub in D){
 var sec=document.getElementById(sub),h='';
@@ -209,21 +239,23 @@ h+='</div><div id="'+id+'-fb" class="fb"></div></div>';
 sec.innerHTML=h;
 }
 
-var sSec=document.getElementById('stories'), sH='<div class="card"><h2>📖 Term 1 Story Rooms & Activities</h2><p class="prompt" style="margin-bottom:1rem;">Listen to the full story read aloud by the narrator, then test your understanding with the activity below!</p><div class="story-nav">';
+var sSec=document.getElementById('stories'), sH='<div class="card"><h2>📖 Term 1 Authentic Story Rooms & Activities</h2><p class="prompt" style="margin-bottom:1rem;">Listen to the full story read aloud by the narrator, then complete all 5 fun activities below!</p><div class="story-nav">';
 SData.forEach((st,idx)=>{
 sH+='<button class="story-tab-btn '+(idx===0?'active':'')+'" onclick="switchStory(\''+st.id+'\',this)">'+st.name+'</button>';
 });
 sH+='</div>';
 
 SData.forEach((st,idx)=>{
-var qId='story-q-'+idx;
 sH+='<div id="'+st.id+'" class="story-panel '+(idx===0?'active':'')+'"><div class="story-box"><h3>'+st.name+'</h3><p id="txt-'+st.id+'">'+st.storyText+'</p><button class="spk-btn" onclick="spk(\''+st.storyText.replace(/'/g,"\\'")+'\')">🔊 Read Full Story Aloud</button></div>';
-sH+='<div class="card" style="border:2px solid #c084fc;margin-bottom:0;"><h2>'+st.q.t+'</h2><div class="prompt-box"><p class="prompt">'+st.q.p+'</p><button class="spk-btn" onclick="spk(\''+st.q.spkTxt.replace(/'/g,"\\'")+'\')">🔊 Listen</button></div>';
-sH+='<div class="grid">';
-st.q.o.forEach((opt,oi)=>{
-sH+='<button class="opt-btn" onclick="chk(this,'+(oi===st.q.c)+',\''+qId+'\')"><span class="pic-icon">'+opt.i+'</span><span>'+opt.l+'</span></button>';
+st.qs.forEach((q,qi)=>{
+var qId=st.id+'-q-'+qi;
+sH+='<div class="card" style="border:2px solid #c084fc;margin-bottom:1.2rem;"><h2>'+q.t+'</h2><div class="prompt-box"><p class="prompt">'+q.p+'</p><button class="spk-btn" onclick="spk(\''+q.spkTxt.replace(/'/g,"\\'")+'\')">🔊 Listen</button></div><div class="grid">';
+q.o.forEach((opt,oi)=>{
+sH+='<button class="opt-btn" onclick="chk(this,'+(oi===q.c)+',\''+qId+'\')"><span class="pic-icon">'+opt.i+'</span><span>'+opt.l+'</span></button>';
 });
-sH+='</div><div id="'+qId+'-fb" class="fb"></div></div></div>';
+sH+='</div><div id="'+qId+'-fb" class="fb"></div></div>';
+});
+sH+='</div>';
 });
 sH+='</div>';
 sSec.innerHTML=sH;
