@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CAPS Grade R Safari Express</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -10,53 +10,68 @@
             --primary: #2e7d32;
             --primary-light: #4caf50;
             --secondary: #ff9800;
+            --accent: #29b6f6;
             --background: #f4f9f4;
             --card-bg: #ffffff;
-            --text: #2c3e50;
+            --text-color: #2c3e50;
+            --border-radius: 16px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Fredoka', 'Open Sans', sans-serif;
+            font-family: 'Fredoka', 'Open Sans', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--background);
-            color: var(--text);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding-bottom: 2rem;
         }
 
         header {
             background: linear-gradient(135deg, #1b5e20, #388e3c);
             color: white;
-            padding: 1.25rem 1.5rem;
+            padding: 1.25rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.25rem;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
         }
 
         header p {
-            font-size: 1rem;
-            opacity: 0.9;
+            font-size: 0.95rem;
+            opacity: 0.95;
+            font-weight: 400;
         }
 
         .score-banner {
             background-color: #fff8e1;
-            border-bottom: 2px solid #ffe082;
-            padding: 0.6rem 1rem;
+            border-bottom: 3px solid #ffe082;
+            padding: 0.75rem 1rem;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
+            color: #e65100;
+        }
+
+        .score-badge {
+            background: #ffffff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            border: 2px solid #ffb74d;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .nav-tabs {
@@ -64,33 +79,40 @@
             justify-content: center;
             gap: 0.5rem;
             background-color: #e8f5e9;
-            padding: 0.75rem;
+            padding: 0.75rem 0.5rem;
             flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .tab-btn {
             background-color: white;
             border: 2px solid var(--primary-light);
             color: var(--primary);
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1rem;
             border-radius: 25px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            outline: none;
         }
 
         .tab-btn:hover, .tab-btn.active {
             background-color: var(--primary);
             color: white;
+            border-color: var(--primary);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(46,125,50,0.2);
         }
 
         main {
             flex: 1;
-            max-width: 900px;
+            max-width: 850px;
             width: 100%;
-            margin: 1.5rem auto;
+            margin: 1.25rem auto;
             padding: 0 1rem;
         }
 
@@ -100,104 +122,427 @@
 
         .subject-section.active {
             display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .activity-card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: var(--border-radius);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 2px solid #e2e8f0;
         }
 
         .activity-card h2 {
             color: var(--primary);
             margin-bottom: 0.75rem;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .prompt {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #333;
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .visual-display {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            letter-spacing: 0.5rem;
+            user-select: none;
         }
 
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 0.75rem;
             margin-top: 1rem;
         }
 
         .option-btn {
-            background-color: #f0f4f8;
-            border: 3px solid #cfd8dc;
+            background-color: #f8fafc;
+            border: 3px solid #cbd5e1;
             border-radius: 12px;
-            padding: 1rem;
-            font-size: 1.4rem;
-            font-weight: bold;
+            padding: 0.9rem 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
             cursor: pointer;
-            transition: transform 0.1s, border-color 0.2s;
+            transition: all 0.15s ease;
             text-align: center;
+            outline: none;
         }
 
-        .option-btn:hover {
-            border-color: var(--secondary);
-            transform: scale(1.03);
+        .option-btn:active {
+            transform: scale(0.96);
+        }
+
+        .option-btn.correct-btn {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+        }
+
+        .option-btn.wrong-btn {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
         }
 
         .feedback {
             margin-top: 1rem;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 0.85rem;
+            border-radius: 10px;
+            font-weight: 700;
             text-align: center;
             display: none;
+            font-size: 1rem;
         }
 
         .feedback.correct {
             display: block;
-            background-color: #d4edda;
-            color: #155724;
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
         }
 
         .feedback.incorrect {
             display: block;
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: #ffe4e6;
+            color: #9f1239;
+            border: 1px solid #fecdd3;
+        }
+
+        /* Coding Grid */
+        .coding-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
         }
 
         .coding-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
+            width: 100%;
             max-width: 300px;
-            margin: 1rem auto;
+            margin: 0.5rem auto;
         }
 
         .grid-cell {
-            width: 100%;
-            height: 80px;
-            background: #e3f2fd;
-            border: 2px dashed #90caf9;
-            border-radius: 10px;
+            aspect-ratio: 1;
+            background: #e0f2fe;
+            border: 3px dashed #7dd3fc;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            user-select: none;
         }
 
         .controls {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            gap: 0.6rem;
+            width: 100%;
         }
 
         .control-btn {
             background-color: var(--secondary);
             color: white;
             border: none;
-            padding: 0.75rem 1.2rem;
-            border-radius: 8
+            padding: 0.75rem 1.1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #b56a00;
+            transition: all 0.1s;
+        }
+
+        .control-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #b56a00;
+        }
+
+        .control-btn.reset {
+            background-color: #64748b;
+            box-shadow: 0 3px 0 #334155;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            font-size: 0.88rem;
+            color: #475569;
+            background: #e8f5e9;
+            margin-top: auto;
+            border-top: 1px solid #c8e6c9;
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.4rem; }
+            .score-banner { font-size: 0.95rem; }
+            .tab-btn { font-size: 0.85rem; padding: 0.5rem 0.75rem; }
+            .activity-card { padding: 1rem; }
+            .prompt { font-size: 1.05rem; }
+            .option-btn { font-size: 1.1rem; padding: 0.75rem 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🦁 CAPS Grade R Safari Express</h1>
+        <p>Interactive Foundation Phase Learning Application</p>
+    </header>
+
+    <div class="score-banner">
+        <div class="score-badge">⭐ Stars: <span id="star-count">0</span></div>
+        <div class="score-badge">🏆 Rank: <span id="rank-badge">Safari Explorer</span></div>
+    </div>
+
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('maths', this)">🔢 Mathematics</button>
+        <button class="tab-btn" onclick="switchTab('phonics', this)">🔤 Phonics & Language</button>
+        <button class="tab-btn" onclick="switchTab('lifeskills', this)">🎨 Life Skills</button>
+        <button class="tab-btn" onclick="switchTab('coding', this)">🤖 Coding & Robotics</button>
+    </nav>
+
+    <main>
+        <!-- MATHEMATICS SECTION -->
+        <section id="maths" class="subject-section active">
+            <div class="activity-card">
+                <h2>1. Early Number Concept</h2>
+                <p class="prompt">Count the safari lions below. How many are there?</p>
+                <div class="visual-display">🦁 🦁 🦁</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm1')">2</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm1')">3</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm1')">5</button>
+                </div>
+                <div id="m1-feedback" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>2. Space & Shape Recognition</h2>
+                <p class="prompt">Which 2D shape matches the round sun? ☀️</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm2')">🔴 Circle</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm2')">🟦 Square</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm2')">🔺 Triangle</button>
+                </div>
+                <div id="m2-feedback" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>3. Patterns & Sequence</h2>
+                <p class="prompt">Complete the pattern: 🍎 🍌 🍎 🍌 ❓</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'm3')">🍎 Apple</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm3')">🍌 Banana</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'm3')">🍇 Grapes</button>
+                </div>
+                <div id="m3-feedback" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- PHONICS SECTION -->
+        <section id="phonics" class="subject-section">
+            <div class="activity-card">
+                <h2>1. Initial Sound Identification</h2>
+                <p class="prompt">Listen to the word <strong>"Sun"</strong>. What letter sound does it start with?</p>
+                <div class="visual-display">☀️</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p1')">/s/ (S)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p1')">/b/ (B)</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p1')">/m/ (M)</button>
+                </div>
+                <div id="p1-feedback" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>2. Rhyming Awareness</h2>
+                <p class="prompt">Which word rhymes with <strong>"Cat"</strong>? 🐱</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p2')">Hat 🎩</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p2')">Dog 🐶</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p2')">Tree 🌳</button>
+                </div>
+                <div id="p2-feedback" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>3. Visual Discrimination</h2>
+                <p class="prompt">Which animal image matches the word <strong>"Elephant"</strong>?</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p3')">🦒 Giraffe</button>
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'p3')">🐘 Elephant</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'p3')">Zebra 🦓</button>
+                </div>
+                <div id="p3-feedback" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- LIFE SKILLS SECTION -->
+        <section id="lifeskills" class="subject-section">
+            <div class="activity-card">
+                <h2>1. Personal Health & Hygiene</h2>
+                <p class="prompt">What must we do before having lunch or handling food?</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'l1')">🧼 Wash Hands</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'l1')">😴 Sleep</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'l1')">📺 Watch TV</button>
+                </div>
+                <div id="l1-feedback" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>2. Road Safety & Awareness</h2>
+                <p class="prompt">What does the <strong>RED</strong> traffic light signal tell us to do? 🚦</p>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="checkAnswer(this, true, 'l2')">🛑 Stop</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'l2')">🏃 Run</button>
+                    <button class="option-btn" onclick="checkAnswer(this, false, 'l2')">🚗 Go Fast</button>
+                </div>
+                <div id="l2-feedback" class="feedback"></div>
+            </div>
+        </section>
+
+        <!-- CODING & ROBOTICS SECTION -->
+        <section id="coding" class="subject-section">
+            <div class="activity-card">
+                <h2>1. Unplugged Directional Coding</h2>
+                <p class="prompt">Use the direction controls to guide the Rover 🤖 to the Zebra 🦓!</p>
+                
+                <div class="coding-container">
+                    <div class="coding-grid">
+                        <div class="grid-cell" id="c-0">🤖</div>
+                        <div class="grid-cell" id="c-1"></div>
+                        <div class="grid-cell" id="c-2">🦓</div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="control-btn" onclick="moveRobotRight()">Move Right ➡️</button>
+                        <button class="control-btn reset" onclick="resetRobot()">Reset 🔄</button>
+                    </div>
+                </div>
+                <div id="c-feedback" class="feedback"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CAPS Grade R Safari Express &bull; Aligned with South African Early Childhood Development Standards</p>
+    </footer>
+
+    <script>
+        var stars = 0;
+        var robotPos = 0;
+
+        // Audio synthesizer using Web Audio API for zero external dependencies
+        function playTone(type) {
+            try {
+                var AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                var ctx = new AudioContext();
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'success') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.15); // E5
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'error') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    osc.frequency.setValueAtTime(180, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch (e) {
+                // Audio fallback silence
+            }
+        }
+
+        function switchTab(subjectId, btnElement) {
+            var sections = document.querySelectorAll('.subject-section');
+            var buttons = document.querySelectorAll('.tab-btn');
+
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active');
+            }
+            for (var j = 0; j < buttons.length; j++) {
+                buttons[j].classList.remove('active');
+            }
+
+            document.getElementById(subjectId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        function checkAnswer(button, isCorrect, feedbackId) {
+            var feedbackEl = document.getElementById(feedbackId + '-feedback');
+            var parentGrid = button.parentElement;
+            var siblingButtons = parentGrid.querySelectorAll('.option-btn');
+
+            for (var i = 0; i < siblingButtons.length; i++) {
+                siblingButtons[i].classList.remove('correct-btn', 'wrong-btn');
+            }
+
+            if (isCorrect) {
+                button.classList.add('correct-btn');
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = "🌟 Excelled! That is the correct answer!";
+                playTone('success');
+                
+                if (!button.dataset.scored) {
+                    stars += 1;
+                    button.dataset.scored = "true";
+                    document.getElementById('star-count').innerText = stars;
+                    updateRank();
+                }
+            } else {
+                button.classList.add('wrong-btn');
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "❌ Not quite! Give it another try!";
+                playTone('error');
+            }
+        }
+
+        function updateRank() {
+            var rankEl = document.getElementById('rank-badge');
+            if (stars >= 8) {
+                rankEl.innerText = "Safari Champion 🏆";
+            } else if (stars >= 4) {
+                rankEl.innerText = "Junior Guide 🌿";
+            } else {
+                rankEl.innerText = "Safari Explorer 🦁";
+            }
+        }
+
+        function moveRobotRight() {
+            var feedbackEl = document.getElementById('c-feedback');
+            if (robotPos < 2) {
+                document.getElementById('c-' + robotPos).innerText = '';
+                robotPos += 1;
+                
