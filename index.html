@@ -4,253 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CAPS Grade R Safari Express</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2e7d32;
-            --primary-light: #4caf50;
-            --secondary: #ff9800;
-            --background: #f4f9f4;
-            --card-bg: #ffffff;
-            --text-color: #2c3e50;
-            --border-radius: 16px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Fredoka', 'Open Sans', Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--background);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding-bottom: 2rem;
-        }
-
-        header {
-            background: linear-gradient(135deg, #1b5e20, #388e3c);
-            color: white;
-            padding: 1.25rem 1rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        header h1 {
-            font-size: 1.8rem;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
-        }
-
-        header p {
-            font-size: 0.95rem;
-            opacity: 0.95;
-        }
-
-        .score-banner {
-            background-color: #fff8e1;
-            border-bottom: 3px solid #ffe082;
-            padding: 0.75rem 1rem;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #e65100;
-        }
-
-        .score-badge {
-            background: #ffffff;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            border: 2px solid #ffb74d;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            background-color: #e8f5e9;
-            padding: 0.75rem 0.5rem;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .tab-btn {
-            background-color: white;
-            border: 2px solid var(--primary-light);
-            color: var(--primary);
-            padding: 0.6rem 1rem;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-        }
-
-        .tab-btn:hover, .tab-btn.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(46,125,50,0.2);
-        }
-
-        main {
-            flex: 1;
-            max-width: 850px;
-            width: 100%;
-            margin: 1.25rem auto;
-            padding: 0 1rem;
-        }
-
-        .subject-section {
-            display: none;
-        }
-
-        .subject-section.active {
-            display: block;
-        }
-
-        .activity-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 2px solid #e2e8f0;
-        }
-
-        .activity-card h2 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            font-size: 1.3rem;
-        }
-
-        .prompt {
-            font-size: 1.15rem;
-            margin-bottom: 1.25rem;
-            color: #334155;
-            line-height: 1.5;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .option-btn {
-            background-color: #f8fafc;
-            border: 3px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 0.9rem 0.5rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #1e293b;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            text-align: center;
-        }
-
-        .option-btn:active {
-            transform: scale(0.96);
-        }
-
-        .option-btn.correct-btn {
-            background-color: #dcfce7 !important;
-            border-color: #22c55e !important;
-            color: #15803d !important;
-        }
-
-        .option-btn.wrong-btn {
-            background-color: #fee2e2 !important;
-            border-color: #ef4444 !important;
-            color: #b91c1c !important;
-        }
-
-        .feedback {
-            margin-top: 1rem;
-            padding: 0.85rem;
-            border-radius: 10px;
-            font-weight: 700;
-            text-align: center;
-            display: none;
-            font-size: 1rem;
-        }
-
-        .feedback.correct {
-            display: block;
-            background-color: #d1fae5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-        }
-
-        .feedback.incorrect {
-            display: block;
-            background-color: #ffe4e6;
-            color: #9f1239;
-            border: 1px solid #fecdd3;
-        }
-
-        .coding-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-width: 300px;
-            margin: 1rem auto;
-        }
-
-        .grid-cell {
-            aspect-ratio: 1;
-            background: #e0f2fe;
-            border: 3px dashed #7dd3fc;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            margin-top: 0.5rem;
-        }
-
-        .control-btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.1rem;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem 1rem;
-            font-size: 0.88rem;
-            color: #475569;
-            background: #e8f5e9;
-            margin-top: auto;
-            border-top: 1px solid #c8e6c9;
-        }
+        :root { --primary: #2e7d32; --primary-light: #4caf50; --secondary: #ff9800; --bg: #f4f9f4; --card: #ffffff; --text: #2c3e50; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Fredoka', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 2rem; }
+        header { background: linear-gradient(135deg, #1b5e20, #388e3c); color: #fff; padding: 1.25rem 1rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+        header p { font-size: 0.95rem; opacity: 0.95; }
+        .score-banner { background: #fff8e1; border-bottom: 3px solid #ffe082; padding: 0.75rem 1rem; display: flex; justify-content: space-around; font-weight: 700; font-size: 1.1rem; color: #e65100; }
+        .score-badge { background: #fff; padding: 0.4rem 1rem; border-radius: 20px; border: 2px solid #ffb74d; }
+        .nav-tabs { display: flex; justify-content: center; gap: 0.5rem; background: #e8f5e9; padding: 0.75rem 0.5rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+        .tab-btn { background: #fff; border: 2px solid var(--primary-light); color: var(--primary); padding: 0.6rem 1rem; border-radius: 25px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+        .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        main { flex: 1; max-width: 850px; width: 100%; margin: 1.25rem auto; padding: 0 1rem; }
+        .subject-section { display: none; }
+        .subject-section.active { display: block; }
+        .activity-card { background: var(--card); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 2px solid #e2e8f0; }
+        .activity-card h2 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1.25rem; }
+        .prompt { font-size: 1.1rem; margin-bottom: 1rem; color: #334155; line-height: 1.4; }
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; }
+        .option-btn { background: #f8fafc; border: 3px solid #cbd5e1; border-radius: 12px; padding: 0.8rem 0.4rem; font-size: 1.15rem; font-weight: 700; color: #1e293b; cursor: pointer; text-align: center; }
+        .option-btn.correct-btn { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; }
+        .option-btn.wrong-btn { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
+        .feedback { margin-top: 0.85rem; padding: 0.75rem; border-radius: 10px; font-weight: 700; text-align: center; display: none; }
+        .feedback.correct { display: block; background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .feedback.incorrect { display: block; background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
+        .coding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 280px; margin: 0.75rem auto; }
+        .grid-cell { aspect-ratio: 1; background: #e0f2fe; border: 3px dashed #7dd3fc; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
+        .controls { display: flex; justify-content: center; gap: 0.6rem; }
+        .control-btn { background: var(--secondary); color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+        footer { text-align: center; padding: 1.25rem 1rem; font-size: 0.88rem; color: #475569; background: #e8f5e9; border-top: 1px solid #c8e6c9; }
     </style>
 </head>
 <body>
@@ -266,10 +50,10 @@
     </div>
 
     <nav class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('maths', this)">🔢 Mathematics (12)</button>
-        <button class="tab-btn" onclick="switchTab('phonics', this)">🔤 Language (12)</button>
-        <button class="tab-btn" onclick="switchTab('lifeskills', this)">🎨 Life Skills (12)</button>
-        <button class="tab-btn" onclick="switchTab('coding', this)">🤖 Coding & Robotics (12)</button>
+        <button class="tab-btn active" onclick="tab('maths', this)">🔢 Mathematics (12)</button>
+        <button class="tab-btn" onclick="tab('phonics', this)">🔤 Language (12)</button>
+        <button class="tab-btn" onclick="tab('lifeskills', this)">🎨 Life Skills (12)</button>
+        <button class="tab-btn" onclick="tab('coding', this)">🤖 Coding & Robotics (12)</button>
     </nav>
 
     <main>
@@ -284,186 +68,151 @@
     </footer>
 
     <script>
-        var stars = 0;
-        var robotPos = 0;
-
+        var stars = 0, rPos = 0;
         var data = {
             maths: [
-                { t: "1. Counting Lions", p: "How many lions do you see? 🦁 🦁 🦁", o: ["2", "3", "5"], c: 1 },
-                { t: "2. Shape Recognition", p: "Which 2D shape matches the round sun? ☀️", o: ["🔴 Circle", "🟦 Square", "🔺 Triangle"], c: 0 },
-                { t: "3. Patterns & Sequence", p: "Complete the pattern: 🍎 🍌 🍎 🍌 ❓", o: ["🍎 Apple", "🍌 Banana", "🍇 Grapes"], c: 0 },
-                { t: "4. Size Comparison", p: "Which animal is BIGGER? 🐘 vs 🐜", o: ["🐘 Elephant", "🐜 Ant"], c: 0 },
-                { t: "5. More or Less", p: "Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴", o: ["🔵 5 Blue Dots", "🔴 2 Red Dots"], c: 0 },
-                { t: "6. Spatial Position", p: "Where is the bird perched? 🐦 🌳", o: ["ON the tree", "UNDER the tree"], c: 0 },
-                { t: "7. Number Recognition", p: "Which symbol is the number FOUR?", o: ["2", "4", "7"], c: 1 },
-                { t: "8. Matching Sets", p: "Which number matches two apples? 🍎 🍎", o: ["1", "2", "3"], c: 1 },
-                { t: "9. Height Comparison", p: "Which animal is TALLER? 🦒 vs 🦦", o: ["🦒 Giraffe", "🦦 Meerkat"], c: 0 },
-                { t: "10. 3D Objects", p: "What 3D shape is a round soccer ball? ⚽", o: ["⚽ Sphere (Ball)", "📦 Cube (Box)"], c: 0 },
-                { t: "11. Early Addition", p: "1 monkey 🐒 + 1 monkey 🐒 = How many monkeys?", o: ["1", "2", "3"], c: 1 },
-                { t: "12. Time & Day Sequence", p: "When do we sleep at night under the stars? 🌙", o: ["Night Time 🌙", "Day Time ☀️"], c: 0 }
+                {t:"1. Counting Lions", p:"How many lions do you see? 🦁 🦁 🦁", o:["2","3","5"], c:1},
+                {t:"2. Shape Recognition", p:"Which 2D shape matches the round sun? ☀️", o:["🔴 Circle","🟦 Square","🔺 Triangle"], c:0},
+                {t:"3. Patterns & Sequence", p:"Complete the pattern: 🍎 🍌 🍎 🍌 ❓", o:["🍎 Apple","🍌 Banana","🍇 Grapes"], c:0},
+                {t:"4. Size Comparison", p:"Which animal is BIGGER? 🐘 vs 🐜", o:["🐘 Elephant","🐜 Ant"], c:0},
+                {t:"5. More or Less", p:"Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴", o:["🔵 5 Blue Dots","🔴 2 Red Dots"], c:0},
+                {t:"6. Spatial Position", p:"Where is the bird perched? 🐦 🌳", o:["ON the tree","UNDER the tree"], c:0},
+                {t:"7. Number Recognition", p:"Which symbol is the number FOUR?", o:["2","4","7"], c:1},
+                {t:"8. Matching Sets", p:"Which number matches two apples? 🍎 🍎", o:["1","2","3"], c:1},
+                {t:"9. Height Comparison", p:"Which animal is TALLER? 🦒 vs 🦦", o:["🦒 Giraffe","🦦 Meerkat"], c:0},
+                {t:"10. 3D Objects", p:"What 3D shape is a round soccer ball? ⚽", o:["⚽ Sphere","📦 Cube"], c:0},
+                {t:"11. Early Addition", p:"1 monkey 🐒 + 1 monkey 🐒 = How many?", o:["1","2","3"], c:1},
+                {t:"12. Time & Day Sequence", p:"When do we sleep at night under the stars? 🌙", o:["Night Time 🌙","Day Time ☀️"], c:0}
             ],
             phonics: [
-                { t: "1. Initial Sound /s/", p: "What sound does 'Sun' start with? ☀️", o: ["/s/ (S)", "/b/ (B)", "/m/ (M)"], c: 0 },
-                { t: "2. Initial Sound /a/", p: "What sound does 'Apple' start with? 🍎", o: ["/a/ (A)", "/t/ (T)", "/p/ (P)"], c: 0 },
-                { t: "3. Initial Sound /t/", p: "What sound does 'Tiger' start with? 🐅", o: ["/t/ (T)", "/d/ (D)", "/s/ (S)"], c: 0 },
-                { t: "4. Rhyming Words (Cat)", p: "Which word rhymes with 'Cat'? 🐱", o: ["Hat 🎩", "Dog 🐶", "Fish 🐟"], c: 0 },
-                { t: "5. Rhyming Words (Sun)", p: "Which word rhymes with 'Sun'? ☀️", o: ["Run 🏃", "Tree 🌳", "Car 🚗"], c: 0 },
-                { t: "6. Animal Sounds", p: "Which animal makes a loud 'ROAR'?", o: ["🦁 Lion", "🐸 Frog", "🐥 Duck"], c: 0 },
-                { t: "7. Vocabulary", p: "What safari animal has a very long neck? 🦒", o: ["🦒 Giraffe", "🦛 Hippo", "🦓 Zebra"], c: 0 },
-                { t: "8. Syllable Clapping", p: "Clap the word 'Sa-fa-ri'. How many claps?", o: ["1 Clap", "2 Claps", "3 Claps"], c: 2 },
-                { t: "9. Opposites", p: "What is the opposite of HOT ☀️?", o: ["🧊 Cold", "🔥 Warm"], c: 0 },
-                { t: "10. Story Sequence", p: "What comes FIRST when growing a sunflower? 🌻", o: ["🌱 Plant Seed", "🌻 Pick Flower"], c: 0 },
-                { t: "11. Listening Discrimination", p: "Which animal word starts with /m/?", o: ["🐒 Monkey", "🐘 Elephant"], c: 0 },
-                { t: "12. Letter Matching", p: "Match lowercase 'a' with its uppercase letter:", o: ["A", "B", "M"], c: 0 }
+                {t:"1. Initial Sound /s/", p:"What sound does 'Sun' start with? ☀️", o:["/s/ (S)","/b/ (B)","/m/ (M)"], c:0},
+                {t:"2. Initial Sound /a/", p:"What sound does 'Apple' start with? 🍎", o:["/a/ (A)","/t/ (T)","/p/ (P)"], c:0},
+                {t:"3. Initial Sound /t/", p:"What sound does 'Tiger' start with? 🐅", o:["/t/ (T)","/d/ (D)","/s/ (S)"], c:0},
+                {t:"4. Rhyming Words (Cat)", p:"Which word rhymes with 'Cat'? 🐱", o:["Hat 🎩","Dog 🐶","Fish 🐟"], c:0},
+                {t:"5. Rhyming Words (Sun)", p:"Which word rhymes with 'Sun'? ☀️", o:["Run 🏃","Tree 🌳","Car 🚗"], c:0},
+                {t:"6. Animal Sounds", p:"Which animal makes a loud 'ROAR'?", o:["🦁 Lion","🐸 Frog","🐥 Duck"], c:0},
+                {t:"7. Vocabulary", p:"What safari animal has a very long neck? 🦒", o:["🦒 Giraffe","🦛 Hippo","Zebra 🦓"], c:0},
+                {t:"8. Syllable Clapping", p:"Clap the word 'Sa-fa-ri'. How many claps?", o:["1 Clap","2 Claps","3 Claps"], c:2},
+                {t:"9. Opposites", p:"What is the opposite of HOT ☀️?", o:["🧊 Cold","🔥 Warm"], c:0},
+                {t:"10. Story Sequence", p:"What comes FIRST when growing a sunflower? 🌻", o:["🌱 Plant Seed","🌻 Pick Flower"], c:0},
+                {t:"11. Listening Discrimination", p:"Which animal word starts with /m/?", o:["🐒 Monkey","🐘 Elephant"], c:0},
+                {t:"12. Letter Matching", p:"Match lowercase 'a' with its uppercase letter:", o:["A","B","M"], c:0}
             ],
             lifeskills: [
-                { t: "1. Personal Hygiene", p: "What must we do before eating food? 🍎", o: ["🧼 Wash Hands", "😴 Go to Sleep"], c: 0 },
-                { t: "2. Road Safety", p: "What does a RED traffic light signal tell us? 🚦", o: ["🛑 Stop", "🏃 Run"], c: 0 },
-                { t: "3. Healthy Eating", p: "Which snack is healthy for our body? 🍎 vs 🍬", o: ["🍎 Fresh Apple", "🍬 Sweet Candy"], c: 0 },
-                { t: "4. Body Awareness", p: "Which body part do we use to SEE safari animals? 👀", o: ["👀 Eyes", "👂 Ears"], c: 0 },
-                { t: "5. Identifying Emotions", p: "How is this friend feeling? 😊", o: ["😊 Happy", "😢 Sad"], c: 0 },
-                { t: "6. Weather Awareness", p: "What should we wear when it is raining? 🌧️", o: ["🧥 Raincoat", "🩳 Swimsuit"], c: 0 },
-                { t: "7. Environment Care", p: "Where do we throw empty sweet wrappers? 🗑️", o: ["🗑️ In Dustbin", "🌿 On Ground"], c: 0 },
-                { t: "8. Water Safety", p: "What must you wear when playing near deep water? 🏊", o: ["🤿 Life Jacket", "Heavy Shoes"], c: 0 },
-                { t: "9. Community Helpers", p: "Who puts out dangerous fires? 🧑‍🚒", o: ["🧑‍🚒 Firefighter", "👨‍🍳 Chef"], c: 0 },
-                { t: "10. Good Manners", p: "When someone gives you a gift, what do you say?", o: ["'Thank You!'", "'No way!'"], c: 0 },
-                { t: "11. Four Seasons", p: "In which season do colorful flowers bloom? 🌸", o: ["🌸 Spring", "❄️ Winter"], c: 0 },
-                { t: "12. Animal Welfare", p: "How should we treat safari animals and pets? 🐾", o: ["❤️ Gently & Kind", "Roughly"], c: 0 }
+                {t:"1. Personal Hygiene", p:"What must we do before eating food? 🍎", o:["🧼 Wash Hands","😴 Go to Sleep"], c:0},
+                {t:"2. Road Safety", p:"What does a RED traffic light signal tell us? 🚦", o:["🛑 Stop","🏃 Run"], c:0},
+                {t:"3. Healthy Eating", p:"Which snack is healthy for our body? 🍎 vs 🍬", o:["🍎 Fresh Apple","🍬 Sweet Candy"], c:0},
+                {t:"4. Body Awareness", p:"Which body part do we use to SEE safari animals? 👀", o:["👀 Eyes","👂 Ears"], c:0},
+                {t:"5. Identifying Emotions", p:"How is this friend feeling? 😊", o:["😊 Happy","😢 Sad"], c:0},
+                {t:"6. Weather Awareness", p:"What should we wear when it is raining? 🌧️", o:["🧥 Raincoat","🩳 Swimsuit"], c:0},
+                {t:"7. Environment Care", p:"Where do we throw empty sweet wrappers? 🗑️", o:["🗑️ In Dustbin","🌿 On Ground"], c:0},
+                {t:"8. Water Safety", p:"What must you wear when playing near deep water? 🏊", o:["🤿 Life Jacket","Heavy Shoes"], c:0},
+                {t:"9. Community Helpers", p:"Who puts out dangerous fires? 🧑‍🚒", o:["🧑‍🚒 Firefighter","👨‍🍳 Chef"], c:0},
+                {t:"10. Good Manners", p:"When someone gives you a gift, what do you say?", o:["'Thank You!'","'No way!'"], c:0},
+                {t:"11. Four Seasons", p:"In which season do colorful flowers bloom? 🌸", o:["🌸 Spring","❄️ Winter"], c:0},
+                {t:"12. Animal Welfare", p:"How should we treat safari animals and pets? 🐾", o:["❤️ Gently & Kind","Roughly"], c:0}
             ],
             coding: [
-                { t: "1. Grid Navigation", p: "Guide Rover 🤖 step-by-step to reach Zebra 🦓!", grid: true },
-                { t: "2. Sequence & Order", p: "Which step comes FIRST in a robot instruction list?", o: ["🟢 Start / Power On", "🔴 Stop"], c: 0 },
-                { t: "3. Directional Symbols", p: "Which arrow points to the RIGHT direction?", o: ["➡️ Right", "⬅️ Left", "⬆️ Up"], c: 0 },
-                { t: "4. Debugging", p: "The robot got stuck on a rock 🪨! Fixing code is called...", o: ["🐛 Debugging", "Sleeping"], c: 0 },
-                { t: "5. Repeat / Loops", p: "To move 2 steps forward without repeating code, use a...", o: ["🔁 Loop", "Break"], c: 0 },
-                { t: "6. Inputs & Outputs", p: "Pressing a switch 🔘 turns on a light 💡. The switch is an...", o: ["📥 Input", "📤 Output"], c: 0 },
-                { t: "7. Sorting Algorithms", p: "Where should the RED coding card go? 🔴", o: ["🔴 Red Box", "🔵 Blue Box"], c: 0 },
-                { t: "8. Spatial Orientation", p: "Where is the sun ☀️ located on the grid screen?", o: ["⬆️ Top Corner", "⬇️ Bottom Corner"], c: 0 },
-                { t: "9. Algorithm Steps", p: "Step-by-step instructions (like a recipe) are called an...", o: ["📋 Algorithm", "Mistake"], c: 0 },
-                { t: "10. Binary Logic", p: "What binary number usually means ON in robotics?", o: ["1 (ON)", "0 (OFF)"], c: 0 },
-                { t: "11. Obstacle Avoidance", p: "A river is in front of Rover 🤖! Which command avoids danger?", o: ["↪️ Turn Around", "➡️ Drive Forward"], c: 0 },
-                { t: "12. Mission Completion", p: "All 12 coding tasks finished! What does the Rover reach? ⛺", o: ["⛺ Safari Camp!", "Lost Forest"], c: 0 }
+                {t:"1. Grid Navigation", p:"Guide Rover 🤖 step-by-step to reach Zebra 🦓!", g:true},
+                {t:"2. Sequence & Order", p:"Which step comes FIRST in a robot instruction list?", o:["🟢 Start / Power On","🔴 Stop"], c:0},
+                {t:"3. Directional Symbols", p:"Which arrow points to the RIGHT direction?", o:["➡️ Right","⬅️ Left","⬆️ Up"], c:0},
+                {t:"4. Debugging", p:"The robot got stuck on a rock 🪨! Fixing code is called...", o:["🐛 Debugging","Sleeping"], c:0},
+                {t:"5. Repeat / Loops", p:"To move 2 steps forward without repeating code, use a...", o:["🔁 Loop","Break"], c:0},
+                {t:"6. Inputs & Outputs", p:"Pressing a switch 🔘 turns on a light 💡. The switch is an...", o:["📥 Input","📤 Output"], c:0},
+                {t:"7. Sorting Algorithms", p:"Where should the RED coding card go? 🔴", o:["🔴 Red Box","🔵 Blue Box"], c:0},
+                {t:"8. Spatial Orientation", p:"Where is the sun ☀️ located on the grid screen?", o:["⬆️ Top Corner","⬇️ Bottom Corner"], c:0},
+                {t:"9. Algorithm Steps", p:"Step-by-step instructions are called an...", o:["📋 Algorithm","Mistake"], c:0},
+                {t:"10. Binary Logic", p:"What binary number usually means ON in robotics?", o:["1 (ON)","0 (OFF)"], c:0},
+                {t:"11. Obstacle Avoidance", p:"A river is in front of Rover 🤖! Which command avoids danger?", o:["↪️ Turn Around","➡️ Drive Forward"], c:0},
+                {t:"12. Mission Completion", p:"All 12 coding tasks finished! What does the Rover reach? ⛺", o:["⛺ Safari Camp!","Lost Forest"], c:0}
             ]
         };
 
-        function renderActivities() {
-            Object.keys(data).forEach(function(subject) {
-                var container = document.getElementById(subject);
-                var html = '';
-                
-                data[subject].forEach(function(act, idx) {
-                    html += '<div class="activity-card">';
-                    html += '<h2>' + act.t + '</h2>';
-                    html += '<p class="prompt">' + act.p + '</p>';
-
-                    if (act.grid) {
-                        html += '<div class="coding-grid">';
-                        html += '<div class="grid-cell" id="c-0">🤖</div>';
-                        html += '<div class="grid-cell" id="c-1"></div>';
-                        html += '<div class="grid-cell" id="c-2">🦓</div>';
-                        html += '</div>';
-                        html += '<div class="controls">';
-                        html += '<button class="control-btn" onclick="moveRobot()">Move Right ➡️</button>';
-                        html += '<button class="control-btn" style="background:#64748b;" onclick="resetRobot()">Reset 🔄</button>';
-                        html += '</div>';
-                        html += '<div id="grid-fb" class="feedback"></div>';
+        function buildUI() {
+            for (var sub in data) {
+                var sec = document.getElementById(sub);
+                var h = '';
+                data[sub].forEach(function(a, i) {
+                    h += '<div class="activity-card"><h2>' + a.t + '</h2><p class="prompt">' + a.p + '</p>';
+                    if (a.g) {
+                        h += '<div class="coding-grid"><div class="grid-cell" id="c-0">🤖</div><div class="grid-cell" id="c-1"></div><div class="grid-cell" id="c-2">🦓</div></div>';
+                        h += '<div class="controls"><button class="control-btn" onclick="mvBot()">Move Right ➡️</button><button class="control-btn" style="background:#64748b;" onclick="rstBot()">Reset 🔄</button></div><div id="g-fb" class="feedback"></div>';
                     } else {
-                        var actId = subject + '-' + idx;
-                        html += '<div class="options-grid">';
-                        act.o.forEach(function(opt, oIdx) {
-                            var isCorrect = (oIdx === act.c);
-                            html += '<button class="option-btn" onclick="checkAnswer(this, ' + isCorrect + ', \'' + actId + '\')">' + opt + '</button>';
+                        var id = sub + '-' + i;
+                        h += '<div class="options-grid">';
+                        a.o.forEach(function(opt, oi) {
+                            h += '<button class="option-btn" onclick="chk(this,' + (oi === a.c) + ',\'' + id + '\')">' + opt + '</button>';
                         });
-                        html += '</div>';
-                        html += '<div id="' + actId + '-fb" class="feedback"></div>';
+                        h += '</div><div id="' + id + '-fb" class="feedback"></div>';
                     }
-
-                    html += '</div>';
+                    h += '</div>';
                 });
-                container.innerHTML = html;
-            });
-        }
-
-        function switchTab(subjectId, btnElement) {
-            var sections = document.getElementsByClassName('subject-section');
-            var buttons = document.getElementsByClassName('tab-btn');
-
-            for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
-            for (var j = 0; j < buttons.length; j++) buttons[j].classList.remove('active');
-
-            document.getElementById(subjectId).classList.add('active');
-            btnElement.classList.add('active');
-        }
-
-        function checkAnswer(button, isCorrect, feedbackId) {
-            var feedbackEl = document.getElementById(feedbackId + '-fb');
-            var parentGrid = button.parentElement;
-            var siblingButtons = parentGrid.getElementsByClassName('option-btn');
-
-            for (var i = 0; i < siblingButtons.length; i++) {
-                siblingButtons[i].classList.remove('correct-btn', 'wrong-btn');
+                sec.innerHTML = h;
             }
+        }
 
-            if (isCorrect) {
-                button.classList.add('correct-btn');
-                if (feedbackEl) {
-                    feedbackEl.className = "feedback correct";
-                    feedbackEl.innerHTML = "🌟 Excelled! Correct Answer!";
-                }
-                if (button.getAttribute('data-scored') !== 'true') {
-                    stars += 1;
-                    button.setAttribute('data-scored', 'true');
+        function tab(id, btn) {
+            var s = document.getElementsByClassName('subject-section'), b = document.getElementsByClassName('tab-btn');
+            for (var i = 0; i < s.length; i++) s[i].classList.remove('active');
+            for (var j = 0; j < b.length; j++) b[j].classList.remove('active');
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function chk(btn, isC, id) {
+            var fb = document.getElementById(id + '-fb');
+            var siblings = btn.parentElement.getElementsByClassName('option-btn');
+            for (var i = 0; i < siblings.length; i++) siblings[i].classList.remove('correct-btn', 'wrong-btn');
+
+            if (isC) {
+                btn.classList.add('correct-btn');
+                if (fb) { fb.className = "feedback correct"; fb.innerHTML = "🌟 Excelled! Correct Answer!"; }
+                if (btn.getAttribute('data-scored') !== 'true') {
+                    stars++;
+                    btn.setAttribute('data-scored', 'true');
                     document.getElementById('star-count').innerText = stars;
-                    updateRank();
+                    updRank();
                 }
             } else {
-                button.classList.add('wrong-btn');
-                if (feedbackEl) {
-                    feedbackEl.className = "feedback incorrect";
-                    feedbackEl.innerHTML = "❌ Try again!";
-                }
+                btn.classList.add('wrong-btn');
+                if (fb) { fb.className = "feedback incorrect"; fb.innerHTML = "❌ Try again!"; }
             }
         }
 
-        function updateRank() {
-            var rankEl = document.getElementById('rank-badge');
-            if (stars >= 30) rankEl.innerText = "Safari Master 👑";
-            else if (stars >= 15) rankEl.innerText = "Safari Champion 🏆";
-            else if (stars >= 5) rankEl.innerText = "Junior Guide 🌿";
-            else rankEl.innerText = "Safari Explorer 🦁";
+        function updRank() {
+            var r = document.getElementById('rank-badge');
+            if (stars >= 30) r.innerText = "Safari Master 👑";
+            else if (stars >= 15) r.innerText = "Safari Champion 🏆";
+            else if (stars >= 5) r.innerText = "Junior Guide 🌿";
+            else r.innerText = "Safari Explorer 🦁";
         }
 
-        function moveRobot() {
-            var feedbackEl = document.getElementById('grid-fb');
-            if (robotPos < 2) {
-                document.getElementById('c-' + robotPos).innerText = '';
-                robotPos += 1;
-                document.getElementById('c-' + robotPos).innerText = '🤖';
-
-                if (robotPos === 2) {
-                    if (feedbackEl) {
-                        feedbackEl.className = "feedback correct";
-                        feedbackEl.innerHTML = "🎉 Fantastic! The Rover reached the Zebra!";
-                    }
+        function mvBot() {
+            var fb = document.getElementById('g-fb');
+            if (rPos < 2) {
+                document.getElementById('c-' + rPos).innerText = '';
+                rPos++;
+                document.getElementById('c-' + rPos).innerText = '🤖';
+                if (rPos === 2) {
+                    if (fb) { fb.className = "feedback correct"; fb.innerHTML = "🎉 Fantastic! Rover reached the Zebra!"; }
                     stars += 2;
                     document.getElementById('star-count').innerText = stars;
-                    updateRank();
+                    updRank();
                 }
             }
         }
 
-        function resetRobot() {
-            document.getElementById('c-' + robotPos).innerText = '';
-            robotPos = 0;
+        function rstBot() {
+            document.getElementById('c-' + rPos).innerText = '';
+            rPos = 0;
             document.getElementById('c-0').innerText = '🤖';
             document.getElementById('c-1').innerText = '';
             document.getElementById('c-2').innerText = '🦓';
-            varfeedbackEl = document.getElementById('c1-fb');
-            if (feedbackEl) {
-                feedbackEl.className = "feedback";
-                feedbackEl.style.display = 'none';
-            }
+            var fb = document.getElementById('g-fb');
+            if (fb) fb.style.display = 'none';
         }
+
+        buildUI();
     </script>
 </body>
 </html>
