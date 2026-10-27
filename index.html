@@ -22,7 +22,10 @@
         .subject-section.active { display: block; }
         .activity-card { background: var(--card); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 2px solid #e2e8f0; }
         .activity-card h2 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1.25rem; }
-        .prompt { font-size: 1.1rem; margin-bottom: 1rem; color: #334155; line-height: 1.4; }
+        .prompt-container { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem; }
+        .prompt { font-size: 1.15rem; color: #334155; line-height: 1.4; flex: 1; }
+        .speak-btn { background: #e0f2fe; border: 2px solid #0284c7; color: #0369a1; border-radius: 12px; padding: 0.5rem 0.8rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
+        .speak-btn:active { transform: scale(0.95); background: #bae6fd; }
         .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; }
         .option-btn { background: #f8fafc; border: 3px solid #cbd5e1; border-radius: 12px; padding: 0.8rem 0.4rem; font-size: 1.15rem; font-weight: 700; color: #1e293b; cursor: pointer; text-align: center; }
         .option-btn.correct-btn { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; }
@@ -68,63 +71,91 @@
     </footer>
 
     <script>
-        var stars = 0, rPos = 0;
+        var stars = 0, rPos = 0, saVoice = null;
+
+        // SOUTH AFRICAN VOICE SYNTHESIZER
+        function loadVoices() {
+            if ('speechSynthesis' in window) {
+                var voices = window.speechSynthesis.getVoices();
+                saVoice = voices.find(function(v) { 
+                    return v.lang === 'en-ZA' || v.lang.includes('ZA') || v.name.includes('South Africa'); 
+                }) || voices.find(function(v) { return v.lang.startsWith('en'); });
+            }
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+            loadVoices();
+        }
+
+        function speakText(txt) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                var cleanTxt = txt.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu, '');
+                var u = new SpeechSynthesisUtterance(cleanTxt);
+                u.lang = 'en-ZA';
+                u.rate = 0.85; // Calibrated for early learning age
+                u.pitch = 1.1;
+                if (saVoice) u.voice = saVoice;
+                window.speechSynthesis.speak(u);
+            }
+        }
+
         var data = {
             maths: [
-                {t:"1. Counting Lions", p:"How many lions do you see? 🦁 🦁 🦁", o:["2","3","5"], c:1},
-                {t:"2. Shape Recognition", p:"Which 2D shape matches the round sun? ☀️", o:["🔴 Circle","🟦 Square","🔺 Triangle"], c:0},
-                {t:"3. Patterns & Sequence", p:"Complete the pattern: 🍎 🍌 🍎 🍌 ❓", o:["🍎 Apple","🍌 Banana","🍇 Grapes"], c:0},
-                {t:"4. Size Comparison", p:"Which animal is BIGGER? 🐘 vs 🐜", o:["🐘 Elephant","🐜 Ant"], c:0},
-                {t:"5. More or Less", p:"Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴", o:["🔵 5 Blue Dots","🔴 2 Red Dots"], c:0},
-                {t:"6. Spatial Position", p:"Where is the bird perched? 🐦 🌳", o:["ON the tree","UNDER the tree"], c:0},
+                {t:"1. Counting Lions", p:"How many lions do you see?", o:["2","3","5"], c:1},
+                {t:"2. Shape Recognition", p:"Which 2D shape matches the round sun?", o:["Circle","Square","Triangle"], c:0},
+                {t:"3. Patterns & Sequence", p:"Complete the pattern: Apple, Banana, Apple, Banana, what comes next?", o:["Apple","Banana","Grapes"], c:0},
+                {t:"4. Size Comparison", p:"Which animal is bigger? Elephant or Ant?", o:["Elephant","Ant"], c:0},
+                {t:"5. More or Less", p:"Which group has more objects? 5 Blue dots or 2 Red dots?", o:["5 Blue Dots","2 Red Dots"], c:0},
+                {t:"6. Spatial Position", p:"Where is the bird perched? On the tree or under the tree?", o:["ON the tree","UNDER the tree"], c:0},
                 {t:"7. Number Recognition", p:"Which symbol is the number FOUR?", o:["2","4","7"], c:1},
-                {t:"8. Matching Sets", p:"Which number matches two apples? 🍎 🍎", o:["1","2","3"], c:1},
-                {t:"9. Height Comparison", p:"Which animal is TALLER? 🦒 vs 🦦", o:["🦒 Giraffe","🦦 Meerkat"], c:0},
-                {t:"10. 3D Objects", p:"What 3D shape is a round soccer ball? ⚽", o:["⚽ Sphere","📦 Cube"], c:0},
-                {t:"11. Early Addition", p:"1 monkey 🐒 + 1 monkey 🐒 = How many?", o:["1","2","3"], c:1},
-                {t:"12. Time & Day Sequence", p:"When do we sleep at night under the stars? 🌙", o:["Night Time 🌙","Day Time ☀️"], c:0}
+                {t:"8. Matching Sets", p:"Which number matches two apples?", o:["1","2","3"], c:1},
+                {t:"9. Height Comparison", p:"Which animal is taller? Giraffe or Meerkat?", o:["Giraffe","Meerkat"], c:0},
+                {t:"10. 3D Objects", p:"What 3D shape is a round soccer ball?", o:["Sphere","Cube"], c:0},
+                {t:"11. Early Addition", p:"1 monkey plus 1 monkey equals how many monkeys?", o:["1","2","3"], c:1},
+                {t:"12. Time & Day Sequence", p:"When do we sleep at night under the stars?", o:["Night Time","Day Time"], c:0}
             ],
             phonics: [
-                {t:"1. Initial Sound /s/", p:"What sound does 'Sun' start with? ☀️", o:["/s/ (S)","/b/ (B)","/m/ (M)"], c:0},
-                {t:"2. Initial Sound /a/", p:"What sound does 'Apple' start with? 🍎", o:["/a/ (A)","/t/ (T)","/p/ (P)"], c:0},
-                {t:"3. Initial Sound /t/", p:"What sound does 'Tiger' start with? 🐅", o:["/t/ (T)","/d/ (D)","/s/ (S)"], c:0},
-                {t:"4. Rhyming Words (Cat)", p:"Which word rhymes with 'Cat'? 🐱", o:["Hat 🎩","Dog 🐶","Fish 🐟"], c:0},
-                {t:"5. Rhyming Words (Sun)", p:"Which word rhymes with 'Sun'? ☀️", o:["Run 🏃","Tree 🌳","Car 🚗"], c:0},
-                {t:"6. Animal Sounds", p:"Which animal makes a loud 'ROAR'?", o:["🦁 Lion","🐸 Frog","🐥 Duck"], c:0},
-                {t:"7. Vocabulary", p:"What safari animal has a very long neck? 🦒", o:["🦒 Giraffe","🦛 Hippo","Zebra 🦓"], c:0},
-                {t:"8. Syllable Clapping", p:"Clap the word 'Sa-fa-ri'. How many claps?", o:["1 Clap","2 Claps","3 Claps"], c:2},
-                {t:"9. Opposites", p:"What is the opposite of HOT ☀️?", o:["🧊 Cold","🔥 Warm"], c:0},
-                {t:"10. Story Sequence", p:"What comes FIRST when growing a sunflower? 🌻", o:["🌱 Plant Seed","🌻 Pick Flower"], c:0},
-                {t:"11. Listening Discrimination", p:"Which animal word starts with /m/?", o:["🐒 Monkey","🐘 Elephant"], c:0},
-                {t:"12. Letter Matching", p:"Match lowercase 'a' with its uppercase letter:", o:["A","B","M"], c:0}
+                {t:"1. Initial Sound /s/", p:"What sound does Sun start with?", o:["/s/ (S)","/b/ (B)","/m/ (M)"], c:0},
+                {t:"2. Initial Sound /a/", p:"What sound does Apple start with?", o:["/a/ (A)","/t/ (T)","/p/ (P)"], c:0},
+                {t:"3. Initial Sound /t/", p:"What sound does Tiger start with?", o:["/t/ (T)","/d/ (D)","/s/ (S)"], c:0},
+                {t:"4. Rhyming Words (Cat)", p:"Which word rhymes with Cat?", o:["Hat","Dog","Fish"], c:0},
+                {t:"5. Rhyming Words (Sun)", p:"Which word rhymes with Sun?", o:["Run","Tree","Car"], c:0},
+                {t:"6. Animal Sounds", p:"Which animal makes a loud ROAR?", o:["Lion","Frog","Duck"], c:0},
+                {t:"7. Vocabulary", p:"What safari animal has a very long neck?", o:["Giraffe","Hippo","Zebra"], c:0},
+                {t:"8. Syllable Clapping", p:"Clap the word Sa-fa-ri. How many claps?", o:["1 Clap","2 Claps","3 Claps"], c:2},
+                {t:"9. Opposites", p:"What is the opposite of HOT?", o:["Cold","Warm"], c:0},
+                {t:"10. Story Sequence", p:"What comes first when growing a sunflower?", o:["Plant Seed","Pick Flower"], c:0},
+                {t:"11. Listening Discrimination", p:"Which animal word starts with /m/?", o:["Monkey","Elephant"], c:0},
+                {t:"12. Letter Matching", p:"Match lowercase letter a with its uppercase letter:", o:["A","B","M"], c:0}
             ],
             lifeskills: [
-                {t:"1. Personal Hygiene", p:"What must we do before eating food? 🍎", o:["🧼 Wash Hands","😴 Go to Sleep"], c:0},
-                {t:"2. Road Safety", p:"What does a RED traffic light signal tell us? 🚦", o:["🛑 Stop","🏃 Run"], c:0},
-                {t:"3. Healthy Eating", p:"Which snack is healthy for our body? 🍎 vs 🍬", o:["🍎 Fresh Apple","🍬 Sweet Candy"], c:0},
-                {t:"4. Body Awareness", p:"Which body part do we use to SEE safari animals? 👀", o:["👀 Eyes","👂 Ears"], c:0},
-                {t:"5. Identifying Emotions", p:"How is this friend feeling? 😊", o:["😊 Happy","😢 Sad"], c:0},
-                {t:"6. Weather Awareness", p:"What should we wear when it is raining? 🌧️", o:["🧥 Raincoat","🩳 Swimsuit"], c:0},
-                {t:"7. Environment Care", p:"Where do we throw empty sweet wrappers? 🗑️", o:["🗑️ In Dustbin","🌿 On Ground"], c:0},
-                {t:"8. Water Safety", p:"What must you wear when playing near deep water? 🏊", o:["🤿 Life Jacket","Heavy Shoes"], c:0},
-                {t:"9. Community Helpers", p:"Who puts out dangerous fires? 🧑‍🚒", o:["🧑‍🚒 Firefighter","👨‍🍳 Chef"], c:0},
-                {t:"10. Good Manners", p:"When someone gives you a gift, what do you say?", o:["'Thank You!'","'No way!'"], c:0},
-                {t:"11. Four Seasons", p:"In which season do colorful flowers bloom? 🌸", o:["🌸 Spring","❄️ Winter"], c:0},
-                {t:"12. Animal Welfare", p:"How should we treat safari animals and pets? 🐾", o:["❤️ Gently & Kind","Roughly"], c:0}
+                {t:"1. Personal Hygiene", p:"What must we do before eating food?", o:["Wash Hands","Go to Sleep"], c:0},
+                {t:"2. Road Safety", p:"What does a RED traffic light signal tell us to do?", o:["Stop","Run"], c:0},
+                {t:"3. Healthy Eating", p:"Which snack is healthy for our body?", o:["Fresh Apple","Sweet Candy"], c:0},
+                {t:"4. Body Awareness", p:"Which body part do we use to see safari animals?", o:["Eyes","Ears"], c:0},
+                {t:"5. Identifying Emotions", p:"How is this happy friend feeling?", o:["Happy","Sad"], c:0},
+                {t:"6. Weather Awareness", p:"What should we wear when it is raining?", o:["Raincoat","Swimsuit"], c:0},
+                {t:"7. Environment Care", p:"Where do we throw empty sweet wrappers?", o:["In Dustbin","On Ground"], c:0},
+                {t:"8. Water Safety", p:"What must you wear when playing near deep water?", o:["Life Jacket","Heavy Shoes"], c:0},
+                {t:"9. Community Helpers", p:"Who puts out dangerous fires?", o:["Firefighter","Chef"], c:0},
+                {t:"10. Good Manners", p:"When someone gives you a gift, what do you say?", o:["Thank You!","No way!"], c:0},
+                {t:"11. Four Seasons", p:"In which season do colorful flowers bloom?", o:["Spring","Winter"], c:0},
+                {t:"12. Animal Welfare", p:"How should we treat safari animals and pets?", o:["Gently and Kind","Roughly"], c:0}
             ],
             coding: [
-                {t:"1. Grid Navigation", p:"Guide Rover 🤖 step-by-step to reach Zebra 🦓!", g:true},
-                {t:"2. Sequence & Order", p:"Which step comes FIRST in a robot instruction list?", o:["🟢 Start / Power On","🔴 Stop"], c:0},
-                {t:"3. Directional Symbols", p:"Which arrow points to the RIGHT direction?", o:["➡️ Right","⬅️ Left","⬆️ Up"], c:0},
-                {t:"4. Debugging", p:"The robot got stuck on a rock 🪨! Fixing code is called...", o:["🐛 Debugging","Sleeping"], c:0},
-                {t:"5. Repeat / Loops", p:"To move 2 steps forward without repeating code, use a...", o:["🔁 Loop","Break"], c:0},
-                {t:"6. Inputs & Outputs", p:"Pressing a switch 🔘 turns on a light 💡. The switch is an...", o:["📥 Input","📤 Output"], c:0},
-                {t:"7. Sorting Algorithms", p:"Where should the RED coding card go? 🔴", o:["🔴 Red Box","🔵 Blue Box"], c:0},
-                {t:"8. Spatial Orientation", p:"Where is the sun ☀️ located on the grid screen?", o:["⬆️ Top Corner","⬇️ Bottom Corner"], c:0},
-                {t:"9. Algorithm Steps", p:"Step-by-step instructions are called an...", o:["📋 Algorithm","Mistake"], c:0},
+                {t:"1. Grid Navigation", p:"Guide Rover step by step to reach Zebra!", g:true},
+                {t:"2. Sequence & Order", p:"Which step comes FIRST in a robot instruction list?", o:["Start Power On","Stop"], c:0},
+                {t:"3. Directional Symbols", p:"Which arrow points to the RIGHT direction?", o:["Right Arrow","Left Arrow","Up Arrow"], c:0},
+                {t:"4. Debugging", p:"The robot got stuck on a rock! Fixing code is called...", o:["Debugging","Sleeping"], c:0},
+                {t:"5. Repeat / Loops", p:"To move 2 steps forward without repeating code, use a...", o:["Loop","Break"], c:0},
+                {t:"6. Inputs & Outputs", p:"Pressing a switch turns on a light. The switch is an...", o:["Input","Output"], c:0},
+                {t:"7. Sorting Algorithms", p:"Where should the RED coding card go?", o:["Red Box","Blue Box"], c:0},
+                {t:"8. Spatial Orientation", p:"Where is the sun located on the grid screen?", o:["Top Corner","Bottom Corner"], c:0},
+                {t:"9. Algorithm Steps", p:"Step-by-step instructions are called an...", o:["Algorithm","Mistake"], c:0},
                 {t:"10. Binary Logic", p:"What binary number usually means ON in robotics?", o:["1 (ON)","0 (OFF)"], c:0},
-                {t:"11. Obstacle Avoidance", p:"A river is in front of Rover 🤖! Which command avoids danger?", o:["↪️ Turn Around","➡️ Drive Forward"], c:0},
-                {t:"12. Mission Completion", p:"All 12 coding tasks finished! What does the Rover reach? ⛺", o:["⛺ Safari Camp!","Lost Forest"], c:0}
+                {t:"11. Obstacle Avoidance", p:"A river is in front of Rover! Which command avoids danger?", o:["Turn Around","Drive Forward"], c:0},
+                {t:"12. Mission Completion", p:"All 12 coding tasks finished! What does the Rover reach?", o:["Safari Camp!","Lost Forest"], c:0}
             ]
         };
 
@@ -133,7 +164,10 @@
                 var sec = document.getElementById(sub);
                 var h = '';
                 data[sub].forEach(function(a, i) {
-                    h += '<div class="activity-card"><h2>' + a.t + '</h2><p class="prompt">' + a.p + '</p>';
+                    h += '<div class="activity-card"><h2>' + a.t + '</h2>';
+                    h += '<div class="prompt-container"><p class="prompt">' + a.p + '</p>';
+                    h += '<button class="speak-btn" onclick="speakText(\'' + a.p.replace(/'/g, "\\'") + '\')">🔊 Listen</button></div>';
+
                     if (a.g) {
                         h += '<div class="coding-grid"><div class="grid-cell" id="c-0">🤖</div><div class="grid-cell" id="c-1"></div><div class="grid-cell" id="c-2">🦓</div></div>';
                         h += '<div class="controls"><button class="control-btn" onclick="mvBot()">Move Right ➡️</button><button class="control-btn" style="background:#64748b;" onclick="rstBot()">Reset 🔄</button></div><div id="g-fb" class="feedback"></div>';
@@ -167,6 +201,7 @@
             if (isC) {
                 btn.classList.add('correct-btn');
                 if (fb) { fb.className = "feedback correct"; fb.innerHTML = "🌟 Excelled! Correct Answer!"; }
+                speakText("Excelled! That is correct!");
                 if (btn.getAttribute('data-scored') !== 'true') {
                     stars++;
                     btn.setAttribute('data-scored', 'true');
@@ -176,6 +211,7 @@
             } else {
                 btn.classList.add('wrong-btn');
                 if (fb) { fb.className = "feedback incorrect"; fb.innerHTML = "❌ Try again!"; }
+                speakText("Not quite. Try again!");
             }
         }
 
@@ -195,6 +231,7 @@
                 document.getElementById('c-' + rPos).innerText = '🤖';
                 if (rPos === 2) {
                     if (fb) { fb.className = "feedback correct"; fb.innerHTML = "🎉 Fantastic! Rover reached the Zebra!"; }
+                    speakText("Fantastic! Rover reached the Zebra!");
                     stars += 2;
                     document.getElementById('star-count').innerText = stars;
                     updRank();
