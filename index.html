@@ -306,36 +306,35 @@
     </div>
 
     <nav class="nav-tabs">
-        <button class="tab-btn active" data-tab="maths">🔢 Mathematics</button>
-        <button class="tab-btn" data-tab="phonics">🔤 Phonics & Language</button>
-        <button class="tab-btn" data-tab="lifeskills">🎨 Life Skills</button>
-        <button class="tab-btn" data-tab="coding">🤖 Coding & Robotics</button>
+        <button class="tab-btn active" data-tab="maths">🔢 Mathematics (12)</button>
+        <button class="tab-btn" data-tab="phonics">🔤 Language (12)</button>
+        <button class="tab-btn" data-tab="lifeskills">🎨 Life Skills (12)</button>
+        <button class="tab-btn" data-tab="coding">🤖 Coding & Robotics (12)</button>
     </nav>
 
     <main>
-        <!-- MATHEMATICS SECTION -->
+        <!-- MATHEMATICS SECTION (12 ACTIVITIES) -->
         <section id="maths" class="subject-section active">
             <div class="activity-card">
-                <h2>1. Early Number Concept</h2>
-                <p class="prompt">Count the safari lions below. How many are there?</p>
-                <div class="visual-display">🦁 🦁 🦁</div>
+                <h2>1. Counting Lions</h2>
+                <p class="prompt">How many lions do you see? 🦁 🦁 🦁</p>
                 <div class="options-grid">
                     <button class="option-btn" data-act="m1" data-correct="false">2</button>
                     <button class="option-btn" data-act="m1" data-correct="true">3</button>
                     <button class="option-btn" data-act="m1" data-correct="false">5</button>
                 </div>
-                <div id="m1-feedback" class="feedback"></div>
+                <div id="m1-fb" class="feedback"></div>
             </div>
 
             <div class="activity-card">
-                <h2>2. Space & Shape Recognition</h2>
+                <h2>2. Shape Recognition</h2>
                 <p class="prompt">Which 2D shape matches the round sun? ☀️</p>
                 <div class="options-grid">
                     <button class="option-btn" data-act="m2" data-correct="true">🔴 Circle</button>
                     <button class="option-btn" data-act="m2" data-correct="false">🟦 Square</button>
                     <button class="option-btn" data-act="m2" data-correct="false">🔺 Triangle</button>
                 </div>
-                <div id="m2-feedback" class="feedback"></div>
+                <div id="m2-fb" class="feedback"></div>
             </div>
 
             <div class="activity-card">
@@ -346,203 +345,181 @@
                     <button class="option-btn" data-act="m3" data-correct="false">🍌 Banana</button>
                     <button class="option-btn" data-act="m3" data-correct="false">🍇 Grapes</button>
                 </div>
-                <div id="m3-feedback" class="feedback"></div>
+                <div id="m3-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>4. Size Comparison</h2>
+                <p class="prompt">Which animal is BIGGER? 🐘 vs 🐜</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m4" data-correct="true">🐘 Elephant</button>
+                    <button class="option-btn" data-act="m4" data-correct="false">🐜 Ant</button>
+                </div>
+                <div id="m4-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>5. More or Less</h2>
+                <p class="prompt">Which group has MORE objects? 🔵🔵🔵🔵🔵 vs 🔴🔴</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m5" data-correct="true">🔵 5 Blue Dots</button>
+                    <button class="option-btn" data-act="m5" data-correct="false">🔴 2 Red Dots</button>
+                </div>
+                <div id="m5-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>6. Spatial Position</h2>
+                <p class="prompt">Where is the bird perched? 🐦 🌳</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m6" data-correct="true">ON the tree</button>
+                    <button class="option-btn" data-act="m6" data-correct="false">UNDER the tree</button>
+                </div>
+                <div id="m6-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>7. Number Recognition</h2>
+                <p class="prompt">Which symbol is the number <strong>FOUR</strong>?</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m7" data-correct="false">2</button>
+                    <button class="option-btn" data-act="m7" data-correct="true">4</button>
+                    <button class="option-btn" data-act="m7" data-correct="false">7</button>
+                </div>
+                <div id="m7-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>8. Matching Sets</h2>
+                <p class="prompt">Which number matches two apples? 🍎 🍎</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m8" data-correct="false">1</button>
+                    <button class="option-btn" data-act="m8" data-correct="true">2</button>
+                    <button class="option-btn" data-act="m8" data-correct="false">3</button>
+                </div>
+                <div id="m8-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>9. Height Comparison</h2>
+                <p class="prompt">Which animal is TALLER? 🦒 vs 🦦</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m9" data-correct="true">🦒 Giraffe</button>
+                    <button class="option-btn" data-act="m9" data-correct="false">🦦 Meerkat</button>
+                </div>
+                <div id="m9-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>10. 3D Objects</h2>
+                <p class="prompt">What 3D shape is a round soccer ball? ⚽</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m10" data-correct="true">⚽ Ball (Sphere)</button>
+                    <button class="option-btn" data-act="m10" data-correct="false">📦 Box (Cube)</button>
+                </div>
+                <div id="m10-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>11. Early Addition</h2>
+                <p class="prompt">1 monkey 🐒 + 1 monkey 🐒 = How many monkeys?</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m11" data-correct="false">1</button>
+                    <button class="option-btn" data-act="m11" data-correct="true">2</button>
+                    <button class="option-btn" data-act="m11" data-correct="false">3</button>
+                </div>
+                <div id="m11-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>12. Time & Day Sequence</h2>
+                <p class="prompt">When do we sleep at night under the stars? 🌙</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="m12" data-correct="true">Night Time 🌙</button>
+                    <button class="option-btn" data-act="m12" data-correct="false">Day Time ☀️</button>
+                </div>
+                <div id="m12-fb" class="feedback"></div>
             </div>
         </section>
 
-        <!-- PHONICS SECTION -->
+        <!-- PHONICS / LANGUAGE SECTION (12 ACTIVITIES) -->
         <section id="phonics" class="subject-section">
             <div class="activity-card">
-                <h2>1. Initial Sound Identification</h2>
-                <p class="prompt">Listen to the word <strong>"Sun"</strong>. What letter sound does it start with?</p>
-                <div class="visual-display">☀️</div>
+                <h2>1. Initial Sound /s/</h2>
+                <p class="prompt">What sound does <strong>"Sun"</strong> start with? ☀️</p>
                 <div class="options-grid">
                     <button class="option-btn" data-act="p1" data-correct="true">/s/ (S)</button>
                     <button class="option-btn" data-act="p1" data-correct="false">/b/ (B)</button>
                     <button class="option-btn" data-act="p1" data-correct="false">/m/ (M)</button>
                 </div>
-                <div id="p1-feedback" class="feedback"></div>
+                <div id="p1-fb" class="feedback"></div>
             </div>
 
             <div class="activity-card">
-                <h2>2. Rhyming Awareness</h2>
+                <h2>2. Initial Sound /a/</h2>
+                <p class="prompt">What sound does <strong>"Apple"</strong> start with? 🍎</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="p2" data-correct="true">/a/ (A)</button>
+                    <button class="option-btn" data-act="p2" data-correct="false">/t/ (T)</button>
+                    <button class="option-btn" data-act="p2" data-correct="false">/p/ (P)</button>
+                </div>
+                <div id="p2-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>3. Initial Sound /t/</h2>
+                <p class="prompt">What sound does <strong>"Tiger"</strong> start with? 🐅</p>
+                <div class="options-grid">
+                    <button class="option-btn" data-act="p3" data-correct="true">/t/ (T)</button>
+                    <button class="option-btn" data-act="p3" data-correct="false">/d/ (D)</button>
+                    <button class="option-btn" data-act="p3" data-correct="false">/s/ (S)</button>
+                </div>
+                <div id="p3-fb" class="feedback"></div>
+            </div>
+
+            <div class="activity-card">
+                <h2>4. Rhyming Words (Cat)</h2>
                 <p class="prompt">Which word rhymes with <strong>"Cat"</strong>? 🐱</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p2" data-correct="true">Hat 🎩</button>
-                    <button class="option-btn" data-act="p2" data-correct="false">Dog 🐶</button>
-                    <button class="option-btn" data-act="p2" data-correct="false">Tree 🌳</button>
+                    <button class="option-btn" data-act="p4" data-correct="true">Hat 🎩</button>
+                    <button class="option-btn" data-act="p4" data-correct="false">Dog 🐶</button>
+                    <button class="option-btn" data-act="p4" data-correct="false">Fish 🐟</button>
                 </div>
-                <div id="p2-feedback" class="feedback"></div>
+                <div id="p4-fb" class="feedback"></div>
             </div>
 
             <div class="activity-card">
-                <h2>3. Visual Discrimination</h2>
-                <p class="prompt">Which animal image matches the word <strong>"Elephant"</strong>?</p>
+                <h2>5. Rhyming Words (Sun)</h2>
+                <p class="prompt">Which word rhymes with <strong>"Sun"</strong>? ☀️</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="p3" data-correct="false">🦒 Giraffe</button>
-                    <button class="option-btn" data-act="p3" data-correct="true">🐘 Elephant</button>
-                    <button class="option-btn" data-act="p3" data-correct="false">Zebra 🦓</button>
+                    <button class="option-btn" data-act="p5" data-correct="true">Run 🏃</button>
+                    <button class="option-btn" data-act="p5" data-correct="false">Tree 🌳</button>
+                    <button class="option-btn" data-act="p5" data-correct="false">Car 🚗</button>
                 </div>
-                <div id="p3-feedback" class="feedback"></div>
+                <div id="p5-fb" class="feedback"></div>
             </div>
-        </section>
 
-        <!-- LIFE SKILLS SECTION -->
-        <section id="lifeskills" class="subject-section">
             <div class="activity-card">
-                <h2>1. Personal Health & Hygiene</h2>
-                <p class="prompt">What must we do before having lunch or handling food?</p>
+                <h2>6. Animal Auditory Sounds</h2>
+                <p class="prompt">Which animal makes a loud <strong>"ROAR"</strong>?</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="l1" data-correct="true">🧼 Wash Hands</button>
-                    <button class="option-btn" data-act="l1" data-correct="false">😴 Sleep</button>
-                    <button class="option-btn" data-act="l1" data-correct="false">📺 Watch TV</button>
+                    <button class="option-btn" data-act="p6" data-correct="true">🦁 Lion</button>
+                    <button class="option-btn" data-act="p6" data-correct="false">🐸 Frog</button>
+                    <button class="option-btn" data-act="p6" data-correct="false">🐥 Duck</button>
                 </div>
-                <div id="l1-feedback" class="feedback"></div>
+                <div id="p6-fb" class="feedback"></div>
             </div>
 
             <div class="activity-card">
-                <h2>2. Road Safety & Awareness</h2>
-                <p class="prompt">What does the <strong>RED</strong> traffic light signal tell us to do? 🚦</p>
+                <h2>7. Vocabulary Building</h2>
+                <p class="prompt">What safari animal has a very long neck? 🦒</p>
                 <div class="options-grid">
-                    <button class="option-btn" data-act="l2" data-correct="true">🛑 Stop</button>
-                    <button class="option-btn" data-act="l2" data-correct="false">🏃 Run</button>
-                    <button class="option-btn" data-act="l2" data-correct="false">🚗 Go Fast</button>
+                    <button class="option-btn" data-act="p7" data-correct="true">🦒 Giraffe</button>
+                    <button class="option-btn" data-act="p7" data-correct="false">🦛 Hippo</button>
+                    <button class="option-btn" data-act="p7" data-correct="false">🦓 Zebra</button>
                 </div>
-                <div id="l2-feedback" class="feedback"></div>
+                <div id="p7-fb" class="feedback"></div>
             </div>
-        </section>
 
-        <!-- CODING & ROBOTICS SECTION -->
-        <section id="coding" class="subject-section">
             <div class="activity-card">
-                <h2>1. Unplugged Directional Coding</h2>
-                <p class="prompt">Use the direction controls to guide the Rover 🤖 to the Zebra 🦓!</p>
-                
-                <div class="coding-container">
-                    <div class="coding-grid">
-                        <div class="grid-cell" id="c-0">🤖</div>
-                        <div class="grid-cell" id="c-1"></div>
-                        <div class="grid-cell" id="c-2">🦓</div>
-                    </div>
-
-                    <div class="controls">
-                        <button class="control-btn" id="btn-move-robot">Move Right ➡️</button>
-                        <button class="control-btn reset" id="btn-reset-robot">Reset 🔄</button>
-                    </div>
-                </div>
-                <div id="c-feedback" class="feedback"></div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>CAPS Grade R Safari Express &bull; Aligned with South African Early Childhood Development Standards</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var stars = 0;
-            var robotPos = 0;
-
-            // TAB SWITCHING
-            var tabButtons = document.querySelectorAll('.tab-btn');
-            var sections = document.querySelectorAll('.subject-section');
-
-            tabButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var targetId = this.getAttribute('data-tab');
-
-                    sections.forEach(function(sec) {
-                        sec.classList.remove('active');
-                    });
-                    tabButtons.forEach(function(btn) {
-                        btn.classList.remove('active');
-                    });
-
-                    var activeSection = document.getElementById(targetId);
-                    if (activeSection) {
-                        activeSection.classList.add('active');
-                    }
-                    this.classList.add('active');
-                });
-            });
-
-            // ANSWER CHECKING
-            var optionButtons = document.querySelectorAll('.option-btn');
-            optionButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var isCorrect = this.getAttribute('data-correct') === 'true';
-                    var actId = this.getAttribute('data-act');
-                    var feedbackEl = document.getElementById(actId + '-feedback');
-                    var parentGrid = this.parentElement;
-                    var siblings = parentGrid.querySelectorAll('.option-btn');
-
-                    siblings.forEach(function(s) {
-                        s.classList.remove('correct-btn', 'wrong-btn');
-                    });
-
-                    if (isCorrect) {
-                        this.classList.add('correct-btn');
-                        if (feedbackEl) {
-                            feedbackEl.className = "feedback correct";
-                            feedbackEl.innerHTML = "🌟 Excelled! That is the correct answer!";
-                        }
-
-                        if (this.getAttribute('data-scored') !== 'true') {
-                            stars += 1;
-                            this.setAttribute('data-scored', 'true');
-                            var starEl = document.getElementById('star-count');
-                            if (starEl) starEl.innerText = stars;
-                            updateRank();
-                        }
-                    } else {
-                        this.classList.add('wrong-btn');
-                        if (feedbackEl) {
-                            feedbackEl.className = "feedback incorrect";
-                            feedbackEl.innerHTML = "❌ Not quite! Give it another try!";
-                        }
-                    }
-                });
-            });
-
-            // RANK UPDATE LOGIC
-            function updateRank() {
-                var rankEl = document.getElementById('rank-badge');
-                if (!rankEl) return;
-                if (stars >= 8) {
-                    rankEl.innerText = "Safari Champion 🏆";
-                } else if (stars >= 4) {
-                    rankEl.innerText = "Junior Guide 🌿";
-                } else {
-                    rankEl.innerText = "Safari Explorer 🦁";
-                }
-            }
-
-            // ROBOT CONTROLS
-            var moveBtn = document.getElementById('btn-move-robot');
-            var resetBtn = document.getElementById('btn-reset-robot');
-
-            if (moveBtn) {
-                moveBtn.addEventListener('click', function() {
-                    var feedbackEl = document.getElementById('c-feedback');
-                    if (robotPos < 2) {
-                        document.getElementById('c-' + robotPos).innerText = '';
-                        robotPos += 1;
-                        document.getElementById('c-' + robotPos).innerText = '🤖';
-
-                        if (robotPos === 2) {
-                            if (feedbackEl) {
-                                feedbackEl.className = "feedback correct";
-                                feedbackEl.innerHTML = "🎉 Fantastic coding! The Rover reached the Zebra!";
-                            }
-                            stars += 2;
-                            var starEl = document.getElementById('star-count');
-                            if (starEl) starEl.innerText = stars;
-                            updateRank();
-                        }
-                    }
-                });
-            }
-
-            if (resetBtn) {
-        
+                <h2>8. Syllable Clapp
